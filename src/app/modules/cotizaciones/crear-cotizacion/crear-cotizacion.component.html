@@ -1,0 +1,62 @@
+<div class="container">
+    <mat-toolbar>
+        <span>Crear Cotización</span>
+    </mat-toolbar>
+</div>
+
+<mat-divider></mat-divider>
+
+<br>
+
+<div class="container-card" fxLayout="row" fxLayoutAlign="center">
+
+    <div fxLayout="column" fxLayoutAlign="center" fxFlex="92">
+        <div class="div-header">
+            <h3>Informacion Cotizante</h3>
+        </div>
+        <mat-card fxLayout="row" class="mat-elevation-z1" class="card">
+            <div fxLayout="column" fxFlex="90" fxLayoutAlign="end center">
+                
+            </div>
+
+            <div fxLayout="column" fxFlex="10">
+                <button mat-raised-button color="primary" class="btn-header" (click)="openDialogCrearInfoCotizante()">Crear</button>
+            </div>
+        </mat-card>
+
+        <mat-divider></mat-divider>
+
+        <br>
+
+        <div class="div-header">
+            <h3>Aereo</h3>
+        </div>
+        <mat-card fxLayout="row" class="mat-elevation-z1" class="card">
+            <div fxLayout="column" fxFlex="90" fxLayoutAlign="end center">
+                
+            </div>
+
+            <div fxLayout="column" fxFlex="10">
+                <button mat-raised-button color="primary" class="btn-header" (click)="openDialogAgregarAereo()">Agregar</button>
+            </div>
+        </mat-card>
+
+        <mat-divider></mat-divider>
+
+        <br>
+
+        <div class="div-header">
+            <h3>Servicios</h3>
+        </div>
+        <mat-card fxLayout="row" class="mat-elevation-z1" class="card">
+            <div fxLayout="column" fxFlex="90" fxLayoutAlign="end center">
+                
+            </div>
+
+            <div fxLayout="column" fxFlex="10">
+                <button mat-raised-button color="primary" class="btn-header" (click)="openDialogAgregarServicio()">Agregar</button>
+            </div>
+        </mat-card>
+        <br>
+    </div>
+</div>
