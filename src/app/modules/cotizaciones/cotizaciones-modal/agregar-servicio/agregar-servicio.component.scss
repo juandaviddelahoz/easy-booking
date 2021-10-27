@@ -1,0 +1,71 @@
+.container {
+    margin-bottom: 20px;
+}
+
+.container-card {
+    width: 60em;
+    margin-bottom: 1.5px;
+}
+
+label {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+p {
+    width: 90%;
+}
+
+.max-width {
+    width: 95%;
+    padding-bottom: 18.3px;
+    margin: 3.5px;
+}
+
+.example-full-width {
+    width: 100%;
+    margin-bottom: -15px;
+    margin-top: -5px;
+}
+
+.btn-form {
+    width: 30%;
+    margin: 15px;
+    padding: 1px;
+}
+
+.btn-header {
+    margin: 7px;
+}
+
+.mat-raised-button:hover {
+    background-color: #303f9f
+}
+
+.titulo {
+    color: #3f51b5;
+}
+
+h3 {
+    font-size: 18px;
+    font-weight: 400;
+    color: white;
+    margin: 0;
+    padding: 7px 20px 7px 20px;
+}
+
+.div-header {
+    background-color: #3f51b5;
+    box-sizing: content-box;
+    width: 100%;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.card {
+    padding: 30px 10px 11px 10px;
+}
+
+.cards {
+    width: 1200px;
+}

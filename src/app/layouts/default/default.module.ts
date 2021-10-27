@@ -12,6 +12,7 @@ import { CrearCotizacionComponent } from '../../modules/cotizaciones/crear-cotiz
 import { CrearInfoCotizanteComponent } from '../../modules/cotizaciones/cotizaciones-modal/crear-info-cotizante/crear-info-cotizante.component';
 import { AgregarAereoComponent } from '../../modules/cotizaciones/cotizaciones-modal/agregar-aereo/agregar-aereo.component';
 import { AgregarServicioComponent } from '../../modules/cotizaciones/cotizaciones-modal/agregar-servicio/agregar-servicio.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { AgregarServicioComponent } from '../../modules/cotizaciones/cotizacione
     RouterModule,
     SharedModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    CKEditorModule
   ],
 })
 export class DefaultModule { }

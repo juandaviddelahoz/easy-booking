@@ -1,1 +1,98 @@
-<p>agregar-servicio works!</p>
+<mat-dialog-content>
+    <div class="container-card" fxLayout="column" fxLayoutAlign="center">
+
+        <div fxLayout="column" fxLayoutAlign="center">
+            <div class="div-header">
+                <h3>Servicios</h3>
+            </div>
+            <mat-card fxLayout="column" class="mat-elevation-z1" class="card">
+    
+                <div fxLayout="row" fxLayoutAlign="center">
+                    <p class="max-width">
+                        <ckeditor [editor]="Editor" [config]="{ placeholder:'Detalle'}"></ckeditor>
+                    </p>
+                </div>
+    
+                <div fxLayout="row">
+                    <div fxLayout="column" fxFlex="50" fxLayoutAlign="start center">
+                        <p>
+                            <mat-form-field appearance="outline" class="example-full-width">
+                                <mat-label>Precio por Persona</mat-label>
+                                <input matInput>
+                            </mat-form-field>
+                        </p>
+    
+                        <p>
+                            <mat-form-field appearance="outline" class="example-full-width">
+                                <mat-label>Precio por Niño</mat-label>
+                                <input matInput>
+                            </mat-form-field>
+                        </p>
+    
+                        <p>
+                            <mat-form-field appearance="outline" class="example-full-width">
+                                <mat-label>Precio por Adicional</mat-label>
+                                <input matInput>
+                            </mat-form-field>
+                        </p>
+                    </div>
+    
+                    <div fxLayout="column" fxFlex="50" fxLayoutAlign="start center">
+                        <p>
+                            <mat-form-field appearance="outline" class="example-full-width">
+                                <mat-label>Tipo Alimentación</mat-label>
+                                <input matInput>
+                            </mat-form-field>
+                        </p>
+    
+                        <p>
+                            <mat-form-field appearance="outline" class="example-full-width">
+                                <mat-label>Tipo Habitación</mat-label>
+                                <input matInput>
+                            </mat-form-field>
+                        </p>
+    
+                        <p>
+                            <mat-form-field appearance="outline" class="example-full-width">
+                                <mat-label>Tipo Acomodación</mat-label>
+                                <input matInput>
+                            </mat-form-field>
+                        </p>
+                    </div>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="center">
+                    <p class="max-width">
+                        <ckeditor [editor]="Editor" [config]="{ placeholder:'Incluye'}"></ckeditor>
+                    </p>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="center">
+                    <p class="max-width">
+                        <ckeditor [editor]="Editor" [config]="{ placeholder:'No Incluye'}"></ckeditor>
+                    </p>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="center">
+                    <p class="max-width">
+                        <ckeditor [editor]="Editor" [config]="{ placeholder:'Información Importante'}"></ckeditor>
+                    </p>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="center">
+                    <p class="max-width">
+                        <ckeditor [editor]="Editor" [config]="{ placeholder:'Otras Condiciones'}"></ckeditor>
+                    </p>
+                </div>
+    
+                <div fxLayout="row" fxLayoutAlign="center">
+                    <button mat-raised-button color="primary" class="btn-form">Guardar</button>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-raised-button color="primary" mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>
