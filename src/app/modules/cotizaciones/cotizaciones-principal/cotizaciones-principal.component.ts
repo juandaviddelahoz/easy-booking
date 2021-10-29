@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-cotizaciones-principal',
@@ -7,9 +8,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CotizacionesPrincipalComponent implements OnInit {
 
-  constructor() { }
+  formInfoCotizante: FormGroup = this.fb.group({
+    nombres         : ['Juan David', Validators.required],
+    apellidos       : [''],
+    email           : [''],
+    identificacion  : [''],
+    fechaNacimiento : [''],
+    fechaEntrada    : [''],
+    fechaSalida     : [''],
+    cantidadAdultos : [''],
+    cantidadNiños   : [''],
+    cantidadInfantes: [''],
+    destino         : [''],
+    obervaciones    : ['']
+  })
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
   }
 
+  enviarInfoCotizante(){
+    console.log(this.formInfoCotizante.value)
+    this.formInfoCotizante.reset();
+  }
 }

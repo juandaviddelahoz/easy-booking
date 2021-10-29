@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DefaultComponent } from './default.component';
 import { DashboardComponent } from '../../modules/dashboard/dashboard.component';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 import { PostComponent } from '../../modules/post/post.component';
 import { SharedModule } from '../../shared/shared.module';
 import { MaterialModule } from '../../material/material/material.module';
@@ -32,7 +33,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     SharedModule,
     MaterialModule,
     FlexLayoutModule,
-    CKEditorModule
+    CKEditorModule,
+    ReactiveFormsModule
   ],
 })
 export class DefaultModule { }
