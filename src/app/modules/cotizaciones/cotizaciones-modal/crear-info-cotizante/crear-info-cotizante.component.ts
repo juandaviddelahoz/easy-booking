@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { infoCotizanteModel } from './models/info-cotizante.model';
 import { ServicioDatosService } from '../../services/servicio-datos.service';
+import { ServicioDatosPadreHijoService } from '../../services/servicio-datos-padre-hijo.service';
 
 @Component({
   selector: 'app-crear-info-cotizante',
@@ -9,9 +10,13 @@ import { ServicioDatosService } from '../../services/servicio-datos.service';
   styleUrls: ['./crear-info-cotizante.component.scss']
 })
 export class CrearInfoCotizanteComponent implements OnInit {
+  
+  nombresValue!          : string;
 
-  formInfoCotizante: FormGroup = this.fb.group({
-    nombres         : ['', [Validators.required]],
+  debugger:any;
+  formInfoCotizante: FormGroup =
+   this.fb.group({
+    nombres         : ['jorge', [Validators.required]],
     apellidos       : ['', [Validators.required]],
     email           : ['', [Validators.required]],
     identificacion  : ['', [Validators.required]],
@@ -22,15 +27,43 @@ export class CrearInfoCotizanteComponent implements OnInit {
     cantidadNiños   : ['', [Validators.required]],
     cantidadInfantes: ['', [Validators.required]],
     destino         : ['', [Validators.required]],
-    obervaciones    : ['', [Validators.required]]
+    observaciones   : ['', [Validators.required]]
   })
 
-  constructor(private fb: FormBuilder, private _servicioDatos: ServicioDatosService) { 
-    // this.obtener_localstorage()
-  }
+  constructor(private fb: FormBuilder, 
+              private _servicioDatos: ServicioDatosService, 
+              private _servicioDatosPadreHijo: ServicioDatosPadreHijoService) { 
+                console.log('Envio', this.nombresValue);
+              }
 
   ngOnInit(): void {
+    this.debugger
+    this._servicioDatosPadreHijo.disparadorDeDatosPadreHijo.subscribe(dataPH => {
+      console.log(dataPH.dataPH);
+
+      this.nombresValue          = (dataPH.dataPH);
+
+      this.formInfoCotizante.patchValue({ nombres: 'mi nombre'});
+      console.log('Envio prueba', this.nombresValue);
+
+      // this.formInfoCotizante.patchValue({
+      //   nombres: 'Diego'
+      // })
+    })
   }
+
+  prueba(){
+    console.log(this.nombresValue)
+    this.formInfoCotizante.controls['nombres'].setValue(this.nombresValue)
+  }
+
+  actualizarPersonas(){
+    this.formInfoCotizante.patchValue({
+      nombres: 'Nancy'
+    })
+  }
+
+  
 
   enviarInfoCotizante(){
     // console.log(this.formInfoCotizante.value);
@@ -47,14 +80,15 @@ export class CrearInfoCotizanteComponent implements OnInit {
       cantidadNiños   : this.formInfoCotizante.get('cantidadNiños')?.value,    
       cantidadInfantes: this.formInfoCotizante.get('cantidadInfantes')?.value, 
       destino         : this.formInfoCotizante.get('destino')?.value,          
-      obervaciones    : this.formInfoCotizante.get('obervaciones')?.value,     
+      observaciones   : this.formInfoCotizante.get('observaciones')?.value,     
     }
 
     // localStorage.setItem('informacionCotizante', JSON.stringify(infoCotizanteDTO));
 
     // localStorage.getItem("informacionCotizante")
 
-    // console.log(infoCotizanteDTO);
+    console.log(infoCotizanteDTO);
+
     this._servicioDatos.disparadorDeDatos.emit({
       data:infoCotizanteDTO
     })

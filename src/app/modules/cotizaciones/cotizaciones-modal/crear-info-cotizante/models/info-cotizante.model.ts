@@ -1,5 +1,5 @@
 export class infoCotizanteModel {
-    nombres           = "";
+    nombres          = "";
     apellidos        = '';
     email            = '';
     identificacion   = '';
@@ -10,5 +10,5 @@ export class infoCotizanteModel {
     cantidadNiños    = '';
     cantidadInfantes = '';
     destino          = '';
-    obervaciones     = '';
+    observaciones     = '';
 }

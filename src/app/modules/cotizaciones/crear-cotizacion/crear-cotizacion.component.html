@@ -18,47 +18,49 @@
             <div fxLayout="column" fxFlex="90" fxLayoutAlign="end">
                 <div fxLayout="row" fxLayoutGap="25px" class="containerrow">
                     <div fxFlex="30"> 
-                        <h4><b>Nombres: </b> </h4>
+                        <h4><b>Nombres: </b> {{ nombres }} </h4>
 
-                        <h4><b>Apellidos: </b> </h4>
+                        <h4><b>Apellidos: </b> {{ apellidos }} </h4>
 
-                        <h4><b>Email: </b> </h4>
+                        <h4><b>Email: </b> {{ email }} </h4>
 
-                        <h4><b>Identificación: </b> </h4>
+                        <h4><b>Identificación: </b> {{ identificacion }} </h4>
 
-                        <h4><b>Fecha Nacimiento: </b> </h4>
-
-                        <!-- <h4><b>Nombres: </b> </h4>
-
-                        <h4><b>Apellidos: </b>De la hoz Montero</h4>
-
-                        <h4><b>Email: </b>hozjuanda11@gmail.com</h4>
-
-                        <h4><b>Identificación: </b>1042457584</h4>
-
-                        <h4><b>Fecha Nacimiento: </b>17-01-1998</h4> -->
+                        <h4><b>Fecha Nacimiento: </b> {{ fechaNacimiento }} </h4>
                     </div>
 
                     <div fxFlex="30">
-                        <h4><b>Fecha Entrada: </b> </h4>
+                        <h4><b>Fecha Entrada: </b> {{ fechaEntrada }} </h4>
 
-                        <h4><b>Fecha Salida: </b> </h4> 
+                        <h4><b>Fecha Salida: </b> {{ fechaSalida }} </h4> 
 
-                        <h4><b>Cantidad Adultos: </b> </h4>
+                        <h4><b>Cantidad Adultos: </b> {{ cantidadAdultos }} </h4>
 
-                        <h4><b>Cantidad Niños: </b> </h4>
+                        <h4><b>Cantidad Niños: </b> {{ cantidadInfantes }} </h4>
 
-                        <h4><b>Cantidad Infantes: </b> </h4>
+                        <h4><b>Cantidad Infantes: </b> {{ destino }} </h4>
                     </div>
 
                     <div fxFlex="40">
-                        <h4 class="justificado"><b>Observaciones: </b> </h4>
+                        <h4 class="justificado"><b>Observaciones: </b> {{ observaciones }} </h4>
                     </div>
+
+                    <!-- <div>
+                        <ul>
+                            <li *ngFor="let dato of listaDatos">
+                                <div>
+                                    {{dato.data.nombres}}
+                                </div>
+                            </li>
+                        </ul>
+                    </div> -->
                 </div>
             </div>
 
             <div fxLayout="column" fxFlex="10">
                 <button mat-raised-button color="primary" class="btn-header" (click)="openDialogCrearInfoCotizante()">Crear</button>
+                <button mat-raised-button color="primary" class="btn-header" (click)="editarInfoCotizante()" (click)="openDialogCrearInfoCotizante()">Editar</button>
+                <button mat-raised-button color="primary" class="btn-header" (click)="eliminarInfoCotizante()">Eliminar</button>
             </div>
         </mat-card>
 

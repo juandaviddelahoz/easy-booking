@@ -10,5 +10,5 @@ export interface infoContizanteInterf {
     cantidadNiños   : string;
     cantidadInfantes: string;
     destino         : string;
-    obervaciones    : string;
+    observaciones    : string;
 }
