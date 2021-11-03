@@ -1,5 +1,5 @@
 export class infoCotizanteModel {
-    nombres          = "";
+    nombres          = '';
     apellidos        = '';
     email            = '';
     identificacion   = '';

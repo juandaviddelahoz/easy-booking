@@ -14,7 +14,7 @@
                         <p>
                             <mat-form-field appearance="outline" class="example-full-width">
                                 <mat-label>Nombres</mat-label>
-                                <input matInput type="text" formControlName="nombres" >
+                                <input matInput type="text" formControlName="nombres">
                             </mat-form-field>
                         </p>
     
@@ -96,7 +96,6 @@
                                 <textarea type="text" formControlName="observaciones" matInput rows="5"></textarea>
                             </mat-form-field>
                         </p>
-                        <h4><b>Fecha Entrada: </b> {{ nombresValue }} </h4>
                     </div>
                 </div>
     
@@ -104,9 +103,6 @@
                     <button mat-raised-button color="primary" type="submit" class="btn-form" mat-dialog-close>Guardar</button>
                 </div>
             </form>
-            <div>
-                <button (click)="prueba()" class="btn-form">prueba</button>
-            </div>
         </mat-card>
     </div>
 </div>

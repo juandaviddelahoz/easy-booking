@@ -6,71 +6,73 @@
                 <h3>Aéreos</h3>
             </div>
             <mat-card fxLayout="column" class="mat-elevation-z1" class="card">
-    
-                <div fxLayout="row" fxLayoutAlign="center">
-                    <p class="max-width">
-                        <ckeditor [editor]="Editor" [config]="{ placeholder:'Detalle'}"></ckeditor>
-                    </p>
-                </div>
-    
-                <div fxLayout="row">
-                    <div fxLayout="column" fxFlex="50" fxLayoutAlign="start center">
-                        <p>
-                            <mat-form-field appearance="outline" class="example-full-width">
-                                <mat-label>Tarifa Base Adultos</mat-label>
-                                <input matInput>
-                            </mat-form-field>
-                        </p>
-    
-                        <p>
-                            <mat-form-field appearance="outline" class="example-full-width">
-                                <mat-label>Tarifa Base Niños</mat-label>
-                                <input matInput>
-                            </mat-form-field>
-                        </p>
-    
-                        <p>
-                            <mat-form-field appearance="outline" class="example-full-width">
-                                <mat-label>Tarifa Base Infantes</mat-label>
-                                <input matInput>
-                            </mat-form-field>
-                        </p>
-    
-                        <p>
-                            <mat-form-field appearance="outline" class="example-full-width">
-                                <mat-label>Impuesto</mat-label>
-                                <input matInput>
-                            </mat-form-field>
+
+                <form [formGroup]="formAereo">
+                    <div fxLayout="row" fxLayoutAlign="center">
+                        <p class="max-width">
+                            <ckeditor [editor]="Editor" [config]="{ placeholder:'Detalle'}"></ckeditor>
                         </p>
                     </div>
-    
-                    <div fxLayout="column" fxFlex="50" fxLayoutAlign="start center">
-                        <p>
-                            <mat-form-field appearance="outline" class="example-full-width">
-                                <mat-label>Seguro</mat-label>
-                                <input matInput>
-                            </mat-form-field>
-                        </p>
-    
-                        <p>
-                            <mat-form-field appearance="outline" class="example-full-width">
-                                <mat-label>Tarifa Administrativa</mat-label>
-                                <input matInput>
-                            </mat-form-field>
-                        </p>
-    
-                        <p>
-                            <mat-form-field appearance="outline" class="example-full-width">
-                                <mat-label>QSE</mat-label>
-                                <input matInput>
-                            </mat-form-field>
-                        </p>
+        
+                    <div fxLayout="row">
+                        <div fxLayout="column" fxFlex="50" fxLayoutAlign="start center">
+                            <p>
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label>Tarifa Base Adultos</mat-label>
+                                    <input matInput type="text" formControlName="tarifaBaseAdultos">
+                                </mat-form-field>
+                            </p>
+        
+                            <p>
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label>Tarifa Base Niños</mat-label>
+                                    <input matInput type="text" formControlName="tarifaBaseNiños">
+                                </mat-form-field>
+                            </p>
+        
+                            <p>
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label>Tarifa Base Infantes</mat-label>
+                                    <input matInput type="text" formControlName="tarifaBaseInfantes">
+                                </mat-form-field>
+                            </p>
+        
+                            <p>
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label>Impuesto</mat-label>
+                                    <input matInput type="text" formControlName="impuesto">
+                                </mat-form-field>
+                            </p>
+                        </div>
+        
+                        <div fxLayout="column" fxFlex="50" fxLayoutAlign="start center">
+                            <p>
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label>Seguro</mat-label>
+                                    <input matInput type="text" formControlName="seguro">
+                                </mat-form-field>
+                            </p>
+        
+                            <p>
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label>Tarifa Administrativa</mat-label>
+                                    <input matInput type="text" formControlName="tarifaAdministraiva">
+                                </mat-form-field>
+                            </p>
+        
+                            <p>
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label>QSE</mat-label>
+                                    <input matInput type="text" formControlName="qse">
+                                </mat-form-field>
+                            </p>
+                        </div>
                     </div>
-                </div>
-    
-                <div fxLayout="row" fxLayoutAlign="center">
-                    <button mat-raised-button color="primary" class="btn-form">Guardar</button>
-                </div>
+
+                    <div fxLayout="row" fxLayoutAlign="center">
+                        <button mat-raised-button color="primary" class="btn-form">Guardar</button>
+                    </div>
+                </form>                
             </mat-card>
         </div>
     </div>

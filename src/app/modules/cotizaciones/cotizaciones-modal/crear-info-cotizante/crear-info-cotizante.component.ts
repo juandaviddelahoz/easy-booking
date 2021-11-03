@@ -13,57 +13,129 @@ export class CrearInfoCotizanteComponent implements OnInit {
   
   nombresValue!          : string;
 
-  debugger:any;
-  formInfoCotizante: FormGroup =
-   this.fb.group({
-    nombres         : ['jorge', [Validators.required]],
-    apellidos       : ['', [Validators.required]],
-    email           : ['', [Validators.required]],
-    identificacion  : ['', [Validators.required]],
-    fechaNacimiento : ['', [Validators.required]],
-    fechaEntrada    : ['', [Validators.required]],
-    fechaSalida     : ['', [Validators.required]],
-    cantidadAdultos : ['', [Validators.required]],
-    cantidadNiños   : ['', [Validators.required]],
-    cantidadInfantes: ['', [Validators.required]],
-    destino         : ['', [Validators.required]],
-    observaciones   : ['', [Validators.required]]
-  })
+  formInfoCotizante: FormGroup;
+
+   
 
   constructor(private fb: FormBuilder, 
               private _servicioDatos: ServicioDatosService, 
               private _servicioDatosPadreHijo: ServicioDatosPadreHijoService) { 
-                console.log('Envio', this.nombresValue);
+                this.formInfoCotizante = this.fb.group ({
+                  nombres         : [this.nombresValue, [Validators.required]],
+                  apellidos       : ['', [Validators.required]],
+                  email           : ['', [Validators.required]],
+                  identificacion  : ['', [Validators.required]],
+                  fechaNacimiento : ['', [Validators.required]],
+                  fechaEntrada    : ['', [Validators.required]],
+                  fechaSalida     : ['', [Validators.required]],
+                  cantidadAdultos : ['', [Validators.required]],
+                  cantidadNiños   : ['', [Validators.required]],
+                  cantidadInfantes: ['', [Validators.required]],
+                  destino         : ['', [Validators.required]],
+                  observaciones   : ['', [Validators.required]]
+              })
+              this._servicioDatosPadreHijo.disparadorDeDatosPadreHijo.subscribe(dataPH => {
+                  
+                console.log('data1', dataPH.dataPH);
+          
+                this.nombresValue = dataPH.dataPH;
+
+                // this.actualizar();
+          
+                console.log('esto es', this.nombresValue);
+                
+                // this.inicializarFormulario(dataPH.dataPH);
+                
+                // this.nombresValue = dataPH.dataPH;
+          
+                // console.log(this.nombresValue);
+          
+                // this.actualizarInformacion('juanda');
+                console.log('rayos', this.nombresValue);
+                // this.formInfoCotizante.get('nombres')?.setValue('hfghdf')
+              })
+              // this.formInfoCotizante.get('nombres')?.setValue('hfghdf')
+                
               }
 
   ngOnInit(): void {
-    this.debugger
-    this._servicioDatosPadreHijo.disparadorDeDatosPadreHijo.subscribe(dataPH => {
-      console.log(dataPH.dataPH);
-
-      this.nombresValue          = (dataPH.dataPH);
-
-      this.formInfoCotizante.patchValue({ nombres: 'mi nombre'});
-      console.log('Envio prueba', this.nombresValue);
-
-      // this.formInfoCotizante.patchValue({
-      //   nombres: 'Diego'
-      // })
-    })
+    
   }
 
-  prueba(){
-    console.log(this.nombresValue)
-    this.formInfoCotizante.controls['nombres'].setValue(this.nombresValue)
+  actualizar(dato:any) {
+    this.formInfoCotizante.get('nombres')?.setValue(dato)
   }
 
-  actualizarPersonas(){
-    this.formInfoCotizante.patchValue({
-      nombres: 'Nancy'
-    })
-  }
+  // inicializarFormulario(datos:Partial<any>) {
+  //   this.formInfoCotizante = this.fb.group ({
+  //     nombres         : ['Dios', [Validators.required]],
+  //     apellidos       : ['blabla', [Validators.required]],
+  //     email           : ['blabla', [Validators.required]],
+  //     identificacion  : ['blabla', [Validators.required]],
+  //     fechaNacimiento : ['blabla', [Validators.required]],
+  //     fechaEntrada    : ['blabla', [Validators.required]],
+  //     fechaSalida     : ['blabla', [Validators.required]],
+  //     cantidadAdultos : ['blabla', [Validators.required]],
+  //     cantidadNiños   : ['blabla', [Validators.required]],
+  //     cantidadInfantes: ['blabla', [Validators.required]],
+  //     destino         : ['blabla', [Validators.required]],
+  //     observaciones   : ['blabla', [Validators.required]]
+  //   })
+  // }
 
-  
+  // actualizarInformacion(data:any){
+  //   this.formInfoCotizante.setValue({
+  //     nombres: data,
+  //     apellidos: 'gdrhdr',
+  //       email: '',
+  //       identificacion  : '',
+  //       fechaNacimiento : '',
+  //       fechaEntrada    : '',
+  //       fechaSalida     : '',
+  //       cantidadAdultos : '',
+  //       cantidadNiños   : '',
+  //       cantidadInfantes: '',
+  //       destino         : '',
+  //       observaciones   : ''
+  //   }) 
+  // }
+
+  // iniciarFormulario(data: any) {
+  //   console.log('esta data', data);
+    
+  //   if(data == Array){
+  //     this.formInfoCotizante = this.fb.group({
+  //       nombres         : ['', [Validators.required]],
+  //       apellidos       : ['', [Validators.required]],
+  //       email           : ['', [Validators.required]],
+  //       identificacion  : ['', [Validators.required]],
+  //       fechaNacimiento : ['', [Validators.required]],
+  //       fechaEntrada    : ['', [Validators.required]],
+  //       fechaSalida     : ['', [Validators.required]],
+  //       cantidadAdultos : ['', [Validators.required]],
+  //       cantidadNiños   : ['', [Validators.required]],
+  //       cantidadInfantes: ['', [Validators.required]],
+  //       destino         : ['', [Validators.required]],
+  //       observaciones   : ['', [Validators.required]]
+  //     })
+  //   } else {
+  //     this.formInfoCotizante = this.fb.group({
+  //       nombres         : [data, [Validators.required]],
+  //       apellidos       : ['', [Validators.required]],
+  //       email           : ['', [Validators.required]],
+  //       identificacion  : ['', [Validators.required]],
+  //       fechaNacimiento : ['', [Validators.required]],
+  //       fechaEntrada    : ['', [Validators.required]],
+  //       fechaSalida     : ['', [Validators.required]],
+  //       cantidadAdultos : ['', [Validators.required]],
+  //       cantidadNiños   : ['', [Validators.required]],
+  //       cantidadInfantes: ['', [Validators.required]],
+  //       destino         : ['', [Validators.required]],
+  //       observaciones   : ['', [Validators.required]]
+  //     })
+  //   }
+    
+  // }
 
   enviarInfoCotizante(){
     // console.log(this.formInfoCotizante.value);
@@ -93,7 +165,7 @@ export class CrearInfoCotizanteComponent implements OnInit {
       data:infoCotizanteDTO
     })
     
-    this.formInfoCotizante.reset();
+    
   }
 
   // grabar_localstorage() {

@@ -15,7 +15,6 @@ import { AgregarAereoComponent } from '../../modules/cotizaciones/cotizaciones-m
 import { AgregarServicioComponent } from '../../modules/cotizaciones/cotizaciones-modal/agregar-servicio/agregar-servicio.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
-
 @NgModule({
   declarations: [
     DefaultComponent,
@@ -25,7 +24,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     CrearCotizacionComponent,
     CrearInfoCotizanteComponent,
     AgregarAereoComponent,
-    AgregarServicioComponent
+    AgregarServicioComponent,
   ],
   imports: [
     CommonModule,
