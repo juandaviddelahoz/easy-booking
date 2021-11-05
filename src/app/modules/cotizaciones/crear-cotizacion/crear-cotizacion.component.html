@@ -18,48 +18,40 @@
             <div fxLayout="column" fxFlex="90" fxLayoutAlign="end">
                 <div fxLayout="row" fxLayoutGap="25px" class="containerrow">
                     <div fxFlex="30"> 
-                        <h4><b>Nombres: </b> {{ nombres }} </h4>
+                        <h4><b>Nombres: </b> {{ infoCotizanteModelObj.nombres }} </h4>
 
-                        <h4><b>Apellidos: </b> {{ apellidos }} </h4>
+                        <h4><b>Apellidos: </b> {{ infoCotizanteModelObj.apellidos }} </h4>
 
-                        <h4><b>Email: </b> {{ email }} </h4>
+                        <h4><b>Email: </b> {{ infoCotizanteModelObj.email }} </h4>
 
-                        <h4><b>Identificación: </b> {{ identificacion }} </h4>
+                        <h4><b>Identificación: </b> {{ infoCotizanteModelObj.identificacion }} </h4>
 
-                        <h4><b>Fecha Nacimiento: </b> {{ fechaNacimiento }} </h4>
+                        <h4><b>Fecha Nacimiento: </b> {{ infoCotizanteModelObj.fechaNacimiento }} </h4>
                     </div>
 
                     <div fxFlex="30">
-                        <h4><b>Fecha Entrada: </b> {{ fechaEntrada }} </h4>
+                        <h4><b>Fecha Entrada: </b> {{ infoCotizanteModelObj.fechaEntrada }} </h4>
 
-                        <h4><b>Fecha Salida: </b> {{ fechaSalida }} </h4> 
+                        <h4><b>Fecha Salida: </b> {{ infoCotizanteModelObj.fechaSalida }} </h4> 
 
-                        <h4><b>Cantidad Adultos: </b> {{ cantidadAdultos }} </h4>
+                        <h4><b>Cantidad Adultos: </b> {{ infoCotizanteModelObj.cantidadAdultos }} </h4>
 
-                        <h4><b>Cantidad Niños: </b> {{ cantidadInfantes }} </h4>
+                        <h4><b>Cantidad Niños: </b> {{ infoCotizanteModelObj.cantidadChildren }} </h4>
 
-                        <h4><b>Cantidad Infantes: </b> {{ destino }} </h4>
+                        <h4><b>Cantidad Infantes: </b> {{ infoCotizanteModelObj.cantidadInfantes }} </h4>
                     </div>
 
                     <div fxFlex="40">
-                        <h4 class="justificado"><b>Observaciones: </b> {{ observaciones }} </h4>
-                    </div>
+                        <h4><b>Destino: </b> {{ infoCotizanteModelObj.destino }} </h4>
 
-                    <!-- <div>
-                        <ul>
-                            <li *ngFor="let dato of listaDatos">
-                                <div>
-                                    {{dato.data.nombres}}
-                                </div>
-                            </li>
-                        </ul>
-                    </div> -->
+                        <h4 class="justificado"><b>Observaciones: </b> {{ infoCotizanteModelObj.observaciones }} </h4>
+                    </div>
                 </div>
             </div>
 
             <div fxLayout="column" fxFlex="10">
-                <button mat-raised-button color="primary" class="btn-header" (click)="openDialogCrearInfoCotizante()">Crear</button>
-                <button mat-raised-button color="primary" class="btn-header" (click)="editarInfoCotizante()" (click)="openDialogCrearInfoCotizante()">Editar</button>
+                <button mat-raised-button color="primary" class="btn-header" data-bs-toggle="modal" data-bs-target="#modalInfoCotizante">Crear</button>
+                <button mat-raised-button color="primary" class="btn-header" (click)="editarInfoCotizante()" data-bs-toggle="modal" data-bs-target="#modalInfoCotizante">Editar</button>
                 <button mat-raised-button color="primary" class="btn-header" (click)="eliminarInfoCotizante()">Eliminar</button>
             </div>
         </mat-card>
@@ -72,20 +64,97 @@
             <h3>Aéreos</h3>
         </div>
         <mat-card fxLayout="row" class="mat-elevation-z1" class="card">
-            <div fxLayout="column" fxFlex="90" fxLayoutAlign="end center">
-                <table>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div fxLayout="column" fxFlex="90" fxLayoutAlign="end">
+                <div fxLayout="row" fxLayoutGap="25px" class="containerrow">
+                    <div fxFlex="30"> 
+                        <h4><b>Detalle: </b> {{ aereoModelObj.detalle }} </h4>
+                    </div>
+
+                    <div fxFlex="23">
+                        <h4><b>Tarifa Base Adultos: </b> {{ aereoModelObj.tarifaBaseAdultos }} </h4>
+
+                        <h4><b>Tarifa Base Niños: </b> {{ aereoModelObj.tarifaBaseChildren }} </h4>
+
+                        <h4><b>Tarifa Base Infantes: </b> {{ aereoModelObj.tarifaBaseInfantes }} </h4>
+                    </div>
+
+                    <div fxFlex="23">
+                        <h4><b>Total Tiquetes sin impuestos: </b> {{ aereoModelObj.totalTksSinImpuesto }} </h4>
+
+                        <h4><b>Impuesto: </b> {{ aereoModelObj.impuesto }} </h4>
+
+                        <h4><b>Seguro: </b> {{ aereoModelObj.seguro }} </h4>
+                    </div>
+
+                    <div fxFlex="23">
+                        <h4><b>Tarifa Administraiva: </b> {{ aereoModelObj.tarifaAdministraiva }} </h4> 
+
+                        <h4><b>QSE: </b> {{ aereoModelObj.qse }} </h4>
+
+                        <h4><b>Total Tiquetes: </b> {{ aereoModelObj.totalTks }} </h4>
+                    </div>
+                </div>
             </div>
 
             <div fxLayout="column" fxFlex="10">
-                <button mat-raised-button color="primary" class="btn-header" (click)="openDialogAgregarAereo()">Agregar</button>
+                <button mat-raised-button color="primary" class="btn-header" data-bs-toggle="modal" data-bs-target="#modalAereos">Crear</button>
+                <button mat-raised-button color="primary" class="btn-header" (click)="editarAereo()" data-bs-toggle="modal" data-bs-target="#modalAereos">Editar</button>
+            </div>
+        </mat-card>
+
+        <mat-divider></mat-divider>
+
+        <br>
+
+        <div class="div-header">
+            <h3>Aéreos</h3>
+        </div>
+        <mat-card fxLayout="row" class="mat-elevation-z1" class="card">
+            <div fxLayout="column" fxFlex="90" fxLayoutAlign="end">
+                <div fxLayout="row" fxLayoutGap="25px" class="containerrow">
+                    <div fxFlex="100">
+                        <table class="table mt-3">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Detalle</th>
+                                    <th scope="col">Tarifa Base Adultos</th>
+                                    <th scope="col">Tarifa Base Niños</th>
+                                    <th scope="col">Tarifa Base Infantes</th>
+                                    <th scope="col">Total Tiquetes sin impuestos</th>
+                                    <th scope="col">Impuesto</th>
+                                    <th scope="col">Seguro</th>
+                                    <th scope="col">Tarifa Administraiva</th>
+                                    <th scope="col">QSE</th>
+                                    <th scope="col">Total Tiquetes</th>
+                                    <th scope="col">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor = "let row of cotizacion.aereo">
+                                    <td>{{ row.detalle }}</td>
+                                    <td>{{ row.tarifaBaseAdultos }}</td>
+                                    <td>{{ row.tarifaBaseChildren }}</td>
+                                    <td>{{ row.tarifaBaseInfantes }}</td>
+                                    <td>{{ row.totalTksSinImpuesto }}</td>
+                                    <td>{{ row.impuesto }}</td>
+                                    <td>{{ row.seguro }}</td>
+                                    <td>{{ row.tarifaAdministraiva }}</td>
+                                    <td>{{ row.qse }}</td>
+                                    <td>{{ row.totalTks }}</td>
+                                    <td scope="col">
+                                        <button class="btn btn-info">Editar</button>
+                                        <button class="btn btn-danger">Eliminar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div fxLayout="column" fxFlex="10">
+                <button mat-raised-button color="primary" class="btn-header" data-bs-toggle="modal" data-bs-target="#modalAereos">Crear</button>
+                <button mat-raised-button color="primary" class="btn-header" (click)="editarAereo()" data-bs-toggle="modal" data-bs-target="#modalAereos">Editar</button>
             </div>
         </mat-card>
 
@@ -102,11 +171,152 @@
             </div>
 
             <div fxLayout="column" fxFlex="10">
-                <button mat-raised-button color="primary" class="btn-header" (click)="openDialogAgregarServicio()">Agregar</button>
+                <button mat-raised-button color="primary" class="btn-header">Agregar</button>
             </div>
             
         </mat-card>
         <br>
         
+    </div>
+</div>
+
+<!-- Modal Informacion Cotizante -->
+
+<div class="modal fade" id="modalInfoCotizante" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">  
+          <h1 class="modal-title">Información Cotizante</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="formInfoCotizante">
+                <div class="mb-3">
+                    <label class="form-label">Nombres</label>
+                    <input type="text" formControlName="nombres" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Apellidos</label>
+                    <input type="text" formControlName="apellidos" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="text" formControlName="email" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Identificacion</label>
+                    <input type="text" formControlName="identificacion" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Fecha Nacimiento</label>
+                    <input type="text" formControlName="fechaNacimiento" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Fecha Entrada</label>
+                    <input type="text" formControlName="fechaEntrada" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Fecha Salida </label>
+                    <input type="text" formControlName="fechaSalida" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Cantidad Adultos</label>
+                    <input type="text" formControlName="cantidadAdultos" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Cantidad Niños</label>
+                    <input type="text" formControlName="cantidadChildren" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Cantidad Infantes</label>
+                    <input type="text" formControlName="cantidadInfantes" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Destino</label>
+                    <input type="text" formControlName="destino" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Observaciones</label>
+                    <input type="text" formControlName="observaciones" class="form-control">
+                </div>
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="cerrarFormInfoCotizante" data-bs-dismiss="modal">cerrar</button>
+          <button type="button" class="btn btn-primary" (click)="enviarDatosInfoCotizante()">Guardar</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<!-- Modal Aereos -->
+
+<div class="modal fade" id="modalAereos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">  
+          <h1 class="modal-title">Aéreos</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="formAereos">
+                <div class="mb-3">
+                    <label class="form-label">Detalle</label>
+                    <textarea type="text" formControlName="detalle" class="form-control" rows="4"></textarea>
+                  </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Tarifa Base Adultos</label>
+                    <input type="text" formControlName="tarifaBaseAdultos" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Tarifa Base Niños</label>
+                    <input type="text" formControlName="tarifaBaseChildren" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Tarifa Base Infantes</label>
+                    <input type="text" formControlName="tarifaBaseInfantes" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Impuesto</label>
+                    <input type="text" formControlName="impuesto" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Seguro</label>
+                    <input type="text" formControlName="seguro" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Tarifa Administraiva</label>
+                    <input type="text" formControlName="tarifaAdministraiva" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">QSE</label>
+                    <input type="text" formControlName="qse" class="form-control">
+                </div>
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="cerrar" data-bs-dismiss="modal">cerrar</button>
+          <button type="button" class="btn btn-primary" (click)="enviarDatosAereo()">Guardar</button>
+        </div>
+      </div>
     </div>
 </div>
