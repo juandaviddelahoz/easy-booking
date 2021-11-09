@@ -2,7 +2,8 @@
 
 export class Cotizacion{
     cotizante! : infoCotizanteModel;
-    aereo : Array<aereoModel> = [];
+    aereo      : Array<aereoModel> = [];
+    servicios  : Array<serviciosModel> = []; 
 }
 
 export class infoCotizanteModel {
@@ -31,4 +32,19 @@ export class aereoModel {
     tarifaAdministraiva!: number;
     qse!                : number;
     totalTks!           : number
+}
+
+export class serviciosModel {
+    detalle!            : string;
+    precioPorPersona!   : string;
+    precioPorChldren!   : string;
+    precioPorAdicional! : string;
+    totalPaqTuristico!  : string;
+    tipoAlimentacion!   : string;
+    tipoHabitacion!     : string;
+    tipoAcomodacion!    : string;
+    incluye!            : string;
+    noIncluye!          : string;
+    infoImportante!     : string;
+    otrasCondiciones!   : string;
 }

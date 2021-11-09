@@ -1,4 +1,4 @@
-.container {
+.container-toolbar-title {
     margin-bottom: 20px;
 }
 
@@ -17,6 +17,7 @@ label {
 
 p {
     width: 100%;
+    margin-top: 12px;
 }
 
 .example-full-width {
@@ -28,6 +29,12 @@ p {
 .btn-form {
     width: 30%;
     margin: 15px;
+    padding: 1px;
+}
+
+.btn-form-footer {
+    width: 7%;
+    margin: 2px;
     padding: 1px;
 }
 
@@ -75,11 +82,84 @@ b {
     padding: 11px 30px 11px 30px;
 }
 
-.modal-backdrop
-{
-    opacity:0.1 !important;
-}
-
 .linea {
     display: inline-block;
 }
+
+table {
+    width: 100%;
+    margin-bottom: 17px;
+}
+
+.modal-dialog {
+    width: 100%;
+}
+
+.modal-header {
+    background: #3f51b5;
+}
+
+.modal-content {
+    max-height: 80%;
+}
+
+h5 {
+    font-size: 18px;
+    font-weight: 400;
+    color: white;
+    margin: 0;
+    padding: 0px 10px 0px 10px;
+}
+
+.modal-body {
+    padding: 25px 25px 8px 25px;
+}
+
+.ckeditor-padding {
+    padding-bottom: 10.2px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.color-edit {
+    color: #2196f3;
+}
+
+.color-edit:hover {
+    color: #1976d2;
+}
+
+.color-delete {
+    color: #f44336;
+}
+
+.color-delete:hover {
+    color: #d32f2f;
+}
+
+::ng-deep .mat-icon{
+    
+    text-align: center;
+}
+
+.padding-edit{
+    padding: 6px 5px 0px 5px;
+}
+
+.padding-delete{
+    padding: 6px 30px 0px 15px;
+}
+
+.th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+    padding-top: 15px;
+}
+
+//sombra del modal
+
+.modal{
+    background: rgba(0, 0 , 0, .32);
+}
+
+

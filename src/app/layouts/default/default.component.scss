@@ -4,14 +4,18 @@
     height: 100%;
 }
 
-mat-drawer {
+.mat-drawer {
     width: 350px;
 }
 
-mat-drawer-container {
+.mat-drawer-container {
     height: 100%;
 }
 
-mat-drawer-content {
+.mat-drawer-content {
     padding: 20px;
+}
+
+.mat-drawer.mat-drawer-side {
+    z-index: 1;
 }
