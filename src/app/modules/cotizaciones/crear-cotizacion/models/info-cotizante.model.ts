@@ -14,9 +14,9 @@ export class infoCotizanteModel {
     fechaNacimiento!    : string;
     fechaEntrada!       : string;
     fechaSalida!        : string;
-    cantidadAdultos!    : number;
-    cantidadChildren!   : number;
-    cantidadInfantes!   : number;
+    cantidadAdultos!    : string;
+    cantidadChildren!   : string;
+    cantidadInfantes!   : string;
     destino!            : string;
     observaciones!      : string
 }

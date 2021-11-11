@@ -5,20 +5,8 @@ import { aereoModel, Cotizacion, infoCotizanteModel, serviciosModel } from './mo
 import { DataAereos } from './interfaces/dataAereos';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { MatTableDataSource } from '@angular/material/table';
-import { ITS_JUST_ANGULAR } from '@angular/core/src/r3_symbols';
-
-// tabla
-
-// const ELEMENT_DATA: DataAereos[] = [
-//   {detalle: '<p><strong>Barranquilla</strong></p><p>Ernesto Cotissoz Airport</p><p><strong>15 de Diciembre de 2021</strong></p><p><strong>15:57</strong></p><p><strong>Duración Vuelo:</strong> 2h 5m</p><p><strong>VivaAir 5618</strong></p><p><strong>Clase:</strong> Economy</p><p><strong>Equipaje:</strong> 0 Piezas</p><p>Directo</p><p><strong>San Andres Island</strong></p><p>San Andres Island Airport</p><p><strong>15 de Diciembre 2021</strong></p><p><strong>18:02</strong></p>', tarifaBaseAdultos: 100000, tarifaBaseChildren: 100000, tarifaBaseInfantes: 100000,
-//   totalTksSinImpuesto: 300000, impuesto: 20000, seguro: 10000, tarifaAdministraiva: 10000, qse: 10000, totalTks: 350000},
-//   {detalle: '<p><strong>Bogota</strong></p><p>El dorado International Airport</p><p><strong>15 de Diciembre de 2021</strong></p><p><strong>15:57</strong></p><p><strong>Duración Vuelo:</strong> 2h 5m</p><p><strong>VivaAir 5618</strong></p><p><strong>Clase:</strong> Economy</p><p><strong>Equipaje:</strong> 0 Piezas</p><p>Directo</p><p><strong>San Andres Island</strong></p><p>San Andres Island Airport</p><p><strong>15 de Diciembre 2021</strong></p><p><strong>18:02</strong></p>', tarifaBaseAdultos: 100000, tarifaBaseChildren: 100000, tarifaBaseInfantes: 100000,
-//   totalTksSinImpuesto: 300000, impuesto: 20000, seguro: 10000, tarifaAdministraiva: 10000, qse: 10000, totalTks: 350000},
-// ];
 
 let ELEMENT_DATA_TEMP: DataAereos[] = [];
-
-// --------------------------------------------------------------------
 
 @Component({
   selector: 'app-crear-cotizacion',
@@ -34,19 +22,20 @@ export class CrearCotizacionComponent implements OnInit {
   displayedColumns: string[] = ['detalle', 'tarifaBaseAdultos', 'tarifaBaseChildren', 'tarifaBaseInfantes',
                                 'totalTksSinImpuesto','impuesto','seguro','tarifaAdministraiva', 'qse', 'totalTks', 'acciones'];
 
-  // dataSource = ELEMENT_DATA;
-
   dataSource = new MatTableDataSource();
 
-  // -------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
 
   formInfoCotizante!: FormGroup;
-  infoCotizanteModelObj: infoCotizanteModel = new infoCotizanteModel(); 
+
+  // infoCotizanteModelObj: infoCotizanteModel = new infoCotizanteModel(); 
 
   formAereos!: FormGroup;
-  aereoModelObj: aereoModel = new aereoModel();
-  aereoData: any;
+  // aereoModelObj: aereoModel = new aereoModel();
+
   cotizacion : Cotizacion = new Cotizacion();
+
+  listaDataAereos: any = [];
 
   formServicios!: FormGroup;
   serviciosModelObj: serviciosModel = new serviciosModel();
@@ -100,7 +89,6 @@ export class CrearCotizacionComponent implements OnInit {
   }
 
   enviarDatosInfoCotizante() {
-    
     this.cotizacion.cotizante.nombres          = this.formInfoCotizante.value.nombres;
     this.cotizacion.cotizante.apellidos        = this.formInfoCotizante.value.apellidos;
     this.cotizacion.cotizante.email            = this.formInfoCotizante.value.email;
@@ -115,6 +103,12 @@ export class CrearCotizacionComponent implements OnInit {
     this.cotizacion.cotizante.observaciones    = this.formInfoCotizante.value.observaciones;
 
     this.formInfoCotizante.reset();
+
+    console.log(this.listaDataAereos.length); 
+
+    if(this.listaDataAereos.length > 0) {
+      this.dataSource.data = this.listaDataAereos;
+    }
   }
 
   editarInfoCotizante() {
@@ -133,75 +127,51 @@ export class CrearCotizacionComponent implements OnInit {
   }
 
   eliminarInfoCotizante() {
-    this.infoCotizanteModelObj.nombres          = "";
-    this.infoCotizanteModelObj.apellidos        = "";
-    this.infoCotizanteModelObj.email            = "";
-    this.infoCotizanteModelObj.identificacion   = "";
-    this.infoCotizanteModelObj.fechaNacimiento  = "";
-    this.infoCotizanteModelObj.fechaEntrada     = "";
-    this.infoCotizanteModelObj.fechaSalida      = "";
-    this.infoCotizanteModelObj.cantidadAdultos  = 0;
-    this.infoCotizanteModelObj.cantidadChildren = 0;
-    this.infoCotizanteModelObj.cantidadInfantes = 0;
-    this.infoCotizanteModelObj.destino          = "";
-    this.infoCotizanteModelObj.observaciones    = ""
+    this.cotizacion.cotizante.nombres           = "";
+    this.cotizacion.cotizante.apellidos         = "";
+    this.cotizacion.cotizante.email             = "";
+    this.cotizacion.cotizante.identificacion    = "";
+    this.cotizacion.cotizante.fechaNacimiento   = "";
+    this.cotizacion.cotizante.fechaEntrada      = "";
+    this.cotizacion.cotizante.fechaSalida       = "";
+    this.cotizacion.cotizante.cantidadAdultos   = "";
+    this.cotizacion.cotizante.cantidadChildren  = "";
+    this.cotizacion.cotizante.cantidadInfantes  = "";
+    this.cotizacion.cotizante.destino           = "";
+    this.cotizacion.cotizante.observaciones     = ""
   }
 
   enviarDatosAereo() {
-    console.log(this.cotizacion.aereo);
-    this.aereoModelObj.detalle              = this.formAereos.value.detalle;
-    this.aereoModelObj.tarifaBaseAdultos    = this.formAereos.value.tarifaBaseAdultos;
-    this.aereoModelObj.tarifaBaseChildren   = this.formAereos.value.tarifaBaseChildren;
-    this.aereoModelObj.tarifaBaseInfantes   = this.formAereos.value.tarifaBaseInfantes;
-    this.aereoModelObj.totalTksSinImpuesto  = (this.aereoModelObj.tarifaBaseAdultos  * this.cotizacion.cotizante.cantidadAdultos)  + 
-                                              (this.aereoModelObj.tarifaBaseChildren * this.cotizacion.cotizante.cantidadChildren) +
-                                              (this.aereoModelObj.tarifaBaseInfantes * this.cotizacion.cotizante.cantidadInfantes);
-    this.aereoModelObj.impuesto             = this.formAereos.value.impuesto;
-    this.aereoModelObj.seguro               = this.formAereos.value.seguro;
-    this.aereoModelObj.tarifaAdministraiva  = this.formAereos.value.tarifaAdministraiva;
-    this.aereoModelObj.qse                  = this.formAereos.value.qse;
-    this.aereoModelObj.totalTks             = (+this.aereoModelObj.totalTksSinImpuesto) + (+this.aereoModelObj.impuesto) + (+this.aereoModelObj.seguro) +
-                                              (+this.aereoModelObj.tarifaAdministraiva) + (+this.aereoModelObj.qse);
 
-    // this.cotizacion.aereo = JSON.parse(JSON.stringify(this.aereoModelObj));
+    let totalTksSinImpuesto = (this.formAereos.value.tarifaBaseAdultos  * +this.cotizacion.cotizante.cantidadAdultos)  + 
+                              (this.formAereos.value.tarifaBaseChildren * +this.cotizacion.cotizante.cantidadChildren) +
+                              (this.formAereos.value.tarifaBaseInfantes * +this.cotizacion.cotizante.cantidadInfantes);
 
-    // this.cotizacion.aereo = [...this.cotizacion.aereo, this.aereoModelObj];
+    let totalTks            = (totalTksSinImpuesto) + (+this.formAereos.value.impuesto) + (+this.formAereos.value.seguro) +
+                              (+this.formAereos.value.tarifaAdministraiva) + (+this.formAereos.value.qse);
 
-    console.log(this.aereoModelObj);
+    this.listaDataAereos.push({
+      "detalle":             this.formAereos.value.detalle,
+      "tarifaBaseAdultos":   this.formAereos.value.tarifaBaseAdultos,
+      "tarifaBaseChildren":  this.formAereos.value.tarifaBaseChildren,
+      "tarifaBaseInfantes":  this.formAereos.value.tarifaBaseInfantes,
+      "totalTksSinImpuesto": totalTksSinImpuesto,
+      "impuesto":            this.formAereos.value.impuesto,
+      "seguro":              this.formAereos.value.seguro,
+      "tarifaAdministraiva": this.formAereos.value.tarifaAdministraiva,
+      "qse":                 this.formAereos.value.qse,
+      "totalTks":            totalTks
+    });
 
-    // JSON.parse(JSON.stringify(this.arrayPasivosDetallesTemp))
-
+    console.log(this.listaDataAereos);
+   
     this.formAereos.reset();
 
-    this.guardarLocalStorage();
-
-    this.dataSource.data = this.cotizacion.aereo
-
-  }
-
-  guardarLocalStorage() {
-
-    // let otro = this.cotizacion.aereo.push(this.aereoModelObj);
-
-    let persona = this.cotizacion.aereo;
-
-    let count = persona.push(this.aereoModelObj);
-
-    console.log(count);
-
-    localStorage.setItem("AereoDataLocal", JSON.stringify(persona));
-  }
-
-  obtenerLocalStorage() {
-
-    let persona = JSON.parse(localStorage.getItem("AereoDataLocal"))
-
-    console.log('obtenido local', persona)
-
+    this.dataSource.data = this.listaDataAereos
   }
 
   editarAereo(index:any, param:any){
-    console.log(index)
+    console.log(index, param)
     this.formAereos.controls['detalle'].setValue(param.detalle);
     this.formAereos.controls['tarifaBaseAdultos'].setValue(param.tarifaBaseAdultos);
     this.formAereos.controls['tarifaBaseChildren'].setValue(param.tarifaBaseChildren);
@@ -211,10 +181,18 @@ export class CrearCotizacionComponent implements OnInit {
     this.formAereos.controls['tarifaAdministraiva'].setValue(param.tarifaAdministraiva);
     this.formAereos.controls['qse'].setValue(param.qse);
 
-    ELEMENT_DATA_TEMP = this.formAereos.value;
+    this.listaDataAereos.splice(index, 1);
+  }
 
-    // ELEMENT_DATA.splice(index, 1);
-    console.log(ELEMENT_DATA_TEMP)
+  eliminarAereo(index:any) {
+    console.log(index)
+
+    this.listaDataAereos.splice(index, 1);
+
+    this.dataSource.data = this.listaDataAereos
+
+    console.log(this.dataSource.data)    
+  
   }
 
   enviarDatosServicios() {

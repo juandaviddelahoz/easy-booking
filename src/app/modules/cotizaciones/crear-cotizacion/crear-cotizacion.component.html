@@ -140,7 +140,7 @@
                                     </a>
 
                                     <a class="color-delete cursor-pointer">
-                                        <mat-icon matTooltip="Eliminar Aéreo" class="padding-delete">delete</mat-icon>
+                                        <mat-icon matTooltip="Eliminar Aéreo" class="padding-delete" (click)="eliminarAereo(i)">delete</mat-icon>
                                     </a>
                                 </td>
                             </ng-container>
@@ -279,14 +279,12 @@
                         </p>
                       </div>
                     </div>
-
-                    <div class="row justify-content-center">
-                        <button mat-raised-button color="primary" type="submit" class="btn-form" (click)="enviarDatosInfoCotizante()" data-bs-dismiss="modal">Guardar</button>
-                    </div>
+            
                   </div>
               </form>
         </div>
         <div class="modal-footer">
+          <button mat-raised-button color="primary" type="submit" class="btn-form-footer" (click)="enviarDatosInfoCotizante()" data-bs-dismiss="modal">Guardar</button>
           <button type="button" mat-raised-button color="primary" class="btn-form-footer" data-bs-dismiss="modal">Cerrar</button>
         </div>
       </div>
@@ -365,14 +363,12 @@
                         </div>
                     </div>
 
-                    <div class="row justify-content-center">
-                        <button mat-raised-button color="primary" type="submit" class="btn-form" (click)="enviarDatosAereo()" data-bs-dismiss="modal">Guardar</button>
-                    </div>
                 </div>
               </form>
         </div>
         <div class="modal-footer">
-          <button type="button" mat-raised-button color="primary" class="btn-form-footer" data-bs-dismiss="modal">Cerrar</button>
+            <button mat-raised-button color="primary" type="submit" class="btn-form-footer" (click)="enviarDatosAereo()" data-bs-dismiss="modal">Guardar</button>  
+            <button type="button" mat-raised-button color="primary" class="btn-form-footer" data-bs-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>
@@ -467,14 +463,12 @@
                         </p>
                     </div>
 
-                    <div class="row justify-content-center">
-                        <button mat-raised-button color="primary" type="submit" class="btn-form" (click)="enviarDatosServicios()" data-bs-dismiss="modal">Guardar</button>
-                    </div>
                 </div>
               </form>
         </div>
         <div class="modal-footer">
-          <button type="button" mat-raised-button color="primary" class="btn-form-footer" data-bs-dismiss="modal">Cerrar</button>
+            <button mat-raised-button color="primary" type="submit" class="btn-form-footer" (click)="enviarDatosServicios()" data-bs-dismiss="modal">Guardar</button>
+            <button type="button" mat-raised-button color="primary" class="btn-form-footer" data-bs-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>
