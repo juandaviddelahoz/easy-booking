@@ -42,15 +42,16 @@ export class CrearCotizacionComponent implements OnInit {
   formServicios!: FormGroup;
   listDataServicios: any = [];
 
-  dataCotizacion2: DataCotizacion;
+  dataCotizacion: DataCotizacion;
 
-  dataCotizacion: any = [this.infoCotizanteModelObj, this.listDataAereos, this.listDataServicios];
+  dataCotizacion1: any = [this.infoCotizanteModelObj, this.listDataAereos, this.listDataServicios];
 
   constructor(private formbuilder: FormBuilder) {
 
   }
 
   ngOnInit(): void {
+
     this.formInfoCotizante = this.formbuilder.group ({
       nombres         : [''],
       apellidos       : [''],
@@ -93,20 +94,23 @@ export class CrearCotizacionComponent implements OnInit {
   }
 
   enviarDatosInfoCotizante() {
-    this.infoCotizanteModelObj.nombres         = this.formInfoCotizante.value.nombres;
-    this.infoCotizanteModelObj.apellidos       = this.formInfoCotizante.value.apellidos;
-    this.infoCotizanteModelObj.email           = this.formInfoCotizante.value.email;
-    this.infoCotizanteModelObj.identificacion  = this.formInfoCotizante.value.identificacion;
-    this.infoCotizanteModelObj.fechaNacimiento = this.formInfoCotizante.value.fechaNacimiento;
-    this.infoCotizanteModelObj.fechaEntrada    = this.formInfoCotizante.value.fechaEntrada;
-    this.infoCotizanteModelObj.fechaSalida     = this.formInfoCotizante.value.fechaSalida;
-    this.infoCotizanteModelObj.cantidadAdultos = this.formInfoCotizante.value.cantidadAdultos;
-    this.infoCotizanteModelObj.cantidadChildren= this.formInfoCotizante.value.cantidadChildren;
-    this.infoCotizanteModelObj.cantidadInfantes= this.formInfoCotizante.value.cantidadInfantes;
-    this.infoCotizanteModelObj.destino         = this.formInfoCotizante.value.destino;
-    this.infoCotizanteModelObj.observaciones   = this.formInfoCotizante.value.observaciones;
+    this.dataCotizacion.persona.nombres         = this.formInfoCotizante.value.nombres;
+    this.dataCotizacion.persona.apellidos       = this.formInfoCotizante.value.apellidos;
+    this.dataCotizacion.persona.email           = this.formInfoCotizante.value.email;
+    this.dataCotizacion.persona.identificacion  = this.formInfoCotizante.value.identificacion;
+    this.dataCotizacion.persona.fechaNacimiento = this.formInfoCotizante.value.fechaNacimiento;
+
+    this.dataCotizacion.reserva.fechaEntrada    = this.formInfoCotizante.value.fechaEntrada;
+    this.dataCotizacion.reserva.fechaSalida     = this.formInfoCotizante.value.fechaSalida;
+    this.dataCotizacion.reserva.cantidadAdultos = this.formInfoCotizante.value.cantidadAdultos;
+    this.dataCotizacion.reserva.cantidadChildren= this.formInfoCotizante.value.cantidadChildren;
+    this.dataCotizacion.reserva.cantidadInfantes= this.formInfoCotizante.value.cantidadInfantes;
+    this.dataCotizacion.reserva.destino         = this.formInfoCotizante.value.destino;
+    this.dataCotizacion.reserva.observaciones   = this.formInfoCotizante.value.observaciones;
 
     this.formInfoCotizante.reset();
+
+    console.log(this.dataCotizacion)
 
     // console.log(this.listDataAereos.length); 
 
@@ -256,7 +260,7 @@ export class CrearCotizacionComponent implements OnInit {
   }
 
   mostrarDatosCotizacion() {
-    console.log(this.dataCotizacion[1])
+    console.log(this.dataCotizacion1[1])
   }
 }
 
