@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 // import { aereoModel } from './models/aereo.model';
-import { aereoModel, Cotizacion, infoCotizanteModel, serviciosModel } from './models/info-cotizante.model';
+import { infoCotizanteModel } from './models/info-cotizante.model';
 import { DataAereos } from './interfaces/dataAereos';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { MatTableDataSource } from '@angular/material/table';
+import { DataCotizacion } from './models/dataCotizacion.model';
 
 let ELEMENT_DATA_TEMP: DataAereos[] = [];
 
@@ -17,33 +18,36 @@ export class CrearCotizacionComponent implements OnInit {
 
   public Editor = ClassicEditor;
 
-  // tabla
+  // Tablas
 
-  displayedColumns: string[] = ['detalle', 'tarifaBaseAdultos', 'tarifaBaseChildren', 'tarifaBaseInfantes',
-                                'totalTksSinImpuesto','impuesto','seguro','tarifaAdministraiva', 'qse', 'totalTks', 'acciones'];
+  displayedColumnsAereos: string[] = ['detalle', 'tarifaBaseAdultos', 'tarifaBaseChildren', 'tarifaBaseInfantes',
+                                      'totalTksSinImpuesto','impuesto','seguro','tarifaAdministraiva', 'qse', 'totalTks', 'acciones'];
 
-  dataSource = new MatTableDataSource();
+  dataSourceAereos = new MatTableDataSource();
+
+  displayedColumnsServicios: string[] = ['detalle', 'precioPorPersona', 'precioPorChildren',
+                                         'totalPaqTuristico','tipoAlimentacion','tipoHabitacion','tipoAcomodacion', 
+                                         'incluye', 'noIncluye', 'infoImportante', 'otrasCondiciones', 'acciones'];
+ 
+  dataSourceServicios = new MatTableDataSource();
 
   // ---------------------------------------------------------------------------
 
-  formInfoCotizante!: FormGroup;
-
-  // infoCotizanteModelObj: infoCotizanteModel = new infoCotizanteModel(); 
+  formInfoCotizante!: FormGroup; 
+  infoCotizanteModelObj: infoCotizanteModel = new infoCotizanteModel();
 
   formAereos!: FormGroup;
-  // aereoModelObj: aereoModel = new aereoModel();
-
-  cotizacion : Cotizacion = new Cotizacion();
-
-  listaDataAereos: any = [];
+  listDataAereos: any = [];
 
   formServicios!: FormGroup;
-  serviciosModelObj: serviciosModel = new serviciosModel();
-  
+  listDataServicios: any = [];
+
+  dataCotizacion2: DataCotizacion;
+
+  dataCotizacion: any = [this.infoCotizanteModelObj, this.listDataAereos, this.listDataServicios];
 
   constructor(private formbuilder: FormBuilder) {
-    this.cotizacion.cotizante = new infoCotizanteModel();
-    this.cotizacion.aereo = new Array<aereoModel>();
+
   }
 
   ngOnInit(): void {
@@ -76,8 +80,7 @@ export class CrearCotizacionComponent implements OnInit {
     this.formServicios = this.formbuilder.group ({
       detalle             : [''],
       precioPorPersona    : [''],
-      precioPorChldren    : [''],
-      precioPorAdicional  : [''],
+      precioPorChildren   : [''],
       tipoAlimentacion    : [''],
       tipoHabitacion      : [''],
       tipoAcomodacion     : [''],
@@ -86,71 +89,74 @@ export class CrearCotizacionComponent implements OnInit {
       infoImportante      : [''],
       otrasCondiciones    : ['']
     }) 
+
   }
 
   enviarDatosInfoCotizante() {
-    this.cotizacion.cotizante.nombres          = this.formInfoCotizante.value.nombres;
-    this.cotizacion.cotizante.apellidos        = this.formInfoCotizante.value.apellidos;
-    this.cotizacion.cotizante.email            = this.formInfoCotizante.value.email;
-    this.cotizacion.cotizante.identificacion   = this.formInfoCotizante.value.identificacion;
-    this.cotizacion.cotizante.fechaNacimiento  = this.formInfoCotizante.value.fechaNacimiento;
-    this.cotizacion.cotizante.fechaEntrada     = this.formInfoCotizante.value.fechaEntrada;
-    this.cotizacion.cotizante.fechaSalida      = this.formInfoCotizante.value.fechaSalida;
-    this.cotizacion.cotizante.cantidadAdultos  = this.formInfoCotizante.value.cantidadAdultos;
-    this.cotizacion.cotizante.cantidadChildren = this.formInfoCotizante.value.cantidadChildren;
-    this.cotizacion.cotizante.cantidadInfantes = this.formInfoCotizante.value.cantidadInfantes;
-    this.cotizacion.cotizante.destino          = this.formInfoCotizante.value.destino;
-    this.cotizacion.cotizante.observaciones    = this.formInfoCotizante.value.observaciones;
+    this.infoCotizanteModelObj.nombres         = this.formInfoCotizante.value.nombres;
+    this.infoCotizanteModelObj.apellidos       = this.formInfoCotizante.value.apellidos;
+    this.infoCotizanteModelObj.email           = this.formInfoCotizante.value.email;
+    this.infoCotizanteModelObj.identificacion  = this.formInfoCotizante.value.identificacion;
+    this.infoCotizanteModelObj.fechaNacimiento = this.formInfoCotizante.value.fechaNacimiento;
+    this.infoCotizanteModelObj.fechaEntrada    = this.formInfoCotizante.value.fechaEntrada;
+    this.infoCotizanteModelObj.fechaSalida     = this.formInfoCotizante.value.fechaSalida;
+    this.infoCotizanteModelObj.cantidadAdultos = this.formInfoCotizante.value.cantidadAdultos;
+    this.infoCotizanteModelObj.cantidadChildren= this.formInfoCotizante.value.cantidadChildren;
+    this.infoCotizanteModelObj.cantidadInfantes= this.formInfoCotizante.value.cantidadInfantes;
+    this.infoCotizanteModelObj.destino         = this.formInfoCotizante.value.destino;
+    this.infoCotizanteModelObj.observaciones   = this.formInfoCotizante.value.observaciones;
 
     this.formInfoCotizante.reset();
 
-    console.log(this.listaDataAereos.length); 
+    // console.log(this.listDataAereos.length); 
 
-    if(this.listaDataAereos.length > 0) {
-      this.dataSource.data = this.listaDataAereos;
-    }
+    // if(this.listDataAereos.length > 0) {
+    //   this.dataSourceAereos.data = this.listDataAereos;
+    // }
   }
 
   editarInfoCotizante() {
-    this.formInfoCotizante.controls['nombres'].setValue(this.cotizacion.cotizante.nombres);
-    this.formInfoCotizante.controls['apellidos'].setValue(this.cotizacion.cotizante.apellidos);
-    this.formInfoCotizante.controls['email'].setValue(this.cotizacion.cotizante.email);
-    this.formInfoCotizante.controls['identificacion'].setValue(this.cotizacion.cotizante.identificacion);
-    this.formInfoCotizante.controls['fechaNacimiento'].setValue(this.cotizacion.cotizante.fechaNacimiento);
-    this.formInfoCotizante.controls['fechaEntrada'].setValue(this.cotizacion.cotizante.fechaEntrada);
-    this.formInfoCotizante.controls['fechaSalida'].setValue(this.cotizacion.cotizante.fechaSalida);
-    this.formInfoCotizante.controls['cantidadAdultos'].setValue(this.cotizacion.cotizante.cantidadAdultos);
-    this.formInfoCotizante.controls['cantidadChildren'].setValue(this.cotizacion.cotizante.cantidadChildren);
-    this.formInfoCotizante.controls['cantidadInfantes'].setValue(this.cotizacion.cotizante.cantidadInfantes);
-    this.formInfoCotizante.controls['destino'].setValue(this.cotizacion.cotizante.destino);
-    this.formInfoCotizante.controls['observaciones'].setValue(this.cotizacion.cotizante.observaciones);
+    this.formInfoCotizante.controls['nombres'].setValue(this.infoCotizanteModelObj.nombres);
+    this.formInfoCotizante.controls['apellidos'].setValue(this.infoCotizanteModelObj.apellidos);
+    this.formInfoCotizante.controls['email'].setValue(this.infoCotizanteModelObj.email);
+    this.formInfoCotizante.controls['identificacion'].setValue(this.infoCotizanteModelObj.identificacion);
+    this.formInfoCotizante.controls['fechaNacimiento'].setValue(this.infoCotizanteModelObj.fechaNacimiento);
+    this.formInfoCotizante.controls['fechaEntrada'].setValue(this.infoCotizanteModelObj.fechaEntrada);
+    this.formInfoCotizante.controls['fechaSalida'].setValue(this.infoCotizanteModelObj.fechaSalida);
+    this.formInfoCotizante.controls['cantidadAdultos'].setValue(this.infoCotizanteModelObj.cantidadAdultos);
+    this.formInfoCotizante.controls['cantidadChildren'].setValue(this.infoCotizanteModelObj.cantidadChildren);
+    this.formInfoCotizante.controls['cantidadInfantes'].setValue(this.infoCotizanteModelObj.cantidadInfantes);
+    this.formInfoCotizante.controls['destino'].setValue(this.infoCotizanteModelObj.destino);
+    this.formInfoCotizante.controls['observaciones'].setValue(this.infoCotizanteModelObj.observaciones);
   }
 
   eliminarInfoCotizante() {
-    this.cotizacion.cotizante.nombres           = "";
-    this.cotizacion.cotizante.apellidos         = "";
-    this.cotizacion.cotizante.email             = "";
-    this.cotizacion.cotizante.identificacion    = "";
-    this.cotizacion.cotizante.fechaNacimiento   = "";
-    this.cotizacion.cotizante.fechaEntrada      = "";
-    this.cotizacion.cotizante.fechaSalida       = "";
-    this.cotizacion.cotizante.cantidadAdultos   = "";
-    this.cotizacion.cotizante.cantidadChildren  = "";
-    this.cotizacion.cotizante.cantidadInfantes  = "";
-    this.cotizacion.cotizante.destino           = "";
-    this.cotizacion.cotizante.observaciones     = ""
+    this.infoCotizanteModelObj.nombres           = "";
+    this.infoCotizanteModelObj.apellidos         = "";
+    this.infoCotizanteModelObj.email             = "";
+    this.infoCotizanteModelObj.identificacion    = "";
+    this.infoCotizanteModelObj.fechaNacimiento   = "";
+    this.infoCotizanteModelObj.fechaEntrada      = "";
+    this.infoCotizanteModelObj.fechaSalida       = "";
+    this.infoCotizanteModelObj.cantidadAdultos   = 0;
+    this.infoCotizanteModelObj.cantidadChildren  = 0;
+    this.infoCotizanteModelObj.cantidadInfantes  = 0;
+    this.infoCotizanteModelObj.destino           = "";
+    this.infoCotizanteModelObj.observaciones     = "";
+
+    console.log(this.infoCotizanteModelObj)
   }
 
   enviarDatosAereo() {
 
-    let totalTksSinImpuesto = (this.formAereos.value.tarifaBaseAdultos  * +this.cotizacion.cotizante.cantidadAdultos)  + 
-                              (this.formAereos.value.tarifaBaseChildren * +this.cotizacion.cotizante.cantidadChildren) +
-                              (this.formAereos.value.tarifaBaseInfantes * +this.cotizacion.cotizante.cantidadInfantes);
+    let totalTksSinImpuesto = (this.formAereos.value.tarifaBaseAdultos  * +this.infoCotizanteModelObj.cantidadAdultos)  + 
+                              (this.formAereos.value.tarifaBaseChildren * +this.infoCotizanteModelObj.cantidadChildren) +
+                              (this.formAereos.value.tarifaBaseInfantes * +this.infoCotizanteModelObj.cantidadInfantes);
 
     let totalTks            = (totalTksSinImpuesto) + (+this.formAereos.value.impuesto) + (+this.formAereos.value.seguro) +
                               (+this.formAereos.value.tarifaAdministraiva) + (+this.formAereos.value.qse);
 
-    this.listaDataAereos.push({
+    this.listDataAereos.push({
       "detalle":             this.formAereos.value.detalle,
       "tarifaBaseAdultos":   this.formAereos.value.tarifaBaseAdultos,
       "tarifaBaseChildren":  this.formAereos.value.tarifaBaseChildren,
@@ -163,11 +169,11 @@ export class CrearCotizacionComponent implements OnInit {
       "totalTks":            totalTks
     });
 
-    console.log(this.listaDataAereos);
+    console.log(this.listDataAereos);
    
     this.formAereos.reset();
 
-    this.dataSource.data = this.listaDataAereos
+    this.dataSourceAereos.data = this.listDataAereos
   }
 
   editarAereo(index:any, param:any){
@@ -181,36 +187,76 @@ export class CrearCotizacionComponent implements OnInit {
     this.formAereos.controls['tarifaAdministraiva'].setValue(param.tarifaAdministraiva);
     this.formAereos.controls['qse'].setValue(param.qse);
 
-    this.listaDataAereos.splice(index, 1);
+    this.listDataAereos.splice(index, 1);
   }
 
   eliminarAereo(index:any) {
     console.log(index)
 
-    this.listaDataAereos.splice(index, 1);
+    this.listDataAereos.splice(index, 1);
 
-    this.dataSource.data = this.listaDataAereos
+    this.dataSourceAereos.data = this.listDataAereos
 
-    console.log(this.dataSource.data)    
-  
+    console.log(this.dataSourceAereos.data)    
   }
 
-  enviarDatosServicios() {
-    this.serviciosModelObj.detalle            = this.formServicios.value.detalle;
-    this.serviciosModelObj.precioPorPersona   = this.formServicios.value.precioPorPersona;
-    this.serviciosModelObj.precioPorChldren   = this.formServicios.value.precioPorChldren;
-    this.serviciosModelObj.precioPorAdicional = this.formServicios.value.precioPorAdicional;
-    this.serviciosModelObj.tipoAlimentacion   = this.formServicios.value.tipoAlimentacion;
-    this.serviciosModelObj.tipoHabitacion     = this.formServicios.value.tipoHabitacion;
-    this.serviciosModelObj.tipoAcomodacion    = this.formServicios.value.tipoAcomodacion;
-    this.serviciosModelObj.incluye            = this.formServicios.value.incluye;
-    this.serviciosModelObj.noIncluye          = this.formServicios.value.noIncluye;
-    this.serviciosModelObj.infoImportante     = this.formServicios.value.infoImportante;
-    this.serviciosModelObj.otrasCondiciones   = this.formServicios.value.otrasCondiciones;
-    
-    this.cotizacion.servicios.push(this.serviciosModelObj);
+  enviarDatosServicio() {
 
-    console.log(this.cotizacion);
+    let totalPaqTuristico = (this.formServicios.value.precioPorPersona * +this.infoCotizanteModelObj.cantidadAdultos)  + 
+                            (this.formServicios.value.precioPorChildren * +this.infoCotizanteModelObj.cantidadChildren);
+
+    this.listDataServicios.push({
+      "detalle":            this.formServicios.value.detalle,
+      "precioPorPersona":   this.formServicios.value.precioPorPersona,
+      "precioPorChildren":   this.formServicios.value.precioPorChildren,
+      "totalPaqTuristico":  totalPaqTuristico,
+      "tipoAlimentacion":   this.formServicios.value.tipoAlimentacion,
+      "tipoHabitacion" :    this.formServicios.value.tipoHabitacion,
+      "tipoAcomodacion":    this.formServicios.value.tipoAcomodacion,
+      "incluye":            this.formServicios.value.incluye,
+      "noIncluye":          this.formServicios.value.noIncluye,
+      "infoImportante":     this.formServicios.value.infoImportante,
+      "otrasCondiciones":   this.formServicios.value.otrasCondiciones
+    });
+
+    console.log(this.listDataServicios);
+   
+    this.formServicios.reset();
+
+    this.dataSourceServicios.data = this.listDataServicios;
+
+    this.mostrarDatosCotizacion();
+  }
+
+  editarServicio(index: any, param:any) {
+    console.log(index, param.detalle);
+    this.formServicios.controls['detalle'].setValue(param.detalle);
+    this.formServicios.controls['precioPorPersona'].setValue(param.precioPorPersona);
+    this.formServicios.controls['precioPorChildren'].setValue(param.precioPorChildren);
+    this.formServicios.controls['tipoAlimentacion'].setValue(param.tipoAlimentacion);
+    this.formServicios.controls['tipoHabitacion'].setValue(param.tipoHabitacion);
+    this.formServicios.controls['tipoAcomodacion'].setValue(param.tipoAcomodacion);
+    this.formServicios.controls['incluye'].setValue(param.incluye);
+    this.formServicios.controls['noIncluye'].setValue(param.noIncluye);
+    this.formServicios.controls['infoImportante'].setValue(param.infoImportante);
+    this.formServicios.controls['otrasCondiciones'].setValue(param.otrasCondiciones);
+
+    this.listDataServicios.splice(index, 1);
+
+  }
+
+  eliminarServicio(index:any) {
+    console.log(index);
+
+    this.listDataServicios.splice(index, 1);
+
+    this.dataSourceServicios.data = this.listDataServicios
+
+    console.log(this.dataSourceServicios.data)
+  }
+
+  mostrarDatosCotizacion() {
+    console.log(this.dataCotizacion[1])
   }
 }
 

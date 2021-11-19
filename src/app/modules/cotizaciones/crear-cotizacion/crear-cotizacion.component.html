@@ -17,42 +17,45 @@
         <mat-card fxLayout="row" class="mat-elevation-z1" class="card">
             <div fxLayout="column" fxFlex="90" fxLayoutAlign="end">
                 <div fxLayout="row" fxLayoutGap="25px" class="containerrow">
-                    <div fxFlex="30"> 
-                        <h4><b>Nombres: </b> {{ cotizacion.cotizante.nombres }} </h4>
+                    <div fxFlex="30">
+                        <h4><b>Nombres: </b> {{ infoCotizanteModelObj.nombres }} </h4>
 
-                        <h4><b>Apellidos: </b> {{ cotizacion.cotizante.apellidos }} </h4>
+                        <h4><b>Apellidos: </b> {{ infoCotizanteModelObj.apellidos }} </h4>
 
-                        <h4><b>Email: </b> {{ cotizacion.cotizante.email }} </h4>
+                        <h4><b>Email: </b> {{ infoCotizanteModelObj.email }} </h4>
 
-                        <h4><b>Identificación: </b> {{ cotizacion.cotizante.identificacion }} </h4>
+                        <h4><b>Identificación: </b> {{ infoCotizanteModelObj.identificacion }} </h4>
 
-                        <h4><b>Fecha Nacimiento: </b> {{ cotizacion.cotizante.fechaNacimiento }} </h4>
+                        <h4><b>Fecha Nacimiento: </b> {{ infoCotizanteModelObj.fechaNacimiento }} </h4>
                     </div>
 
                     <div fxFlex="30">
-                        <h4><b>Fecha Entrada: </b> {{ cotizacion.cotizante.fechaEntrada }} </h4>
+                        <h4><b>Fecha Entrada: </b> {{ infoCotizanteModelObj.fechaEntrada }} </h4>
 
-                        <h4><b>Fecha Salida: </b> {{ cotizacion.cotizante.fechaSalida }} </h4> 
+                        <h4><b>Fecha Salida: </b> {{ infoCotizanteModelObj.fechaSalida }} </h4>
 
-                        <h4><b>Cantidad Adultos: </b> {{ cotizacion.cotizante.cantidadAdultos }} </h4>
+                        <h4><b>Cantidad Adultos: </b> {{ infoCotizanteModelObj.cantidadAdultos }} </h4>
 
-                        <h4><b>Cantidad Niños: </b> {{ cotizacion.cotizante.cantidadChildren }} </h4>
+                        <h4><b>Cantidad Niños: </b> {{ infoCotizanteModelObj.cantidadChildren }} </h4>
 
-                        <h4><b>Cantidad Infantes: </b> {{ cotizacion.cotizante.cantidadInfantes }} </h4>
+                        <h4><b>Cantidad Infantes: </b> {{ infoCotizanteModelObj.cantidadInfantes }} </h4>
                     </div>
 
                     <div fxFlex="40">
-                        <h4><b>Destino: </b> {{ cotizacion.cotizante.destino }} </h4>
+                        <h4><b>Destino: </b> {{ infoCotizanteModelObj.destino }} </h4>
 
-                        <h4 class="justificado"><b>Observaciones: </b> {{ cotizacion.cotizante.observaciones }} </h4>
+                        <h4 class="justificado"><b>Observaciones: </b> {{ infoCotizanteModelObj.observaciones }} </h4>
                     </div>
                 </div>
             </div>
 
             <div fxLayout="column" fxFlex="10">
-                <button mat-raised-button color="primary" class="btn-header" data-bs-toggle="modal" data-bs-target="#modalInfoCotizante">Crear</button>
-                <button mat-raised-button color="primary" class="btn-header" (click)="editarInfoCotizante()" data-bs-toggle="modal" data-bs-target="#modalInfoCotizante">Editar</button>
-                <button mat-raised-button color="primary" class="btn-header" (click)="eliminarInfoCotizante()">Eliminar</button>
+                <button mat-raised-button color="primary" class="btn-header" data-bs-toggle="modal"
+                    data-bs-target="#modalInfoCotizante">Crear</button>
+                <button mat-raised-button color="primary" class="btn-header" (click)="editarInfoCotizante()"
+                    data-bs-toggle="modal" data-bs-target="#modalInfoCotizante">Editar</button>
+                <button mat-raised-button color="primary" class="btn-header"
+                    (click)="eliminarInfoCotizante()">Eliminar</button>
             </div>
         </mat-card>
 
@@ -64,96 +67,95 @@
             <h3>Aéreos</h3>
         </div>
         <mat-card fxLayout="row" class="mat-elevation-z1" class="card">
-            <div fxLayout="column" fxFlex="90" fxLayoutAlign="end">
-                <div fxLayout="row" fxLayoutGap="25px" class="containerrow">
-                    <div fxFlex="100">
-                        <table mat-table [dataSource]="dataSource" class="mat-elevation-z0">
-
-                            <!--- Note that these columns can be defined in any order.
+            <div fxLayout="column" fxFlex="90" fxLayoutAlign="end" class="containerrow">
+                <table mat-table [dataSource]="dataSourceAereos" class="mat-elevation-z0">
+                    <!--- Note that these columns can be defined in any order.
                                   The actual rendered columns are set as a property on the row definition" -->
 
-                            <!-- Position Column -->
-                            <ng-container matColumnDef="detalle">
-                              <th mat-header-cell *matHeaderCellDef> Detalle </th>
-                              <td mat-cell *matCellDef="let element" [innerHTML]="element.detalle"></td>
-                            </ng-container>
-                          
-                            <!-- Name Column -->
-                            <ng-container matColumnDef="tarifaBaseAdultos">
-                              <th mat-header-cell *matHeaderCellDef> Tarifa Base Adultos </th>
-                              <td mat-cell *matCellDef="let element"> {{element.tarifaBaseAdultos}} </td>
-                            </ng-container>
-                          
-                            <!-- Weight Column -->
-                            <ng-container matColumnDef="tarifaBaseChildren">
-                              <th mat-header-cell *matHeaderCellDef> Tarifa Base Niños </th>
-                              <td mat-cell *matCellDef="let element"> {{element.tarifaBaseChildren}} </td>
-                            </ng-container>
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="detalle">
+                        <th mat-header-cell *matHeaderCellDef> Detalle </th>
+                        <td mat-cell *matCellDef="let element" [innerHTML]="element.detalle"></td>
+                    </ng-container>
 
-                            <!-- Weight Column -->
-                            <ng-container matColumnDef="tarifaBaseInfantes">
-                                <th mat-header-cell *matHeaderCellDef> Tarifa Base Infantes </th>
-                                <td mat-cell *matCellDef="let element"> {{element.tarifaBaseInfantes}} </td>
-                            </ng-container>
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="tarifaBaseAdultos">
+                        <th mat-header-cell *matHeaderCellDef> Tarifa Base Adultos </th>
+                        <td mat-cell *matCellDef="let element"> {{element.tarifaBaseAdultos}} </td>
+                    </ng-container>
 
-                            <!-- Symbol Column -->
-                            <ng-container matColumnDef="totalTksSinImpuesto">
-                                <th mat-header-cell *matHeaderCellDef> Total Tks Sin Inpuesto </th>
-                                <td mat-cell *matCellDef="let element"> {{element.totalTksSinImpuesto}} </td>
-                            </ng-container>
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="tarifaBaseChildren">
+                        <th mat-header-cell *matHeaderCellDef> Tarifa Base Niños </th>
+                        <td mat-cell *matCellDef="let element"> {{element.tarifaBaseChildren}} </td>
+                    </ng-container>
 
-                            <!-- Symbol Column -->
-                            <ng-container matColumnDef="impuesto">
-                                <th mat-header-cell *matHeaderCellDef> Impuesto </th>
-                                <td mat-cell *matCellDef="let element"> {{element.impuesto}} </td>
-                            </ng-container>
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="tarifaBaseInfantes">
+                        <th mat-header-cell *matHeaderCellDef> Tarifa Base Infantes </th>
+                        <td mat-cell *matCellDef="let element"> {{element.tarifaBaseInfantes}} </td>
+                    </ng-container>
 
-                            <!-- Symbol Column -->
-                            <ng-container matColumnDef="seguro">
-                                <th mat-header-cell *matHeaderCellDef> Seguro </th>
-                                <td mat-cell *matCellDef="let element"> {{element.seguro}} </td>
-                            </ng-container>
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="totalTksSinImpuesto">
+                        <th mat-header-cell *matHeaderCellDef> Total Tks Sin Inpuesto </th>
+                        <td mat-cell *matCellDef="let element"> {{element.totalTksSinImpuesto}} </td>
+                    </ng-container>
 
-                            <!-- Symbol Column -->
-                            <ng-container matColumnDef="tarifaAdministraiva">
-                                <th mat-header-cell *matHeaderCellDef> Tarifa Asministrativa </th>
-                                <td mat-cell *matCellDef="let element"> {{element.tarifaAdministraiva}} </td>
-                            </ng-container>
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="impuesto">
+                        <th mat-header-cell *matHeaderCellDef> Impuesto </th>
+                        <td mat-cell *matCellDef="let element"> {{element.impuesto}} </td>
+                    </ng-container>
 
-                            <!-- Symbol Column -->
-                            <ng-container matColumnDef="qse">
-                                <th mat-header-cell *matHeaderCellDef> QSE </th>
-                                <td mat-cell *matCellDef="let element"> {{element.qse}} </td>
-                            </ng-container>
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="seguro">
+                        <th mat-header-cell *matHeaderCellDef> Seguro </th>
+                        <td mat-cell *matCellDef="let element"> {{element.seguro}} </td>
+                    </ng-container>
 
-                            <!-- Symbol Column -->
-                            <ng-container matColumnDef="totalTks">
-                                <th mat-header-cell *matHeaderCellDef> Total Tks </th>
-                                <td mat-cell *matCellDef="let element"> {{element.totalTks}} </td>
-                            </ng-container>
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="tarifaAdministraiva">
+                        <th mat-header-cell *matHeaderCellDef> Tarifa Asministrativa </th>
+                        <td mat-cell *matCellDef="let element"> {{element.tarifaAdministraiva}} </td>
+                    </ng-container>
 
-                            <ng-container matColumnDef="acciones">
-                                <th mat-header-cell *matHeaderCellDef style="text-align: center"> Acción </th>
-                                <td mat-cell *matCellDef="let element; let i = index" style="text-align: center">
-                                    <a class="color-edit cursor-pointer">
-                                        <mat-icon matTooltip="Editar Aéreo" class="padding-edit" (click)="editarAereo(i, element)" data-bs-toggle="modal" data-bs-target="#modalAereos">edit</mat-icon>
-                                    </a>
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="qse">
+                        <th mat-header-cell *matHeaderCellDef> QSE </th>
+                        <td mat-cell *matCellDef="let element"> {{element.qse}} </td>
+                    </ng-container>
 
-                                    <a class="color-delete cursor-pointer">
-                                        <mat-icon matTooltip="Eliminar Aéreo" class="padding-delete" (click)="eliminarAereo(i)">delete</mat-icon>
-                                    </a>
-                                </td>
-                            </ng-container>
-                          
-                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                          </table>
-                    </div>
-                </div>
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="totalTks">
+                        <th mat-header-cell *matHeaderCellDef> Total Tks </th>
+                        <td mat-cell *matCellDef="let element"> {{element.totalTks}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="acciones">
+                        <th mat-header-cell *matHeaderCellDef style="text-align: center"> Acción </th>
+                        <td mat-cell *matCellDef="let element; let i = index" style="text-align: center">
+                            <a class="color-edit cursor-pointer">
+                                <mat-icon matTooltip="Editar Aéreo" class="padding-edit"
+                                    (click)="editarAereo(i, element)" data-bs-toggle="modal"
+                                    data-bs-target="#modalAereos">edit</mat-icon>
+                            </a>
+
+                            <a class="color-delete cursor-pointer">
+                                <mat-icon matTooltip="Eliminar Aéreo" class="padding-delete" (click)="eliminarAereo(i)">
+                                    delete</mat-icon>
+                            </a>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsAereos"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsAereos;"></tr>
+                </table>
             </div>
 
             <div fxLayout="column" fxFlex="10">
-                <button mat-raised-button color="primary" class="btn-header" data-bs-toggle="modal" data-bs-target="#modalAereos">Agregar</button>
+                <button mat-raised-button color="primary" class="btn-header" data-bs-toggle="modal"
+                    data-bs-target="#modalAereos">Agregar</button>
             </div>
         </mat-card>
 
@@ -166,17 +168,92 @@
         </div>
         <mat-card fxLayout="row" class="mat-elevation-z1" class="card">
             <div fxLayout="column" fxFlex="90" fxLayoutAlign="end center">
-                
+                <table mat-table [dataSource]="dataSourceServicios" class="mat-elevation-z0">
+
+                    <ng-container matColumnDef="detalle">
+                        <th mat-header-cell *matHeaderCellDef> Detalle </th>
+                        <td mat-cell *matCellDef="let element" [innerHTML]="element.detalle"></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="precioPorPersona">
+                        <th mat-header-cell *matHeaderCellDef> Precio x Persona </th>
+                        <td mat-cell *matCellDef="let element"> {{element.precioPorPersona}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="precioPorChildren">
+                        <th mat-header-cell *matHeaderCellDef> Precio x Chldren </th>
+                        <td mat-cell *matCellDef="let element"> {{element.precioPorChildren}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="totalPaqTuristico">
+                        <th mat-header-cell *matHeaderCellDef> Total Paq Turistico </th>
+                        <td mat-cell *matCellDef="let element"> {{element.totalPaqTuristico}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="tipoAlimentacion">
+                        <th mat-header-cell *matHeaderCellDef> Tipo Alimentación </th>
+                        <td mat-cell *matCellDef="let element"> {{element.tipoAlimentacion}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="tipoHabitacion">
+                        <th mat-header-cell *matHeaderCellDef> Tipo Habitación </th>
+                        <td mat-cell *matCellDef="let element"> {{element.tipoHabitacion}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="tipoAcomodacion">
+                        <th mat-header-cell *matHeaderCellDef> Tipo Acomodación </th>
+                        <td mat-cell *matCellDef="let element"> {{element.tipoAcomodacion}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="incluye">
+                        <th mat-header-cell *matHeaderCellDef> Incluye </th>
+                        <td mat-cell *matCellDef="let element" [innerHTML]="element.incluye"></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="noIncluye">
+                        <th mat-header-cell *matHeaderCellDef> No Incluye </th>
+                        <td mat-cell *matCellDef="let element" [innerHTML]="element.noIncluye"></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="infoImportante">
+                        <th mat-header-cell *matHeaderCellDef> Info Importante </th>
+                        <td mat-cell *matCellDef="let element" [innerHTML]="element.infoImportante"> </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="otrasCondiciones">
+                        <th mat-header-cell *matHeaderCellDef> Otras Condiciones </th>
+                        <td mat-cell *matCellDef="let element" [innerHTML]="element.otrasCondiciones"></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="acciones">
+                        <th mat-header-cell *matHeaderCellDef style="text-align: center"> Acción </th>
+                        <td mat-cell *matCellDef="let element; let i = index" style="text-align: center">
+                            <a class="color-edit cursor-pointer">
+                                <mat-icon matTooltip="Editar Servicio" class="padding-edit"
+                                    (click)="editarServicio(i, element)" data-bs-toggle="modal"
+                                    data-bs-target="#modalServicios">edit</mat-icon>
+                            </a>
+
+                            <a class="color-delete cursor-pointer">
+                                <mat-icon matTooltip="Eliminar Servicio" class="padding-delete" (click)="eliminarServicio(i)">
+                                    delete</mat-icon>
+                            </a>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsServicios"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsServicios;"></tr>
+                </table>
             </div>
 
             <div fxLayout="column" fxFlex="10">
-                <button mat-raised-button color="primary" class="btn-header" data-bs-toggle="modal" data-bs-target="#modalServicios">Agregar</button>
-                <button mat-raised-button color="primary" class="btn-header" data-bs-toggle="modal" data-bs-target="#modalServicios">Editar</button>
+                <button mat-raised-button color="primary" class="btn-header" data-bs-toggle="modal"
+                    data-bs-target="#modalServicios">Agregar</button>
             </div>
-            
+
         </mat-card>
         <br>
-        
+
     </div>
 </div>
 
@@ -184,110 +261,113 @@
 
 <div class="modal fade" id="modalInfoCotizante" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">  
-          <h5 class="modal-title">Información Cotizante</h5>
-        </div>
-        <div class="modal-body">
-            <form [formGroup]="formInfoCotizante">
-                <div class="containerform">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <p>
-                            <mat-form-field appearance="outline" class="example-full-width">
-                                <mat-label>Nombres</mat-label>
-                                <input matInput type="text" formControlName="nombres">
-                            </mat-form-field>
-                        </p>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Información Cotizante</h5>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="formInfoCotizante">
+                    <div class="containerform">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p>
+                                    <mat-form-field appearance="outline" class="example-full-width">
+                                        <mat-label>Nombres</mat-label>
+                                        <input matInput type="text" formControlName="nombres">
+                                    </mat-form-field>
+                                </p>
 
-                        <p>
-                            <mat-form-field appearance="outline" class="example-full-width">
-                                <mat-label>Apellidos</mat-label>
-                                <input matInput type="text" formControlName="apellidos">
-                            </mat-form-field>
-                        </p>
-    
-                        <p>
-                            <mat-form-field appearance="outline" class="example-full-width">
-                                <mat-label>Email</mat-label>
-                                <input matInput type="text" formControlName="email">
-                            </mat-form-field>
-                        </p>
-    
-                        <p>
-                            <mat-form-field appearance="outline" class="example-full-width">
-                                <mat-label>Identificación</mat-label>
-                                <input matInput type="text" formControlName="identificacion">
-                            </mat-form-field>
-                        </p>
-    
-                        <p>
-                            <mat-form-field appearance="outline" class="example-full-width">
-                                <mat-label>Fecha Nacimiento</mat-label>
-                                <input matInput type="text" formControlName="fechaNacimiento">
-                            </mat-form-field>
-                        </p>
-    
-                        <p>
-                            <mat-form-field appearance="outline" class="example-full-width">
-                                <mat-label>Fecha Entrada</mat-label>
-                                <input matInput type="text" formControlName="fechaEntrada">
-                            </mat-form-field>
-                        </p>
-                      </div>
-                      <div class="col-md-6">
-                        <p>
-                            <mat-form-field appearance="outline" class="example-full-width">
-                                <mat-label>Fecha Salida</mat-label>
-                                <input matInput type="text" formControlName="fechaSalida">
-                            </mat-form-field>
-                        </p>
-    
-                        <p>
-                            <mat-form-field appearance="outline" class="example-full-width">
-                                <mat-label>Cantidad Adultos</mat-label>
-                                <input matInput type="text" formControlName="cantidadAdultos">
-                            </mat-form-field>
-                        </p>
-    
-                        <p>
-                            <mat-form-field appearance="outline" class="example-full-width">
-                                <mat-label>Cantidad Niños</mat-label>
-                                <input matInput type="text" formControlName="cantidadChildren">
-                            </mat-form-field>
-                        </p>
-    
-                        <p>
-                            <mat-form-field appearance="outline" class="example-full-width">
-                                <mat-label>Cantidad Infantes</mat-label>
-                                <input matInput type="text" formControlName="cantidadInfantes">
-                            </mat-form-field>
-                        </p>
-    
-                        <p>
-                            <mat-form-field appearance="outline" class="example-full-width">
-                                <mat-label>Destino</mat-label>
-                                <input matInput type="text" formControlName="destino">
-                            </mat-form-field>
-                        </p>
-    
-                        <p>
-                            <mat-form-field appearance="outline" class="example-full-width">
-                                <mat-label>Observaciones</mat-label>
-                                <textarea type="text" formControlName="observaciones" matInput rows="5"></textarea>
-                            </mat-form-field>
-                        </p>
-                      </div>
+                                <p>
+                                    <mat-form-field appearance="outline" class="example-full-width">
+                                        <mat-label>Apellidos</mat-label>
+                                        <input matInput type="text" formControlName="apellidos">
+                                    </mat-form-field>
+                                </p>
+
+                                <p>
+                                    <mat-form-field appearance="outline" class="example-full-width">
+                                        <mat-label>Email</mat-label>
+                                        <input matInput type="text" formControlName="email">
+                                    </mat-form-field>
+                                </p>
+
+                                <p>
+                                    <mat-form-field appearance="outline" class="example-full-width">
+                                        <mat-label>Identificación</mat-label>
+                                        <input matInput type="text" formControlName="identificacion">
+                                    </mat-form-field>
+                                </p>
+
+                                <p>
+                                    <mat-form-field appearance="outline" class="example-full-width">
+                                        <mat-label>Fecha Nacimiento</mat-label>
+                                        <input matInput type="text" formControlName="fechaNacimiento">
+                                    </mat-form-field>
+                                </p>
+
+                                <p>
+                                    <mat-form-field appearance="outline" class="example-full-width">
+                                        <mat-label>Fecha Entrada</mat-label>
+                                        <input matInput type="text" formControlName="fechaEntrada">
+                                    </mat-form-field>
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    <mat-form-field appearance="outline" class="example-full-width">
+                                        <mat-label>Fecha Salida</mat-label>
+                                        <input matInput type="text" formControlName="fechaSalida">
+                                    </mat-form-field>
+                                </p>
+
+                                <p>
+                                    <mat-form-field appearance="outline" class="example-full-width">
+                                        <mat-label>Cantidad Adultos</mat-label>
+                                        <input matInput type="text" formControlName="cantidadAdultos">
+                                    </mat-form-field>
+                                </p>
+
+                                <p>
+                                    <mat-form-field appearance="outline" class="example-full-width">
+                                        <mat-label>Cantidad Niños</mat-label>
+                                        <input matInput type="text" formControlName="cantidadChildren">
+                                    </mat-form-field>
+                                </p>
+
+                                <p>
+                                    <mat-form-field appearance="outline" class="example-full-width">
+                                        <mat-label>Cantidad Infantes</mat-label>
+                                        <input matInput type="text" formControlName="cantidadInfantes">
+                                    </mat-form-field>
+                                </p>
+
+                                <p>
+                                    <mat-form-field appearance="outline" class="example-full-width">
+                                        <mat-label>Destino</mat-label>
+                                        <input matInput type="text" formControlName="destino">
+                                    </mat-form-field>
+                                </p>
+
+                                <p>
+                                    <mat-form-field appearance="outline" class="example-full-width">
+                                        <mat-label>Observaciones</mat-label>
+                                        <textarea type="text" formControlName="observaciones" matInput
+                                            rows="5"></textarea>
+                                    </mat-form-field>
+                                </p>
+                            </div>
+                        </div>
+
                     </div>
-            
-                  </div>
-              </form>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button mat-raised-button color="primary" type="submit" class="btn-form-footer"
+                    (click)="enviarDatosInfoCotizante()" data-bs-dismiss="modal">Guardar</button>
+                <button type="button" mat-raised-button color="primary" class="btn-form-footer"
+                    data-bs-dismiss="modal">Cerrar</button>
+            </div>
         </div>
-        <div class="modal-footer">
-          <button mat-raised-button color="primary" type="submit" class="btn-form-footer" (click)="enviarDatosInfoCotizante()" data-bs-dismiss="modal">Guardar</button>
-          <button type="button" mat-raised-button color="primary" class="btn-form-footer" data-bs-dismiss="modal">Cerrar</button>
-        </div>
-      </div>
     </div>
 </div>
 
@@ -295,82 +375,85 @@
 
 <div class="modal fade" id="modalAereos" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">  
-          <h5 class="modal-title">Aéreos</h5>
-        </div>
-        <div class="modal-body">
-            <form [formGroup]="formAereos">
-                <div class="containerform">
-                    <div class="row">
-                        <p class="ckeditor-padding">
-                            <ckeditor [editor]="Editor" [config]="{ placeholder:'Detalle'}" formControlName="detalle"></ckeditor>
-                        </p>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>
-                                <mat-form-field appearance="outline" class="example-full-width">
-                                    <mat-label>Tarifa Base Adultos</mat-label>
-                                    <input matInput type="text" formControlName="tarifaBaseAdultos">
-                                </mat-form-field>
-                            </p>
-    
-                            <p>
-                                <mat-form-field appearance="outline" class="example-full-width">
-                                    <mat-label>Tarifa Base Niños</mat-label>
-                                    <input matInput type="text" formControlName="tarifaBaseChildren">
-                                </mat-form-field>
-                            </p>
-    
-                            <p>
-                                <mat-form-field appearance="outline" class="example-full-width">
-                                    <mat-label>Tarifa Base Infantes</mat-label>
-                                    <input matInput type="text" formControlName="tarifaBaseInfantes">
-                                </mat-form-field>
-                            </p>
-    
-                            <p>
-                                <mat-form-field appearance="outline" class="example-full-width">
-                                    <mat-label>Impuesto</mat-label>
-                                    <input matInput type="text" formControlName="impuesto">
-                                </mat-form-field>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Aéreos</h5>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="formAereos">
+                    <div class="containerform">
+                        <div class="row">
+                            <p class="ckeditor-padding">
+                                <ckeditor [editor]="Editor" [config]="{ placeholder:'Detalle'}"
+                                    formControlName="detalle"></ckeditor>
                             </p>
                         </div>
 
-                        <div class="col-md-6">
-                            <p>
-                                <mat-form-field appearance="outline" class="example-full-width">
-                                    <mat-label>Seguro</mat-label>
-                                    <input matInput type="text" formControlName="seguro">
-                                </mat-form-field>
-                            </p>
-        
-                            <p>
-                                <mat-form-field appearance="outline" class="example-full-width">
-                                    <mat-label>Tarifa Administrativa</mat-label>
-                                    <input matInput type="text" formControlName="tarifaAdministraiva">
-                                </mat-form-field>
-                            </p>
-        
-                            <p>
-                                <mat-form-field appearance="outline" class="example-full-width">
-                                    <mat-label>QSE</mat-label>
-                                    <input matInput type="text" formControlName="qse">
-                                </mat-form-field>
-                            </p>
-                        </div>
-                    </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p>
+                                    <mat-form-field appearance="outline" class="example-full-width">
+                                        <mat-label>Tarifa Base Adultos</mat-label>
+                                        <input matInput type="text" formControlName="tarifaBaseAdultos">
+                                    </mat-form-field>
+                                </p>
 
-                </div>
-              </form>
+                                <p>
+                                    <mat-form-field appearance="outline" class="example-full-width">
+                                        <mat-label>Tarifa Base Niños</mat-label>
+                                        <input matInput type="text" formControlName="tarifaBaseChildren">
+                                    </mat-form-field>
+                                </p>
+
+                                <p>
+                                    <mat-form-field appearance="outline" class="example-full-width">
+                                        <mat-label>Tarifa Base Infantes</mat-label>
+                                        <input matInput type="text" formControlName="tarifaBaseInfantes">
+                                    </mat-form-field>
+                                </p>
+
+                                <p>
+                                    <mat-form-field appearance="outline" class="example-full-width">
+                                        <mat-label>Impuesto</mat-label>
+                                        <input matInput type="text" formControlName="impuesto">
+                                    </mat-form-field>
+                                </p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <p>
+                                    <mat-form-field appearance="outline" class="example-full-width">
+                                        <mat-label>Seguro</mat-label>
+                                        <input matInput type="text" formControlName="seguro">
+                                    </mat-form-field>
+                                </p>
+
+                                <p>
+                                    <mat-form-field appearance="outline" class="example-full-width">
+                                        <mat-label>Tarifa Administrativa</mat-label>
+                                        <input matInput type="text" formControlName="tarifaAdministraiva">
+                                    </mat-form-field>
+                                </p>
+
+                                <p>
+                                    <mat-form-field appearance="outline" class="example-full-width">
+                                        <mat-label>QSE</mat-label>
+                                        <input matInput type="text" formControlName="qse">
+                                    </mat-form-field>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button mat-raised-button color="primary" type="submit" class="btn-form-footer"
+                    (click)="enviarDatosAereo()" data-bs-dismiss="modal">Guardar</button>
+                <button type="button" mat-raised-button color="primary" class="btn-form-footer"
+                    data-bs-dismiss="modal">Cerrar</button>
+            </div>
         </div>
-        <div class="modal-footer">
-            <button mat-raised-button color="primary" type="submit" class="btn-form-footer" (click)="enviarDatosAereo()" data-bs-dismiss="modal">Guardar</button>  
-            <button type="button" mat-raised-button color="primary" class="btn-form-footer" data-bs-dismiss="modal">Cerrar</button>
-        </div>
-      </div>
     </div>
 </div>
 
@@ -378,98 +461,98 @@
 
 <div class="modal fade" id="modalServicios" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">  
-          <h5 class="modal-title">Servicios</h5>
-        </div>
-        <div class="modal-body">
-            <form [formGroup]="formServicios">
-                <div class="containerform">
-                    <div class="row">
-                        <p class="ckeditor-padding">
-                            <ckeditor [editor]="Editor" [config]="{ placeholder:'Detalle'}" formControlName="detalle"></ckeditor>
-                        </p>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>
-                                <mat-form-field appearance="outline" class="example-full-width">
-                                    <mat-label>Precio por Persona</mat-label>
-                                    <input matInput type="text" formControlName="precioPorPersona">
-                                </mat-form-field>
-                            </p>
-        
-                            <p>
-                                <mat-form-field appearance="outline" class="example-full-width">
-                                    <mat-label>Precio por Niño</mat-label>
-                                    <input matInput type="text" formControlName="precioPorChldren">
-                                </mat-form-field>
-                            </p>
-        
-                            <p>
-                                <mat-form-field appearance="outline" class="example-full-width">
-                                    <mat-label>Precio por Adicional</mat-label>
-                                    <input matInput type="text" formControlName="precioPorAdicional">
-                                </mat-form-field>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Servicios</h5>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="formServicios">
+                    <div class="containerform">
+                        <div class="row">
+                            <p class="ckeditor-padding">
+                                <ckeditor [editor]="Editor" [config]="{ placeholder:'Detalle'}"
+                                    formControlName="detalle"></ckeditor>
                             </p>
                         </div>
 
-                        <div class="col-md-6">
-                            <p>
-                                <mat-form-field appearance="outline" class="example-full-width">
-                                    <mat-label>Tipo Alimentación</mat-label>
-                                    <input matInput type="text" formControlName="tipoAlimentacion">
-                                </mat-form-field>
-                            </p>
-        
-                            <p>
-                                <mat-form-field appearance="outline" class="example-full-width">
-                                    <mat-label>Tipo Habitación</mat-label>
-                                    <input matInput type="text" formControlName="tipoHabitacion">
-                                </mat-form-field>
-                            </p>
-        
-                            <p>
-                                <mat-form-field appearance="outline" class="example-full-width">
-                                    <mat-label>Tipo Acomodación</mat-label>
-                                    <input matInput type="text" formControlName="tipoAcomodacion">
-                                </mat-form-field>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p>
+                                    <mat-form-field appearance="outline" class="example-full-width">
+                                        <mat-label>Precio por Persona</mat-label>
+                                        <input matInput type="text" formControlName="precioPorPersona">
+                                    </mat-form-field>
+                                </p>
+
+                                <p>
+                                    <mat-form-field appearance="outline" class="example-full-width">
+                                        <mat-label>Precio por Niño</mat-label>
+                                        <input matInput type="text" formControlName="precioPorChildren">
+                                    </mat-form-field>
+                                </p>
+
+                                <p>
+                                    <mat-form-field appearance="outline" class="example-full-width">
+                                        <mat-label>Tipo Alimentación</mat-label>
+                                        <input matInput type="text" formControlName="tipoAlimentacion">
+                                    </mat-form-field>
+                                </p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <p>
+                                    <mat-form-field appearance="outline" class="example-full-width">
+                                        <mat-label>Tipo Habitación</mat-label>
+                                        <input matInput type="text" formControlName="tipoHabitacion">
+                                    </mat-form-field>
+                                </p>
+
+                                <p>
+                                    <mat-form-field appearance="outline" class="example-full-width">
+                                        <mat-label>Tipo Acomodación</mat-label>
+                                        <input matInput type="text" formControlName="tipoAcomodacion">
+                                    </mat-form-field>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <p class="ckeditor-padding">
+                                <ckeditor [editor]="Editor" [config]="{ placeholder:'Incluye'}"
+                                    formControlName="incluye"></ckeditor>
                             </p>
                         </div>
-                    </div>
 
-                    <div class="row">
-                        <p class="ckeditor-padding">
-                            <ckeditor [editor]="Editor" [config]="{ placeholder:'Incluye'}" formControlName="incluye"></ckeditor>
-                        </p>
-                    </div>
+                        <div class="row">
+                            <p class="ckeditor-padding">
+                                <ckeditor [editor]="Editor" [config]="{ placeholder:'No Incluye'}"
+                                    formControlName="noIncluye"></ckeditor>
+                            </p>
+                        </div>
 
-                    <div class="row">
-                        <p class="ckeditor-padding">
-                            <ckeditor [editor]="Editor" [config]="{ placeholder:'No Incluye'}" formControlName="noIncluye"></ckeditor>
-                        </p>
-                    </div>
+                        <div class="row">
+                            <p class="ckeditor-padding">
+                                <ckeditor [editor]="Editor" [config]="{ placeholder:'Información Importante'}"
+                                    formControlName="infoImportante"></ckeditor>
+                            </p>
+                        </div>
 
-                    <div class="row">
-                        <p class="ckeditor-padding">
-                            <ckeditor [editor]="Editor" [config]="{ placeholder:'Información Importante'}" formControlName="infoImportante"></ckeditor>
-                        </p>
-                    </div>
+                        <div class="row">
+                            <p class="ckeditor-padding">
+                                <ckeditor [editor]="Editor" [config]="{ placeholder:'Otras Condiciones'}"
+                                    formControlName="otrasCondiciones"></ckeditor>
+                            </p>
+                        </div>
 
-                    <div class="row">
-                        <p class="ckeditor-padding">
-                            <ckeditor [editor]="Editor" [config]="{ placeholder:'Otras Condiciones'}" formControlName="otrasCondiciones"></ckeditor>
-                        </p>
                     </div>
-
-                </div>
-              </form>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button mat-raised-button color="primary" type="submit" class="btn-form-footer"
+                    (click)="enviarDatosServicio()" data-bs-dismiss="modal">Guardar</button>
+                <button type="button" mat-raised-button color="primary" class="btn-form-footer"
+                    data-bs-dismiss="modal">Cerrar</button>
+            </div>
         </div>
-        <div class="modal-footer">
-            <button mat-raised-button color="primary" type="submit" class="btn-form-footer" (click)="enviarDatosServicios()" data-bs-dismiss="modal">Guardar</button>
-            <button type="button" mat-raised-button color="primary" class="btn-form-footer" data-bs-dismiss="modal">Cerrar</button>
-        </div>
-      </div>
     </div>
 </div>
