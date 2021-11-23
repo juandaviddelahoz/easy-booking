@@ -18,33 +18,33 @@
             <div fxLayout="column" fxFlex="90" fxLayoutAlign="end">
                 <div fxLayout="row" fxLayoutGap="25px" class="containerrow">
                     <div fxFlex="30">
-                        <h4><b>Nombres: </b> {{ infoCotizanteModelObj.nombres }} </h4>
+                        <h4><b>Nombres: </b> {{ dataCotizacion.persona.nombres }} </h4>
 
-                        <h4><b>Apellidos: </b> {{ infoCotizanteModelObj.apellidos }} </h4>
+                        <h4><b>Apellidos: </b> {{ dataCotizacion.persona.apellidos }} </h4>
 
-                        <h4><b>Email: </b> {{ infoCotizanteModelObj.email }} </h4>
+                        <h4><b>Email: </b> {{ dataCotizacion.persona.email }} </h4>
 
-                        <h4><b>Identificación: </b> {{ infoCotizanteModelObj.identificacion }} </h4>
+                        <h4><b>Identificación: </b> {{ dataCotizacion.persona.identificacion }} </h4>
 
-                        <h4><b>Fecha Nacimiento: </b> {{ infoCotizanteModelObj.fechaNacimiento }} </h4>
+                        <h4><b>Fecha Nacimiento: </b> {{ dataCotizacion.persona.fechaNacimiento }} </h4>
                     </div>
 
                     <div fxFlex="30">
-                        <h4><b>Fecha Entrada: </b> {{ infoCotizanteModelObj.fechaEntrada }} </h4>
+                        <h4><b>Fecha Entrada: </b> {{ dataCotizacion.reserva.fechaEntrada }} </h4>
 
-                        <h4><b>Fecha Salida: </b> {{ infoCotizanteModelObj.fechaSalida }} </h4>
+                        <h4><b>Fecha Salida: </b> {{ dataCotizacion.reserva.fechaSalida }} </h4>
 
-                        <h4><b>Cantidad Adultos: </b> {{ infoCotizanteModelObj.cantidadAdultos }} </h4>
+                        <h4><b>Cantidad Adultos: </b> {{ dataCotizacion.reserva.cantAdultos }} </h4>
 
-                        <h4><b>Cantidad Niños: </b> {{ infoCotizanteModelObj.cantidadChildren }} </h4>
+                        <h4><b>Cantidad Niños: </b> {{ dataCotizacion.reserva.cantChildren }} </h4>
 
-                        <h4><b>Cantidad Infantes: </b> {{ infoCotizanteModelObj.cantidadInfantes }} </h4>
+                        <h4><b>Cantidad Infantes: </b> {{ dataCotizacion.reserva.cantInfantes }} </h4>
                     </div>
 
                     <div fxFlex="40">
-                        <h4><b>Destino: </b> {{ infoCotizanteModelObj.destino }} </h4>
+                        <h4><b>Destino: </b> {{ dataCotizacion.reserva.destino }} </h4>
 
-                        <h4 class="justificado"><b>Observaciones: </b> {{ infoCotizanteModelObj.observaciones }} </h4>
+                        <h4 class="justificado"><b>Observaciones: </b> {{ dataCotizacion.reserva.observaciones }} </h4>
                     </div>
                 </div>
             </div>
@@ -79,27 +79,27 @@
                     </ng-container>
 
                     <!-- Name Column -->
-                    <ng-container matColumnDef="tarifaBaseAdultos">
+                    <ng-container matColumnDef="txBAdulto">
                         <th mat-header-cell *matHeaderCellDef> Tarifa Base Adultos </th>
-                        <td mat-cell *matCellDef="let element"> {{element.tarifaBaseAdultos}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.txBAdulto}} </td>
                     </ng-container>
 
                     <!-- Weight Column -->
-                    <ng-container matColumnDef="tarifaBaseChildren">
+                    <ng-container matColumnDef="txBChildren">
                         <th mat-header-cell *matHeaderCellDef> Tarifa Base Niños </th>
-                        <td mat-cell *matCellDef="let element"> {{element.tarifaBaseChildren}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.txBChildren}} </td>
                     </ng-container>
 
                     <!-- Weight Column -->
-                    <ng-container matColumnDef="tarifaBaseInfantes">
+                    <ng-container matColumnDef="txBInfante">
                         <th mat-header-cell *matHeaderCellDef> Tarifa Base Infantes </th>
-                        <td mat-cell *matCellDef="let element"> {{element.tarifaBaseInfantes}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.txBInfante}} </td>
                     </ng-container>
 
                     <!-- Symbol Column -->
-                    <ng-container matColumnDef="totalTksSinImpuesto">
+                    <ng-container matColumnDef="totalTktSinImp">
                         <th mat-header-cell *matHeaderCellDef> Total Tks Sin Inpuesto </th>
-                        <td mat-cell *matCellDef="let element"> {{element.totalTksSinImpuesto}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.totalTktSinImp}} </td>
                     </ng-container>
 
                     <!-- Symbol Column -->
@@ -115,9 +115,9 @@
                     </ng-container>
 
                     <!-- Symbol Column -->
-                    <ng-container matColumnDef="tarifaAdministraiva">
+                    <ng-container matColumnDef="txAdministrativa">
                         <th mat-header-cell *matHeaderCellDef> Tarifa Asministrativa </th>
-                        <td mat-cell *matCellDef="let element"> {{element.tarifaAdministraiva}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.txAdministrativa}} </td>
                     </ng-container>
 
                     <!-- Symbol Column -->
@@ -127,9 +127,9 @@
                     </ng-container>
 
                     <!-- Symbol Column -->
-                    <ng-container matColumnDef="totalTks">
+                    <ng-container matColumnDef="totalTkt">
                         <th mat-header-cell *matHeaderCellDef> Total Tks </th>
-                        <td mat-cell *matCellDef="let element"> {{element.totalTks}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.totalTkt}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="acciones">
@@ -175,34 +175,34 @@
                         <td mat-cell *matCellDef="let element" [innerHTML]="element.detalle"></td>
                     </ng-container>
 
-                    <ng-container matColumnDef="precioPorPersona">
+                    <ng-container matColumnDef="precPorPersona">
                         <th mat-header-cell *matHeaderCellDef> Precio x Persona </th>
-                        <td mat-cell *matCellDef="let element"> {{element.precioPorPersona}} </td>
+                        <td mat-cell *matCellDef="let element"> {{ element.precPorPersona }} </td>
                     </ng-container>
 
-                    <ng-container matColumnDef="precioPorChildren">
+                    <ng-container matColumnDef="precPorChildren">
                         <th mat-header-cell *matHeaderCellDef> Precio x Chldren </th>
-                        <td mat-cell *matCellDef="let element"> {{element.precioPorChildren}} </td>
+                        <td mat-cell *matCellDef="let element"> {{ element.precPorChildren }} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="totalPaqTuristico">
                         <th mat-header-cell *matHeaderCellDef> Total Paq Turistico </th>
-                        <td mat-cell *matCellDef="let element"> {{element.totalPaqTuristico}} </td>
+                        <td mat-cell *matCellDef="let element"> {{ element.totalPaqTuristico }} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="tipoAlimentacion">
                         <th mat-header-cell *matHeaderCellDef> Tipo Alimentación </th>
-                        <td mat-cell *matCellDef="let element"> {{element.tipoAlimentacion}} </td>
+                        <td mat-cell *matCellDef="let element"> {{ element.tipoAlimentacion }} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="tipoHabitacion">
                         <th mat-header-cell *matHeaderCellDef> Tipo Habitación </th>
-                        <td mat-cell *matCellDef="let element"> {{element.tipoHabitacion}} </td>
+                        <td mat-cell *matCellDef="let element"> {{ element.tipoHabitacion }} </td>
                     </ng-container>
 
-                    <ng-container matColumnDef="tipoAcomodacion">
+                    <ng-container matColumnDef="tipoAcomdacion">
                         <th mat-header-cell *matHeaderCellDef> Tipo Acomodación </th>
-                        <td mat-cell *matCellDef="let element"> {{element.tipoAcomodacion}} </td>
+                        <td mat-cell *matCellDef="let element"> {{ element.tipoAcomdacion }} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="incluye">
@@ -252,7 +252,14 @@
             </div>
 
         </mat-card>
+
+        <mat-divider></mat-divider>
+
         <br>
+
+        <div fxLayout="column" fxLayoutAlign="center center">
+            <button mat-raised-button color="primary" class="btn-submit" type="submit" (click)="guardarDatosCotizacion()">Guardar Cotización</button>
+        </div>
 
     </div>
 </div>
@@ -323,21 +330,21 @@
                                 <p>
                                     <mat-form-field appearance="outline" class="example-full-width">
                                         <mat-label>Cantidad Adultos</mat-label>
-                                        <input matInput type="text" formControlName="cantidadAdultos">
+                                        <input matInput type="number" formControlName="cantidadAdultos">
                                     </mat-form-field>
                                 </p>
 
                                 <p>
                                     <mat-form-field appearance="outline" class="example-full-width">
                                         <mat-label>Cantidad Niños</mat-label>
-                                        <input matInput type="text" formControlName="cantidadChildren">
+                                        <input matInput type="number" formControlName="cantidadChildren">
                                     </mat-form-field>
                                 </p>
 
                                 <p>
                                     <mat-form-field appearance="outline" class="example-full-width">
                                         <mat-label>Cantidad Infantes</mat-label>
-                                        <input matInput type="text" formControlName="cantidadInfantes">
+                                        <input matInput type="number" formControlName="cantidadInfantes">
                                     </mat-form-field>
                                 </p>
 
@@ -394,28 +401,28 @@
                                 <p>
                                     <mat-form-field appearance="outline" class="example-full-width">
                                         <mat-label>Tarifa Base Adultos</mat-label>
-                                        <input matInput type="text" formControlName="tarifaBaseAdultos">
+                                        <input matInput type="number" formControlName="tarifaBaseAdultos">
                                     </mat-form-field>
                                 </p>
 
                                 <p>
                                     <mat-form-field appearance="outline" class="example-full-width">
                                         <mat-label>Tarifa Base Niños</mat-label>
-                                        <input matInput type="text" formControlName="tarifaBaseChildren">
+                                        <input matInput type="number" formControlName="tarifaBaseChildren">
                                     </mat-form-field>
                                 </p>
 
                                 <p>
                                     <mat-form-field appearance="outline" class="example-full-width">
                                         <mat-label>Tarifa Base Infantes</mat-label>
-                                        <input matInput type="text" formControlName="tarifaBaseInfantes">
+                                        <input matInput type="number" formControlName="tarifaBaseInfantes">
                                     </mat-form-field>
                                 </p>
 
                                 <p>
                                     <mat-form-field appearance="outline" class="example-full-width">
                                         <mat-label>Impuesto</mat-label>
-                                        <input matInput type="text" formControlName="impuesto">
+                                        <input matInput type="number" formControlName="impuesto">
                                     </mat-form-field>
                                 </p>
                             </div>
@@ -424,21 +431,21 @@
                                 <p>
                                     <mat-form-field appearance="outline" class="example-full-width">
                                         <mat-label>Seguro</mat-label>
-                                        <input matInput type="text" formControlName="seguro">
+                                        <input matInput type="number" formControlName="seguro">
                                     </mat-form-field>
                                 </p>
 
                                 <p>
                                     <mat-form-field appearance="outline" class="example-full-width">
                                         <mat-label>Tarifa Administrativa</mat-label>
-                                        <input matInput type="text" formControlName="tarifaAdministraiva">
+                                        <input matInput type="number" formControlName="tarifaAdministraiva">
                                     </mat-form-field>
                                 </p>
 
                                 <p>
                                     <mat-form-field appearance="outline" class="example-full-width">
                                         <mat-label>QSE</mat-label>
-                                        <input matInput type="text" formControlName="qse">
+                                        <input matInput type="number" formControlName="qse">
                                     </mat-form-field>
                                 </p>
                             </div>
@@ -480,14 +487,14 @@
                                 <p>
                                     <mat-form-field appearance="outline" class="example-full-width">
                                         <mat-label>Precio por Persona</mat-label>
-                                        <input matInput type="text" formControlName="precioPorPersona">
+                                        <input matInput type="number" formControlName="precioPorPersona">
                                     </mat-form-field>
                                 </p>
 
                                 <p>
                                     <mat-form-field appearance="outline" class="example-full-width">
                                         <mat-label>Precio por Niño</mat-label>
-                                        <input matInput type="text" formControlName="precioPorChildren">
+                                        <input matInput type="number" formControlName="precioPorChildren">
                                     </mat-form-field>
                                 </p>
 

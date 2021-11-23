@@ -10,10 +10,8 @@ import { MaterialModule } from '../../material/material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CotizacionesPrincipalComponent } from '../../modules/cotizaciones/cotizaciones-principal/cotizaciones-principal.component';
 import { CrearCotizacionComponent } from '../../modules/cotizaciones/crear-cotizacion/crear-cotizacion.component';
-import { CrearInfoCotizanteComponent } from '../../modules/cotizaciones/cotizaciones-modal/crear-info-cotizante/crear-info-cotizante.component';
-import { AgregarAereoComponent } from '../../modules/cotizaciones/cotizaciones-modal/agregar-aereo/agregar-aereo.component';
-import { AgregarServicioComponent } from '../../modules/cotizaciones/cotizaciones-modal/agregar-servicio/agregar-servicio.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { HttpClientModule } from '@angular/common/http'
 
 @NgModule({
   declarations: [
@@ -22,9 +20,6 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     PostComponent,
     CotizacionesPrincipalComponent,
     CrearCotizacionComponent,
-    CrearInfoCotizanteComponent,
-    AgregarAereoComponent,
-    AgregarServicioComponent,
   ],
   imports: [
     CommonModule,
@@ -33,7 +28,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     MaterialModule,
     FlexLayoutModule,
     CKEditorModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
 })
 export class DefaultModule { }

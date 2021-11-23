@@ -6,6 +6,6 @@ import { Servicio } from "../Entidades/servicio.model";
 export class DataCotizacion {
     persona: Persona;
     reserva: Reserva;
-    aereo: Array<Aereo>;
-    servicio: Array<Servicio>
+    aereos: Array<Aereo>;
+    servicios: Array<Servicio>
 }
