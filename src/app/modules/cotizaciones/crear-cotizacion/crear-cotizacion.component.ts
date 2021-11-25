@@ -105,17 +105,17 @@ export class CrearCotizacionComponent implements OnInit {
       otrasCondiciones    : ['']
     }) 
 
-    this.obtenerCotizacion();
+    // this.obtenerCotizacion();
 
   }
 
-  obtenerCotizacion(){
-    this._cotizacionService.obtenerCotizacion().subscribe(data => {
-      console.log(data);
-    }, error => {
-      console.log(error);
-    })
-  }
+  // obtenerCotizacion(){
+  //   this._cotizacionService.obtenerCotizacion().subscribe(data => {
+  //     console.log(data);
+  //   }, error => {
+  //     console.log(error);
+  //   })
+  // }
 
   enviarDatosInfoCotizante() {
     this.dataCotizacion.persona.idPersona       = 0;
@@ -126,7 +126,7 @@ export class CrearCotizacionComponent implements OnInit {
     this.dataCotizacion.persona.fechaNacimiento = this.formInfoCotizante.value.fechaNacimiento;
     this.dataCotizacion.persona.fechaCreacion   = '2021-11-23';
     this.dataCotizacion.persona.fechaEdicion    = '2021-11-23';
-    this.dataCotizacion.persona.idUsuario       = 0;
+    this.dataCotizacion.persona.idUsuario       = 3;
 
     this.dataCotizacion.reserva.idReserva       = 0;
     this.dataCotizacion.reserva.fechaEntrada    = this.formInfoCotizante.value.fechaEntrada;
@@ -139,7 +139,7 @@ export class CrearCotizacionComponent implements OnInit {
     this.dataCotizacion.reserva.estado          = 0;
     this.dataCotizacion.reserva.fechaCreacion   = '2021-11-23';
     this.dataCotizacion.reserva.fechaEdicion    = '2021-11-23';
-    this.dataCotizacion.reserva.idUsuario       = 0;
+    this.dataCotizacion.reserva.idUsuario       = 3;
     this.dataCotizacion.reserva.idPersona       = 0
 
     this.formInfoCotizante.reset();
@@ -209,7 +209,7 @@ export class CrearCotizacionComponent implements OnInit {
       "idReserva":           0,
       "fechaCreacion":       '2021-11-23',
       "fechaEdicion":        '2021-11-23',
-      "idUsuario":           0
+      "idUsuario":           3
     });
 
     // console.log(this.listDataAereos);
@@ -270,7 +270,7 @@ export class CrearCotizacionComponent implements OnInit {
       "idReserva":          0,
       "fechaCreacion":      '2021-11-23',
       "fechaEdicion":       '2021-11-23',
-      "idUsuario":          0
+      "idUsuario":          3
     });
 
     // console.log(this.listDataServicios);
@@ -318,7 +318,7 @@ export class CrearCotizacionComponent implements OnInit {
   guardarDatosCotizacion() {
     console.log("Prueba")
     this._cotizacionService.guardarCotizacion(this.dataCotizacion).subscribe(data => {
-      console.log("Cotizacion Agregada"), 
+      console.log(data), 
       error => {
         console.log(error);
       };
