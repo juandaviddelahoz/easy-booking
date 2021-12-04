@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -32,7 +33,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatInputModule,
     MatDialogModule,
     MatTableModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSnackBarModule
   ],
   imports: [
     CommonModule

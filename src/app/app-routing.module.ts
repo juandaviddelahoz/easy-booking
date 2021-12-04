@@ -24,6 +24,10 @@ const routes: Routes = [{
   {
     path: 'crear_cotizacion',
     component: CrearCotizacionComponent
+  },
+  {
+    path: 'editar_cotizacion/:id',
+    component: CrearCotizacionComponent
   }]
 }];
 

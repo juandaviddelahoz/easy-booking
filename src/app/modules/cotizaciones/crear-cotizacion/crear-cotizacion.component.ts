@@ -11,6 +11,9 @@ import { Reserva } from './Entidades/reserva.model';
 import { Aereo } from './Entidades/aereo.model';
 import { Servicio } from './Entidades/servicio.model';
 import { CotizacionService } from '../services/cotizacion.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import Swal from 'sweetalert2'
+import { ActivatedRoute, Params } from '@angular/router';
 
 let ELEMENT_DATA_TEMP: DataAereos[] = [];
 
@@ -50,7 +53,9 @@ export class CrearCotizacionComponent implements OnInit {
   dataCotizacion = new DataCotizacion;
 
   constructor(private formbuilder: FormBuilder,
-              private _cotizacionService: CotizacionService) {
+              private _cotizacionService: CotizacionService,
+              private _snackBar: MatSnackBar,
+              private rutaActiva: ActivatedRoute) {
     this.dataCotizacion.persona = new Persona();
     this.dataCotizacion.reserva = new Reserva();
     this.dataCotizacion.aereos = new Array<Aereo>();
@@ -59,12 +64,20 @@ export class CrearCotizacionComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // var persona:Persona = new Persona;
+    console.log(this.rutaActiva.snapshot.params.id);
 
-    // persona.nombres = "Juan";
-    // persona.apellidos = "De la hoz";
-    // persona.email = "@gmail";
-    // persona.fechaNacimiento = "1998-10-25";
+    let paramIdReserva = this.rutaActiva.snapshot.params.id;
+
+    this._cotizacionService.obtenerCotizacionCompleta(paramIdReserva).subscribe(data => {
+         this.dataCotizacion = data;
+         console.log(this.dataCotizacion.aereos)
+         
+         this.listDataAereos = this.dataCotizacion.aereos;
+         this.dataSourceAereos.data = this.listDataAereos;
+
+         this.listDataServicios = this.dataCotizacion.servicios;
+         this.dataSourceServicios.data = this.listDataServicios;
+    })
 
     this.formInfoCotizante = this.formbuilder.group ({
       nombres         : [''],
@@ -316,12 +329,37 @@ export class CrearCotizacionComponent implements OnInit {
   }
 
   guardarDatosCotizacion() {
-    console.log("Prueba")
-    this._cotizacionService.guardarCotizacion(this.dataCotizacion).subscribe(data => {
-      console.log(data), 
-      error => {
-        console.log(error);
-      };
+    Swal.fire({
+      title: '¿Quieres guardar la cotización?',
+      showDenyButton: true,
+      confirmButtonText: '&nbsp;&nbsp;Si&nbsp;&nbsp;',
+      denyButtonText: `&nbsp;&nbsp;No&nbsp;&nbsp;`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this._cotizacionService.guardarCotizacion(this.dataCotizacion).subscribe(data => {
+      
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+          })
+    
+          Toast.fire({
+            icon: 'success',
+            title: data.message
+          })
+    
+          // this._snackBar.open(data.message), {
+          //   duration: 2000,
+          //   verticalPosition: top,
+          // }
+          error => {
+            console.log(error);
+          };
+        })
+      } 
     })
   }
 
