@@ -50,9 +50,9 @@ p {
     height: 100%;
 }
 
-.mat-raised-button:hover {
-    background-color: #303f9f
-}
+// .mat-raised-button:hover {
+//     background-color: #303f9f
+// }
 
 .titulo {
     color: #3f51b5;
@@ -174,4 +174,10 @@ h5 {
   margin-right: 8px;
 }
 
+//agrega el icono de negado a los elementos deshabilitados
+
+:disabled {
+    // cursor: not-allowed;
+    pointer-events: none;
+}
 

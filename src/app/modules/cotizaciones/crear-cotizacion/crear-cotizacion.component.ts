@@ -13,7 +13,7 @@ import { Servicio } from './Entidades/servicio.model';
 import { CotizacionService } from '../services/cotizacion.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from 'sweetalert2'
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 let ELEMENT_DATA_TEMP: DataAereos[] = [];
 
@@ -39,6 +39,16 @@ export class CrearCotizacionComponent implements OnInit {
  
   dataSourceServicios = new MatTableDataSource();
 
+  paramIdReserva : any;
+
+  paramEstado: any;
+
+  paramIdUsuario : any;
+
+  mostrarBtn: boolean;
+
+  btnDisabled: boolean;
+
   // ---------------------------------------------------------------------------
 
   formInfoCotizante!: FormGroup; 
@@ -55,7 +65,8 @@ export class CrearCotizacionComponent implements OnInit {
   constructor(private formbuilder: FormBuilder,
               private _cotizacionService: CotizacionService,
               private _snackBar: MatSnackBar,
-              private rutaActiva: ActivatedRoute) {
+              private rutaActiva: ActivatedRoute,
+              private route: Router) {
     this.dataCotizacion.persona = new Persona();
     this.dataCotizacion.reserva = new Reserva();
     this.dataCotizacion.aereos = new Array<Aereo>();
@@ -66,18 +77,44 @@ export class CrearCotizacionComponent implements OnInit {
 
     console.log(this.rutaActiva.snapshot.params.id);
 
-    let paramIdReserva = this.rutaActiva.snapshot.params.id;
+    console.log(this.rutaActiva.snapshot.params.estado);
 
-    this._cotizacionService.obtenerCotizacionCompleta(paramIdReserva).subscribe(data => {
-         this.dataCotizacion = data;
-         console.log(this.dataCotizacion.aereos)
-         
-         this.listDataAereos = this.dataCotizacion.aereos;
-         this.dataSourceAereos.data = this.listDataAereos;
+    this.paramIdReserva = this.rutaActiva.snapshot.params.id;
 
-         this.listDataServicios = this.dataCotizacion.servicios;
-         this.dataSourceServicios.data = this.listDataServicios;
-    })
+    this.paramEstado = this.rutaActiva.snapshot.params.estado;
+
+    if (this.paramIdReserva != undefined && this.paramEstado == undefined) {
+      this._cotizacionService.obtenerCotizacionCompleta(this.paramIdReserva).subscribe(data => {
+        this.dataCotizacion = data;
+        console.log(this.dataCotizacion)
+
+        this.listDataAereos = this.dataCotizacion.aereos;
+        this.dataSourceAereos.data = this.listDataAereos;
+
+        this.listDataServicios = this.dataCotizacion.servicios;
+        this.dataSourceServicios.data = this.listDataServicios;
+      })
+    } 
+    else if(this.paramIdReserva != undefined && this.paramEstado != undefined){
+      this._cotizacionService.obtenerCotizacionCompleta(this.paramIdReserva).subscribe(data => {
+        this.dataCotizacion = data;
+        console.log(this.dataCotizacion)
+        
+        this.listDataAereos = this.dataCotizacion.aereos;
+        this.dataSourceAereos.data = this.listDataAereos;
+        // Elimina la columna acciones del arreglo que carga la tabla Aereos
+        this.displayedColumnsAereos.splice(10, 1);
+
+        this.listDataServicios = this.dataCotizacion.servicios;
+        this.dataSourceServicios.data = this.listDataServicios;
+        // Elimina la columna acciones del arreglo que carga la tabla Servicios
+        this.displayedColumnsServicios.splice(11, 1);
+
+        this.mostrarBtn = true;
+
+        this.btnDisabled = true;
+      })
+    }
 
     this.formInfoCotizante = this.formbuilder.group ({
       nombres         : [''],
@@ -95,6 +132,7 @@ export class CrearCotizacionComponent implements OnInit {
     })
 
     this.formAereos = this.formbuilder.group ({
+      idAereo             : [''],
       detalle             : [''],
       tarifaBaseAdultos   : [''],
       tarifaBaseChildren  : [''],
@@ -106,6 +144,7 @@ export class CrearCotizacionComponent implements OnInit {
     })
 
     this.formServicios = this.formbuilder.group ({
+      idServicio          : [''],
       detalle             : [''],
       precioPorPersona    : [''],
       precioPorChildren   : [''],
@@ -119,7 +158,6 @@ export class CrearCotizacionComponent implements OnInit {
     }) 
 
     // this.obtenerCotizacion();
-
   }
 
   // obtenerCotizacion(){
@@ -131,29 +169,29 @@ export class CrearCotizacionComponent implements OnInit {
   // }
 
   enviarDatosInfoCotizante() {
-    this.dataCotizacion.persona.idPersona       = 0;
-    this.dataCotizacion.persona.nombres         = this.formInfoCotizante.value.nombres;
-    this.dataCotizacion.persona.apellidos       = this.formInfoCotizante.value.apellidos;
-    this.dataCotizacion.persona.email           = this.formInfoCotizante.value.email;
-    this.dataCotizacion.persona.identificacion  = this.formInfoCotizante.value.identificacion;
-    this.dataCotizacion.persona.fechaNacimiento = this.formInfoCotizante.value.fechaNacimiento;
-    this.dataCotizacion.persona.fechaCreacion   = '2021-11-23';
-    this.dataCotizacion.persona.fechaEdicion    = '2021-11-23';
-    this.dataCotizacion.persona.idUsuario       = 3;
+      this.dataCotizacion.persona.idPersona == undefined ? undefined : undefined;
+      this.dataCotizacion.persona.nombres         = this.formInfoCotizante.value.nombres;
+      this.dataCotizacion.persona.apellidos       = this.formInfoCotizante.value.apellidos;
+      this.dataCotizacion.persona.email           = this.formInfoCotizante.value.email;
+      this.dataCotizacion.persona.identificacion  = this.formInfoCotizante.value.identificacion;
+      this.dataCotizacion.persona.fechaNacimiento = this.formInfoCotizante.value.fechaNacimiento;
+      this.dataCotizacion.persona.fechaCreacion   = undefined;
+      this.dataCotizacion.persona.fechaEdicion    = undefined;
+      this.dataCotizacion.persona.idUsuario       = 2;
 
-    this.dataCotizacion.reserva.idReserva       = 0;
-    this.dataCotizacion.reserva.fechaEntrada    = this.formInfoCotizante.value.fechaEntrada;
-    this.dataCotizacion.reserva.fechaSalida     = this.formInfoCotizante.value.fechaSalida;
-    this.dataCotizacion.reserva.cantAdultos     = this.formInfoCotizante.value.cantidadAdultos;
-    this.dataCotizacion.reserva.cantChildren    = this.formInfoCotizante.value.cantidadChildren;
-    this.dataCotizacion.reserva.cantInfantes    = this.formInfoCotizante.value.cantidadInfantes;
-    this.dataCotizacion.reserva.destino         = this.formInfoCotizante.value.destino;
-    this.dataCotizacion.reserva.observaciones   = this.formInfoCotizante.value.observaciones;
-    this.dataCotizacion.reserva.estado          = 0;
-    this.dataCotizacion.reserva.fechaCreacion   = '2021-11-23';
-    this.dataCotizacion.reserva.fechaEdicion    = '2021-11-23';
-    this.dataCotizacion.reserva.idUsuario       = 3;
-    this.dataCotizacion.reserva.idPersona       = 0
+      this.dataCotizacion.reserva.idReserva == undefined ? undefined : undefined;
+      this.dataCotizacion.reserva.fechaEntrada    = this.formInfoCotizante.value.fechaEntrada;
+      this.dataCotizacion.reserva.fechaSalida     = this.formInfoCotizante.value.fechaSalida;
+      this.dataCotizacion.reserva.cantAdultos     = this.formInfoCotizante.value.cantidadAdultos;
+      this.dataCotizacion.reserva.cantChildren    = this.formInfoCotizante.value.cantidadChildren;
+      this.dataCotizacion.reserva.cantInfantes    = this.formInfoCotizante.value.cantidadInfantes;
+      this.dataCotizacion.reserva.destino         = this.formInfoCotizante.value.destino;
+      this.dataCotizacion.reserva.observaciones   = this.formInfoCotizante.value.observaciones;
+      this.dataCotizacion.reserva.idEstado        = 0;
+      this.dataCotizacion.reserva.fechaCreacion   = undefined;
+      this.dataCotizacion.reserva.fechaEdicion    = undefined;
+      this.dataCotizacion.reserva.idUsuario       = 2;
+      this.dataCotizacion.reserva.idPersona == undefined ? undefined : undefined;
 
     this.formInfoCotizante.reset();
 
@@ -189,9 +227,9 @@ export class CrearCotizacionComponent implements OnInit {
     this.dataCotizacion.persona.fechaNacimiento   = "";
     this.dataCotizacion.reserva.fechaEntrada      = "";
     this.dataCotizacion.reserva.fechaSalida       = "";
-    this.dataCotizacion.reserva.cantAdultos       = 0;
-    this.dataCotizacion.reserva.cantChildren      = 0;
-    this.dataCotizacion.reserva.cantInfantes      = 0;
+    this.dataCotizacion.reserva.cantAdultos       = undefined;
+    this.dataCotizacion.reserva.cantChildren      = undefined;
+    this.dataCotizacion.reserva.cantInfantes      = undefined;
     this.dataCotizacion.reserva.destino           = "";
     this.dataCotizacion.reserva.observaciones     = "";
 
@@ -207,23 +245,27 @@ export class CrearCotizacionComponent implements OnInit {
     let totalTkt            = (totalTkSinImpuesto) + (this.formAereos.value.impuesto) + (this.formAereos.value.seguro) +
                               (this.formAereos.value.tarifaAdministraiva) + (this.formAereos.value.qse);
 
-    this.listDataAereos.push({
-      "idAereo":             0,
-      "detalle":             this.formAereos.value.detalle,
-      "txBAdulto":           this.formAereos.value.tarifaBaseAdultos,
-      "txBChildren":         this.formAereos.value.tarifaBaseChildren,
-      "txBInfante":          this.formAereos.value.tarifaBaseInfantes,
-      "totalTktSinImp":      totalTkSinImpuesto,
-      "impuesto":            this.formAereos.value.impuesto,
-      "seguro":              this.formAereos.value.seguro,
-      "txAdministrativa":    this.formAereos.value.tarifaAdministraiva,
-      "qse":                 this.formAereos.value.qse,
-      "totalTkt":            totalTkt,
-      "idReserva":           0,
-      "fechaCreacion":       '2021-11-23',
-      "fechaEdicion":        '2021-11-23',
-      "idUsuario":           3
-    });
+      this.listDataAereos.push({
+        "idAereo":             this.paramIdReserva == undefined ? undefined : this.formAereos.value.idAereo,    
+        "detalle":             this.formAereos.value.detalle,
+        "txBAdulto":           this.formAereos.value.tarifaBaseAdultos,
+        "txBChildren":         this.formAereos.value.tarifaBaseChildren,
+        "txBInfante":          this.formAereos.value.tarifaBaseInfantes,
+        "totalTktSinImp":      totalTkSinImpuesto,
+        "impuesto":            this.formAereos.value.impuesto,
+        "seguro":              this.formAereos.value.seguro,
+        "txAdministrativa":    this.formAereos.value.tarifaAdministraiva,
+        "qse":                 this.formAereos.value.qse,
+        "totalTkt":            totalTkt,
+        "idReserva":           undefined,
+        "fechaCreacion":       undefined,
+        "fechaEdicion":        undefined,
+        "idUsuario":           2
+      });                       
+      
+      console.log(this.formAereos.value.idAereo);
+      console.log(this.listDataAereos);
+   
 
     // console.log(this.listDataAereos);
    
@@ -238,6 +280,7 @@ export class CrearCotizacionComponent implements OnInit {
 
   editarAereo(index:any, param:any){
     console.log(index, param)
+    this.formAereos.controls['idAereo'].setValue(param.idAereo);
     this.formAereos.controls['detalle'].setValue(param.detalle);
     this.formAereos.controls['tarifaBaseAdultos'].setValue(param.txBAdulto);
     this.formAereos.controls['tarifaBaseChildren'].setValue(param.txBChildren);
@@ -268,7 +311,7 @@ export class CrearCotizacionComponent implements OnInit {
                             (this.formServicios.value.precioPorChildren * this.dataCotizacion.reserva.cantChildren);
 
     this.listDataServicios.push({
-      "idServicio":         0,
+      "idServicio":         this.paramIdReserva == undefined ? undefined : this.formServicios.value.idServicio,
       "detalle":            this.formServicios.value.detalle,
       "precPorPersona":     this.formServicios.value.precioPorPersona,
       "precPorChildren":    this.formServicios.value.precioPorChildren,
@@ -280,11 +323,14 @@ export class CrearCotizacionComponent implements OnInit {
       "noIncluye":          this.formServicios.value.noIncluye,
       "infoImportante":     this.formServicios.value.infoImportante,
       "otrasCondiciones":   this.formServicios.value.otrasCondiciones,
-      "idReserva":          0,
-      "fechaCreacion":      '2021-11-23',
-      "fechaEdicion":       '2021-11-23',
-      "idUsuario":          3
+      "idReserva":          undefined,
+      "fechaCreacion":      undefined,
+      "fechaEdicion":       undefined,
+      "idUsuario":          2
     });
+
+    console.log(this.formServicios.value.idServicio);
+    console.log(this.listDataServicios);
 
     // console.log(this.listDataServicios);
    
@@ -300,7 +346,9 @@ export class CrearCotizacionComponent implements OnInit {
   }
 
   editarServicio(index: any, param:any) {
-    console.log(index, param.detalle);
+    console.log(index, param);
+    console.log(param.idServicio);
+    this.formServicios.controls['idServicio'].setValue(param.idServicio);
     this.formServicios.controls['detalle'].setValue(param.detalle);
     this.formServicios.controls['precioPorPersona'].setValue(param.precPorPersona);
     this.formServicios.controls['precioPorChildren'].setValue(param.precPorChildren);
@@ -329,39 +377,83 @@ export class CrearCotizacionComponent implements OnInit {
   }
 
   guardarDatosCotizacion() {
-    Swal.fire({
-      title: '¿Quieres guardar la cotización?',
-      showDenyButton: true,
-      confirmButtonText: '&nbsp;&nbsp;Si&nbsp;&nbsp;',
-      denyButtonText: `&nbsp;&nbsp;No&nbsp;&nbsp;`,
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        this._cotizacionService.guardarCotizacion(this.dataCotizacion).subscribe(data => {
-      
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
+    if(this.paramIdReserva == undefined) {
+      Swal.fire({
+        title: '¿Quieres guardar la cotización?',
+        showDenyButton: true,
+        confirmButtonText: '&nbsp;&nbsp;Si&nbsp;&nbsp;',
+        denyButtonText: `&nbsp;&nbsp;No&nbsp;&nbsp;`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          this._cotizacionService.guardarCotizacion(this.dataCotizacion).subscribe(data => {
+        
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+            })
+
+            if(data.message == 'Cotización No Insertada'){
+              Toast.fire({
+                icon: 'error',
+                title: data.message
+              })
+            } else {
+              Toast.fire({
+                icon: 'success',
+                title: data.message
+              })
+            }
+  
+            console.log(this.dataCotizacion);
+
+            this.route.navigate(['cotizaciones']);
+
+            error => {
+              console.log(data.message);
+            };
           })
-    
+        } 
+      })
+    } else{
+      console.log(this.dataCotizacion);
+      this._cotizacionService.editarCotizacion(this.dataCotizacion.reserva.idReserva, this.dataCotizacion).subscribe(data => {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+        })
+  
+        if(data.message == 'La Cotización No se pudo Editar'){
+          Toast.fire({
+            icon: 'error',
+            title: data.message
+          })
+        } else {
           Toast.fire({
             icon: 'success',
             title: data.message
           })
-    
-          // this._snackBar.open(data.message), {
-          //   duration: 2000,
-          //   verticalPosition: top,
-          // }
-          error => {
-            console.log(error);
-          };
-        })
-      } 
-    })
+        }
+
+        console.log(this.dataCotizacion);
+
+        this.route.navigate(['cotizaciones']);
+
+        error => {
+          Toast.fire({
+            icon: 'error',
+            title: data.message
+          })
+        };
+      })
+    }
   }
+
+
 
 }
 

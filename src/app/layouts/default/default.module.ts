@@ -4,6 +4,7 @@ import { DefaultComponent } from './default.component';
 import { DashboardComponent } from '../../modules/dashboard/dashboard.component';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { PostComponent } from '../../modules/post/post.component';
 import { SharedModule } from '../../shared/shared.module';
 import { MaterialModule } from '../../material/material/material.module';
@@ -29,6 +30,7 @@ import { HttpClientModule } from '@angular/common/http'
     FlexLayoutModule,
     CKEditorModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule
   ],
 })

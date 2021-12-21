@@ -3,9 +3,15 @@
         <div fxLayout="row" fxFlex="20">
             <span>Cotizaciones</span>
         </div>
+
         <div fxLayout="row" fxFlex="80" fxLayoutAlign="end center">
+            <button mat-raised-button color="primary" class="btn-header" (click)="obtenerCotizacionesEliminadas()">Papelera</button>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="end center">
             <button mat-raised-button color="primary" class="btn-header" routerLink="/crear_cotizacion">Crear Cotización</button>
         </div>
+        
     </mat-toolbar>
 </div>
 
@@ -16,61 +22,176 @@
 <div class="container-card" fxLayout="row" fxLayoutAlign="center">
     <div fxLayout="column" fxLayoutAlign="center" fxFlex="92">
         <div class="div-header">
-            <h3>Informacion Cotizante</h3>
+            <h3>Cotizaciones</h3>
         </div>
         <mat-card fxLayout="row" class="mat-elevation-z1" class="card">
             <div fxLayout="column" fxFlex="100" fxLayoutAlign="end">
+
+                <!-- <mat-form-field appearance="standard">
+                    <mat-label>Filtrar</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input autocomplete="off">
+                </mat-form-field> -->
+
                 <table mat-table [dataSource]="dataSourceListCotizacion" class="mat-elevation-z0">
 
                     <ng-container matColumnDef="idReserva">
-                      <th mat-header-cell *matHeaderCellDef> Id Reserva </th>
+                      <th mat-header-cell *matHeaderCellDef style="width: 12.5%"> Id Reserva </th>
                       <td mat-cell *matCellDef="let element"> {{element.id_Reserva}} </td>
                     </ng-container>
                   
                     <ng-container matColumnDef="nombreCotizante">
-                      <th mat-header-cell *matHeaderCellDef> Nombre Cotizante </th>
+                      <th mat-header-cell *matHeaderCellDef style="width: 12.5%"> Nombre Cotizante </th>
                       <td mat-cell *matCellDef="let element"> {{element.nombre_Cotizante}} </td>
                     </ng-container>
                   
                     <ng-container matColumnDef="destino">
-                      <th mat-header-cell *matHeaderCellDef> Destino </th>
+                      <th mat-header-cell *matHeaderCellDef style="width: 12.5%"> Destino </th>
                       <td mat-cell *matCellDef="let element"> {{element.destino}} </td>
                     </ng-container>
                   
                     <ng-container matColumnDef="fechaEntrada">
-                      <th mat-header-cell *matHeaderCellDef> Fecha Entrada </th>
+                      <th mat-header-cell *matHeaderCellDef style="width: 12.5%"> Fecha Entrada </th>
                       <td mat-cell *matCellDef="let element"> {{element.fecha_Entrada}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="fechaSalida">
-                        <th mat-header-cell *matHeaderCellDef> Fecha Salida </th>
+                        <th mat-header-cell *matHeaderCellDef style="width: 12.5%"> Fecha Salida </th>
                         <td mat-cell *matCellDef="let element"> {{element.fecha_Salida}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="estado">
-                        <th mat-header-cell *matHeaderCellDef> Estado </th>
-                        <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+                        <th mat-header-cell *matHeaderCellDef style="width: 12.5%"> Estado </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.estado}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="acciones">
-                        <th mat-header-cell *matHeaderCellDef style="text-align: center"> Acción </th>
-                        <td mat-cell *matCellDef="let element;" style="text-align: center">  
+                        <th mat-header-cell *matHeaderCellDef style="width: 12.5%; text-align: center"> Acción </th>
+                        <td mat-cell *matCellDef="let element; let i = index" style="text-align: center"> 
+                            <a class="color-view cursor-pointer">
+                                <mat-icon matTooltip="Ver Cotización" class="padding-icon" (click)="verCotizacion(element)">
+                                    visibility</mat-icon>
+                            </a>
+                            
                             <a class="color-edit cursor-pointer">
-                                <mat-icon matTooltip="Editar Aéreo" class="padding-edit"
-                                (click)="editarAereo(element)">edit</mat-icon>
+                                <mat-icon matTooltip="Editar Cotización" class="padding-icon" (click)="editarCotizacion(element)">
+                                    edit</mat-icon>
                             </a>
 
-                            <a class="color-delete cursor-pointer">
-                                <mat-icon matTooltip="Eliminar Aéreo" class="padding-delete">
-                                    delete</mat-icon>
-                            </a>
+                            <!-- <mat-form-field appearance="outline">
+                                <mat-select [(value)]="selected">
+                                  <mat-option [value]="estado.id_Estado" *ngFor="let estado of listEstadosCotizacion">
+                                    {{estado.estado}}
+                                  </mat-option>
+                                </mat-select>
+                            </mat-form-field> -->
+
                         </td>
                     </ng-container>
+
+                    <ng-container matColumnDef="cambiarEstado">
+                      <th mat-header-cell *matHeaderCellDef style="width: 12.5%; text-align: center"> Cambiar Estado </th>
+                      <td mat-cell *matCellDef="let element" style="text-align: center">
+                          <mat-form-field appearance="outline">
+                            <mat-select [(value)]="element.id_Estado">
+                              <mat-option *ngFor="let option of listEstadosCotizacion" [value]="option.id_Estado">
+                                {{ option.estado }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+
+                          <a class="color-save cursor-pointer">
+                            <mat-icon matTooltip="Guardar Cambio de Estado" class="padding-icon" (click)="CambiarEstadoCotizacion(element)">
+                                save</mat-icon>
+                          </a>
+                      </td>
+                    </ng-container>
+
+
+                    <!-- <ng-container matColumnDef="estadoPrueba">
+                      <th mat-header-cell *matHeaderCellDef> EstadoP </th>
+                      <td mat-cell *matCellDef="let element"> 
+                        <mat-form-field >
+                          <mat-select style="min-width: 200px;" placeholder="" [(value)]="element.estado">
+                            <mat-option *ngFor="let estado of listEstadosCotizacion" [value]="estado.estado">
+                              {{ estado.estado }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field> </td>
+                    </ng-container> -->
                   
                     <tr mat-header-row *matHeaderRowDef="displayedColumnsListCotizacion"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumnsListCotizacion;"></tr>
                   </table>
+
+                  <mat-paginator #listCotizacionPaginator [pageSizeOptions]="[5, 10, 20]"
+                    showFirstLastButtons 
+                    aria-label="Select page of periodic elements">
+                  </mat-paginator>
             </div>
         </mat-card>
+
+        <br>
+        <br>
+
+        <div *ngIf="mostrarCotizacionesEliminadas"> <!-- *ngIf="mostrarCotizacionesEliminadas" -->
+            <div class="div-header">
+                <h3>Cotizaciones Eliminadas</h3>
+            </div>
+            <mat-card fxLayout="row" class="mat-elevation-z1" class="card">
+                <div fxLayout="column" fxFlex="100" fxLayoutAlign="end">
+                    <table mat-table [dataSource]="dataSourceListCoizacionesEliminadas" class="mat-elevation-z0">
+    
+                        <ng-container matColumnDef="idReserva">
+                          <th mat-header-cell *matHeaderCellDef> Id Reserva </th>
+                          <td mat-cell *matCellDef="let element"> {{element.id_Reserva}} </td>
+                        </ng-container>
+                      
+                        <ng-container matColumnDef="nombreCotizante">
+                          <th mat-header-cell *matHeaderCellDef> Nombre Cotizante </th>
+                          <td mat-cell *matCellDef="let element"> {{element.nombre_Cotizante}} </td>
+                        </ng-container>
+                      
+                        <ng-container matColumnDef="destino">
+                          <th mat-header-cell *matHeaderCellDef> Destino </th>
+                          <td mat-cell *matCellDef="let element"> {{element.destino}} </td>
+                        </ng-container>
+                      
+                        <ng-container matColumnDef="fechaEntrada">
+                          <th mat-header-cell *matHeaderCellDef> Fecha Entrada </th>
+                          <td mat-cell *matCellDef="let element"> {{element.fecha_Entrada}} </td>
+                        </ng-container>
+    
+                        <ng-container matColumnDef="fechaSalida">
+                            <th mat-header-cell *matHeaderCellDef> Fecha Salida </th>
+                            <td mat-cell *matCellDef="let element"> {{element.fecha_Salida}} </td>
+                        </ng-container>
+    
+                        <ng-container matColumnDef="estado">
+                            <th mat-header-cell *matHeaderCellDef> Estado </th>
+                            <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+                        </ng-container>
+    
+                        <ng-container matColumnDef="acciones">
+                            <th mat-header-cell *matHeaderCellDef style="text-align: center"> Acción </th>
+                            <td mat-cell *matCellDef="let element; let i = index" style="text-align: center">  
+                                <a class="color-recover cursor-pointer">
+                                    <mat-icon matTooltip="Recuperar Cotización" class="padding-delete" (click)="recuperarCotizacion(element)">
+                                        unarchive</mat-icon>
+                                </a>           
+                            </td>
+                        </ng-container>
+                      
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnsListCotizacionesEliminadas"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumnsListCotizacionesEliminadas;"></tr>
+                      </table>
+
+                      <mat-paginator #listCotizacionesEliminadasPaginator [pageSizeOptions]="[5, 10, 20]"
+                        showFirstLastButtons 
+                        aria-label="Select page of periodic elements">
+                      </mat-paginator>
+                </div>
+            </mat-card>
+        </div>
+        
     </div>
 </div>

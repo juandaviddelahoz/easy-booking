@@ -7,9 +7,9 @@ export class Reserva {
     cantInfantes: number;
     destino: string;
     observaciones: string;
-    estado: number;
     fechaCreacion: string;
     fechaEdicion: string;
     idUsuario: number;
     idPersona: number;
+    idEstado: number;
 }

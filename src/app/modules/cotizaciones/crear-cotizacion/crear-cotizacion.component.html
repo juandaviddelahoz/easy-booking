@@ -50,11 +50,11 @@
             </div>
 
             <div fxLayout="column" fxFlex="10">
-                <button mat-raised-button color="primary" class="btn-header" data-bs-toggle="modal"
+                <button [disabled]="btnDisabled" mat-raised-button color="primary" class="btn-header" data-bs-toggle="modal"
                     data-bs-target="#modalInfoCotizante">Crear</button>
-                <button mat-raised-button color="primary" class="btn-header" (click)="editarInfoCotizante()"
+                <button [disabled]="btnDisabled" mat-raised-button color="primary" class="btn-header" (click)="editarInfoCotizante()"
                     data-bs-toggle="modal" data-bs-target="#modalInfoCotizante">Editar</button>
-                <button mat-raised-button color="primary" class="btn-header"
+                <button [disabled]="btnDisabled" mat-raised-button color="primary" class="btn-header"
                     (click)="eliminarInfoCotizante()">Eliminar</button>
             </div>
         </mat-card>
@@ -72,68 +72,63 @@
                     <!--- Note that these columns can be defined in any order.
                                   The actual rendered columns are set as a property on the row definition" -->
 
-                    <!-- Position Column -->
+                    <ng-container matColumnDef="idAereo">
+                        <th mat-header-cell *matHeaderCellDef> Id Aereo </th>
+                        <td mat-cell *matCellDef="let element" [innerHTML]="element.idAereo"></td>
+                    </ng-container>
+
                     <ng-container matColumnDef="detalle">
                         <th mat-header-cell *matHeaderCellDef> Detalle </th>
                         <td mat-cell *matCellDef="let element" [innerHTML]="element.detalle"></td>
                     </ng-container>
 
-                    <!-- Name Column -->
                     <ng-container matColumnDef="txBAdulto">
                         <th mat-header-cell *matHeaderCellDef> Tarifa Base Adultos </th>
                         <td mat-cell *matCellDef="let element"> {{element.txBAdulto}} </td>
                     </ng-container>
 
-                    <!-- Weight Column -->
                     <ng-container matColumnDef="txBChildren">
                         <th mat-header-cell *matHeaderCellDef> Tarifa Base Niños </th>
                         <td mat-cell *matCellDef="let element"> {{element.txBChildren}} </td>
                     </ng-container>
 
-                    <!-- Weight Column -->
                     <ng-container matColumnDef="txBInfante">
                         <th mat-header-cell *matHeaderCellDef> Tarifa Base Infantes </th>
                         <td mat-cell *matCellDef="let element"> {{element.txBInfante}} </td>
                     </ng-container>
 
-                    <!-- Symbol Column -->
                     <ng-container matColumnDef="totalTktSinImp">
                         <th mat-header-cell *matHeaderCellDef> Total Tks Sin Inpuesto </th>
                         <td mat-cell *matCellDef="let element"> {{element.totalTktSinImp}} </td>
                     </ng-container>
 
-                    <!-- Symbol Column -->
                     <ng-container matColumnDef="impuesto">
                         <th mat-header-cell *matHeaderCellDef> Impuesto </th>
                         <td mat-cell *matCellDef="let element"> {{element.impuesto}} </td>
                     </ng-container>
 
-                    <!-- Symbol Column -->
                     <ng-container matColumnDef="seguro">
                         <th mat-header-cell *matHeaderCellDef> Seguro </th>
                         <td mat-cell *matCellDef="let element"> {{element.seguro}} </td>
                     </ng-container>
 
-                    <!-- Symbol Column -->
                     <ng-container matColumnDef="txAdministrativa">
                         <th mat-header-cell *matHeaderCellDef> Tarifa Asministrativa </th>
                         <td mat-cell *matCellDef="let element"> {{element.txAdministrativa}} </td>
                     </ng-container>
 
-                    <!-- Symbol Column -->
                     <ng-container matColumnDef="qse">
                         <th mat-header-cell *matHeaderCellDef> QSE </th>
                         <td mat-cell *matCellDef="let element"> {{element.qse}} </td>
                     </ng-container>
 
-                    <!-- Symbol Column -->
                     <ng-container matColumnDef="totalTkt">
                         <th mat-header-cell *matHeaderCellDef> Total Tks </th>
                         <td mat-cell *matCellDef="let element"> {{element.totalTkt}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="acciones">
-                        <th mat-header-cell *matHeaderCellDef style="text-align: center"> Acción </th>
+                        <th mat-header-cell *matHeaderCellDef style="width: 95px; text-align: center"> Acción </th>
                         <td mat-cell *matCellDef="let element; let i = index" style="text-align: center">
                             <a class="color-edit cursor-pointer">
                                 <mat-icon matTooltip="Editar Aéreo" class="padding-edit"
@@ -154,7 +149,7 @@
             </div>
 
             <div fxLayout="column" fxFlex="10">
-                <button mat-raised-button color="primary" class="btn-header" data-bs-toggle="modal"
+                <button [disabled]="btnDisabled" mat-raised-button color="primary" class="btn-header" data-bs-toggle="modal"
                     data-bs-target="#modalAereos">Agregar</button>
             </div>
         </mat-card>
@@ -169,6 +164,11 @@
         <mat-card fxLayout="row" class="mat-elevation-z1" class="card">
             <div fxLayout="column" fxFlex="90" fxLayoutAlign="end center" class="containerrow">
                 <table mat-table [dataSource]="dataSourceServicios" class="mat-elevation-z0">
+                    
+                    <ng-container matColumnDef="idServicio">
+                        <th mat-header-cell *matHeaderCellDef> Id Servicio </th>
+                        <td mat-cell *matCellDef="let element" [innerHTML]="element.idServicio"></td>
+                    </ng-container>
 
                     <ng-container matColumnDef="detalle">
                         <th mat-header-cell *matHeaderCellDef> Detalle </th>
@@ -226,7 +226,7 @@
                     </ng-container>
 
                     <ng-container matColumnDef="acciones">
-                        <th mat-header-cell *matHeaderCellDef style="text-align: center"> Acción </th>
+                        <th mat-header-cell *matHeaderCellDef style="width: 95px; text-align: center"> Acción </th>
                         <td mat-cell *matCellDef="let element; let i = index" style="text-align: center">
                             <a class="color-edit cursor-pointer">
                                 <mat-icon matTooltip="Editar Servicio" class="padding-edit"
@@ -247,7 +247,7 @@
             </div>
 
             <div fxLayout="column" fxFlex="10">
-                <button mat-raised-button color="primary" class="btn-header" data-bs-toggle="modal"
+                <button [disabled]="btnDisabled" mat-raised-button color="primary" class="btn-header" data-bs-toggle="modal"
                     data-bs-target="#modalServicios">Agregar</button>
             </div>
 
@@ -258,9 +258,8 @@
         <br>
 
         <div fxLayout="column" fxLayoutAlign="center center">
-            <button mat-raised-button color="primary" class="btn-submit" type="submit" (click)="guardarDatosCotizacion()">Guardar Cotización</button>
+            <button *ngIf="!mostrarBtn" mat-raised-button color="primary" class="btn-submit" type="submit" (click)="guardarDatosCotizacion()">Guardar Cotización</button>
         </div>
-
     </div>
 </div>
 

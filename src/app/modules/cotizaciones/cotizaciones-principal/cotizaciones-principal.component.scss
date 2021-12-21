@@ -25,6 +25,7 @@ p {
 
 .btn-header {
     margin: 7px;
+    width: 135px;
 }
 
 .mat-raised-button:hover {
@@ -64,6 +65,14 @@ table {
     cursor: pointer;
 }
 
+.color-view {
+    color: #b0bec5;
+}
+
+.color-view:hover {
+    color: #78909c;
+}
+
 .color-edit {
     color: #2196f3;
 }
@@ -80,13 +89,29 @@ table {
     color: #d32f2f;
 }
 
+.color-save {
+    color:#3f51b5;
+}
+
+.color-save:hover {
+    color: #303f9f;
+}
+
+.color-recover {
+    color: #4caf50;
+}
+
+.color-recover:hover {
+    color: #388e3c;
+}
+
 ::ng-deep .mat-icon{
     
     text-align: center;
 }
 
-.padding-edit{
-    padding: 6px 5px 0px 5px;
+.padding-icon{
+    padding: 6px 30px 0px 5px;
 }
 
 .padding-delete{
@@ -96,3 +121,12 @@ table {
 .th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
     padding-top: 15px;
 }
+
+.mat-form-field {
+    width: 43.5%;
+}
+
+//alto de la lista desplegable
+// ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+//     padding: 0.2em 0 0.8em 0;
+// }

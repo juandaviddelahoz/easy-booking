@@ -28,7 +28,12 @@ const routes: Routes = [{
   {
     path: 'editar_cotizacion/:id',
     component: CrearCotizacionComponent
-  }]
+  },
+  {
+    path: 'ver_cotizacion/:id/:estado',
+    component: CrearCotizacionComponent
+  }
+]
 }];
 
 @NgModule({
