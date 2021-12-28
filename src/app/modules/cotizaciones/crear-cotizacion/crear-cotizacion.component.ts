@@ -49,10 +49,25 @@ export class CrearCotizacionComponent implements OnInit {
 
   btnDisabled: boolean;
 
+  // Variables para guardar los calculos
+
+  totalTkSinImpuesto: number;
+
+  totalTkt: number;
+
+  totalPaqTuristico: number;
+
+  // --------------------
+
+  cantAdultos: number;
+
+  cantChildren: number;
+
+  cantInfantes: number;
+
   // ---------------------------------------------------------------------------
 
   formInfoCotizante!: FormGroup; 
-  // infoCotizanteModelObj: infoCotizanteModel = new infoCotizanteModel();
 
   formAereos!: FormGroup;
   listDataAereos: any = [];
@@ -156,17 +171,7 @@ export class CrearCotizacionComponent implements OnInit {
       infoImportante      : [''],
       otrasCondiciones    : ['']
     }) 
-
-    // this.obtenerCotizacion();
   }
-
-  // obtenerCotizacion(){
-  //   this._cotizacionService.obtenerCotizacion().subscribe(data => {
-  //     console.log(data);
-  //   }, error => {
-  //     console.log(error);
-  //   })
-  // }
 
   enviarDatosInfoCotizante() {
       this.dataCotizacion.persona.idPersona == undefined ? undefined : undefined;
@@ -193,15 +198,15 @@ export class CrearCotizacionComponent implements OnInit {
       this.dataCotizacion.reserva.idUsuario       = 2;
       this.dataCotizacion.reserva.idPersona == undefined ? undefined : undefined;
 
-    this.formInfoCotizante.reset();
+      this.cantAdultos = this.dataCotizacion.reserva.cantAdultos;
+      this.cantChildren = this.dataCotizacion.reserva.cantChildren;
+      this.cantInfantes = this.dataCotizacion.reserva.cantInfantes;
+
+      this.calcular();
+
+    // this.formInfoCotizante.reset();
 
     console.log(this.dataCotizacion)
-
-    // console.log(this.listDataAereos.length); 
-
-    // if(this.listDataAereos.length > 0) {
-    //   this.dataSourceAereos.data = this.listDataAereos;
-    // }
   }
 
   editarInfoCotizante() {
@@ -236,14 +241,42 @@ export class CrearCotizacionComponent implements OnInit {
     console.log(this.dataCotizacion)
   }
 
+  calcular(){
+
+    this.totalTkSinImpuesto = (this.formAereos.value.tarifaBaseAdultos  * this.cantAdultos)  + 
+                              (this.formAereos.value.tarifaBaseChildren * this.cantChildren) +
+                              (this.formAereos.value.tarifaBaseInfantes * this.cantInfantes);
+
+    this.totalTkt            = (this.totalTkSinImpuesto) + (this.formAereos.value.impuesto) + (this.formAereos.value.seguro) +
+                              (this.formAereos.value.tarifaAdministraiva) + (this.formAereos.value.qse);
+                              
+    this.listDataAereos.map((data) =>{
+      data.totalTktSinImp = (data.txBAdulto   * this.cantAdultos)  + 
+                            (data.txBChildren * this.cantChildren) +
+                            (data.txBInfante  * this.cantInfantes);
+    
+    this.listDataAereos.map((data) =>{
+      data.totalTkt = (data.totalTktSinImp) + (data.impuesto) + (data.seguro) + (data.txAdministrativa) + (data.qse)
+    })
+
+    this.totalPaqTuristico = (this.formServicios.value.precioPorPersona  * this.cantAdultos)  + 
+                            (this.formServicios.value.precioPorChildren * this.cantChildren);
+
+    this.listDataServicios.map((data) =>{
+      data.totalPaqTuristico = (data.precPorPersona * this.cantAdultos) +
+                               (data.precPorChildren * this.cantChildren);
+    })
+
+    console.log(this.formAereos.value.tarifaBaseAdultos);
+    })
+
+    console.log(this.totalTkSinImpuesto);
+    console.log(this.totalTkt);
+  }
+
   enviarDatosAereo() {
 
-    let totalTkSinImpuesto =  (this.formAereos.value.tarifaBaseAdultos  * this.dataCotizacion.reserva.cantAdultos)  + 
-                              (this.formAereos.value.tarifaBaseChildren * this.dataCotizacion.reserva.cantChildren) +
-                              (this.formAereos.value.tarifaBaseInfantes * this.dataCotizacion.reserva.cantInfantes);
-
-    let totalTkt            = (totalTkSinImpuesto) + (this.formAereos.value.impuesto) + (this.formAereos.value.seguro) +
-                              (this.formAereos.value.tarifaAdministraiva) + (this.formAereos.value.qse);
+    this.calcular();
 
       this.listDataAereos.push({
         "idAereo":             this.paramIdReserva == undefined ? undefined : this.formAereos.value.idAereo,    
@@ -251,23 +284,20 @@ export class CrearCotizacionComponent implements OnInit {
         "txBAdulto":           this.formAereos.value.tarifaBaseAdultos,
         "txBChildren":         this.formAereos.value.tarifaBaseChildren,
         "txBInfante":          this.formAereos.value.tarifaBaseInfantes,
-        "totalTktSinImp":      totalTkSinImpuesto,
+        "totalTktSinImp":      this.totalTkSinImpuesto,
         "impuesto":            this.formAereos.value.impuesto,
         "seguro":              this.formAereos.value.seguro,
         "txAdministrativa":    this.formAereos.value.tarifaAdministraiva,
         "qse":                 this.formAereos.value.qse,
-        "totalTkt":            totalTkt,
+        "totalTkt":            this.totalTkt,
         "idReserva":           undefined,
         "fechaCreacion":       undefined,
         "fechaEdicion":        undefined,
         "idUsuario":           2
-      });                       
+      });             
       
       console.log(this.formAereos.value.idAereo);
       console.log(this.listDataAereos);
-   
-
-    // console.log(this.listDataAereos);
    
     this.formAereos.reset();
 
@@ -299,23 +329,20 @@ export class CrearCotizacionComponent implements OnInit {
     this.listDataAereos.splice(index, 1);
 
     this.dataSourceAereos.data = this.listDataAereos;
-
-    // console.log(this.dataSourceAereos.data);   
     
     console.log(this.dataCotizacion)
   }
 
   enviarDatosServicio() {
 
-    let totalPaqTuristico = (this.formServicios.value.precioPorPersona  * this.dataCotizacion.reserva.cantAdultos)  + 
-                            (this.formServicios.value.precioPorChildren * this.dataCotizacion.reserva.cantChildren);
+    this.calcular();
 
     this.listDataServicios.push({
       "idServicio":         this.paramIdReserva == undefined ? undefined : this.formServicios.value.idServicio,
       "detalle":            this.formServicios.value.detalle,
       "precPorPersona":     this.formServicios.value.precioPorPersona,
       "precPorChildren":    this.formServicios.value.precioPorChildren,
-      "totalPaqTuristico":  totalPaqTuristico,
+      "totalPaqTuristico":  this.totalPaqTuristico,
       "tipoAlimentacion":   this.formServicios.value.tipoAlimentacion,
       "tipoHabitacion" :    this.formServicios.value.tipoHabitacion,
       "tipoAcomdacion":     this.formServicios.value.tipoAcomodacion,
@@ -331,8 +358,6 @@ export class CrearCotizacionComponent implements OnInit {
 
     console.log(this.formServicios.value.idServicio);
     console.log(this.listDataServicios);
-
-    // console.log(this.listDataServicios);
    
     this.formServicios.reset();
 
@@ -371,8 +396,6 @@ export class CrearCotizacionComponent implements OnInit {
 
     this.dataSourceServicios.data = this.listDataServicios
 
-    // console.log(this.dataSourceServicios.data)
-
     console.log(this.dataCotizacion)
   }
 
@@ -382,9 +405,11 @@ export class CrearCotizacionComponent implements OnInit {
         title: '¿Quieres guardar la cotización?',
         showDenyButton: true,
         confirmButtonText: '&nbsp;&nbsp;Si&nbsp;&nbsp;',
+        confirmButtonColor: "#345c96",
         denyButtonText: `&nbsp;&nbsp;No&nbsp;&nbsp;`,
+        denyButtonColor: "#d4021a",
       }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
+
         if (result.isConfirmed) {
           this._cotizacionService.guardarCotizacion(this.dataCotizacion).subscribe(data => {
         

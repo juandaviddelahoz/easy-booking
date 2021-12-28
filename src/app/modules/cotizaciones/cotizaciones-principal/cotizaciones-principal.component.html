@@ -5,7 +5,7 @@
         </div>
 
         <div fxLayout="row" fxFlex="80" fxLayoutAlign="end center">
-            <button mat-raised-button color="primary" class="btn-header" (click)="obtenerCotizacionesEliminadas()">Papelera</button>
+            <button mat-raised-button color="primary" class="btn-header" (click)="verCotizacionesEliminadas()">Papelera</button>
         </div>
 
         <div fxLayout="row" fxLayoutAlign="end center">
@@ -35,37 +35,37 @@
                 <table mat-table [dataSource]="dataSourceListCotizacion" class="mat-elevation-z0">
 
                     <ng-container matColumnDef="idReserva">
-                      <th mat-header-cell *matHeaderCellDef style="width: 12.5%"> Id Reserva </th>
+                      <th mat-header-cell *matHeaderCellDef> Id Reserva </th>
                       <td mat-cell *matCellDef="let element"> {{element.id_Reserva}} </td>
                     </ng-container>
                   
                     <ng-container matColumnDef="nombreCotizante">
-                      <th mat-header-cell *matHeaderCellDef style="width: 12.5%"> Nombre Cotizante </th>
+                      <th mat-header-cell *matHeaderCellDef> Nombre Cotizante </th>
                       <td mat-cell *matCellDef="let element"> {{element.nombre_Cotizante}} </td>
                     </ng-container>
                   
                     <ng-container matColumnDef="destino">
-                      <th mat-header-cell *matHeaderCellDef style="width: 12.5%"> Destino </th>
+                      <th mat-header-cell *matHeaderCellDef> Destino </th>
                       <td mat-cell *matCellDef="let element"> {{element.destino}} </td>
                     </ng-container>
                   
                     <ng-container matColumnDef="fechaEntrada">
-                      <th mat-header-cell *matHeaderCellDef style="width: 12.5%"> Fecha Entrada </th>
+                      <th mat-header-cell *matHeaderCellDef> Fecha Entrada </th>
                       <td mat-cell *matCellDef="let element"> {{element.fecha_Entrada}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="fechaSalida">
-                        <th mat-header-cell *matHeaderCellDef style="width: 12.5%"> Fecha Salida </th>
+                        <th mat-header-cell *matHeaderCellDef> Fecha Salida </th>
                         <td mat-cell *matCellDef="let element"> {{element.fecha_Salida}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="estado">
-                        <th mat-header-cell *matHeaderCellDef style="width: 12.5%"> Estado </th>
+                        <th mat-header-cell *matHeaderCellDef> Estado </th>
                         <td mat-cell *matCellDef="let element"> {{ element.estado}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="acciones">
-                        <th mat-header-cell *matHeaderCellDef style="width: 12.5%; text-align: center"> Acción </th>
+                        <th mat-header-cell *matHeaderCellDef style="text-align: center"> Acción </th>
                         <td mat-cell *matCellDef="let element; let i = index" style="text-align: center"> 
                             <a class="color-view cursor-pointer">
                                 <mat-icon matTooltip="Ver Cotización" class="padding-icon" (click)="verCotizacion(element)">
@@ -76,23 +76,14 @@
                                 <mat-icon matTooltip="Editar Cotización" class="padding-icon" (click)="editarCotizacion(element)">
                                     edit</mat-icon>
                             </a>
-
-                            <!-- <mat-form-field appearance="outline">
-                                <mat-select [(value)]="selected">
-                                  <mat-option [value]="estado.id_Estado" *ngFor="let estado of listEstadosCotizacion">
-                                    {{estado.estado}}
-                                  </mat-option>
-                                </mat-select>
-                            </mat-form-field> -->
-
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="cambiarEstado">
-                      <th mat-header-cell *matHeaderCellDef style="width: 12.5%; text-align: center"> Cambiar Estado </th>
-                      <td mat-cell *matCellDef="let element" style="text-align: center">
+                      <th mat-header-cell *matHeaderCellDef style="width: 18%"> Cambiar Estado </th>
+                      <td mat-cell *matCellDef="let element">
                           <mat-form-field appearance="outline">
-                            <mat-select [(value)]="element.id_Estado">
+                            <mat-select [(value)]="element.id_Estado" (selectionChange)="eventoSeleccionEstado($event.value, element)">
                               <mat-option *ngFor="let option of listEstadosCotizacion" [value]="option.id_Estado">
                                 {{ option.estado }}
                               </mat-option>
@@ -100,24 +91,12 @@
                           </mat-form-field>
 
                           <a class="color-save cursor-pointer">
-                            <mat-icon matTooltip="Guardar Cambio de Estado" class="padding-icon" (click)="CambiarEstadoCotizacion(element)">
+                            <mat-icon matTooltip="Guardar Cambio de Estado" class="margin-icon" (click)="CambiarEstadoCotizacion(element)"
+                            *ngIf="mostrarIconGuardar"> 
                                 save</mat-icon>
                           </a>
                       </td>
                     </ng-container>
-
-
-                    <!-- <ng-container matColumnDef="estadoPrueba">
-                      <th mat-header-cell *matHeaderCellDef> EstadoP </th>
-                      <td mat-cell *matCellDef="let element"> 
-                        <mat-form-field >
-                          <mat-select style="min-width: 200px;" placeholder="" [(value)]="element.estado">
-                            <mat-option *ngFor="let estado of listEstadosCotizacion" [value]="estado.estado">
-                              {{ estado.estado }}
-                            </mat-option>
-                          </mat-select>
-                        </mat-form-field> </td>
-                    </ng-container> -->
                   
                     <tr mat-header-row *matHeaderRowDef="displayedColumnsListCotizacion"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumnsListCotizacion;"></tr>
@@ -133,7 +112,7 @@
         <br>
         <br>
 
-        <div *ngIf="mostrarCotizacionesEliminadas"> <!-- *ngIf="mostrarCotizacionesEliminadas" -->
+        <div [hidden]="!mostrarCotizacionesEliminadas">
             <div class="div-header">
                 <h3>Cotizaciones Eliminadas</h3>
             </div>

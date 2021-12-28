@@ -29,7 +29,7 @@ p {
 }
 
 .mat-raised-button:hover {
-    background-color: #303f9f
+    background-color: #274A83
 }
 
 .titulo {
@@ -45,7 +45,7 @@ h3 {
 }
 
 .div-header {
-    background-color: #3f51b5;
+    background-color: #345c96;
     box-sizing: content-box;
     width: 100%;
     border-top-left-radius: 4px;
@@ -74,11 +74,11 @@ table {
 }
 
 .color-edit {
-    color: #2196f3;
+    color: #345c96;
 }
 
 .color-edit:hover {
-    color: #1976d2;
+    color: #274A83;
 }
 
 .color-delete {
@@ -90,19 +90,19 @@ table {
 }
 
 .color-save {
-    color:#3f51b5;
+    color: #345c96;
 }
 
 .color-save:hover {
-    color: #303f9f;
+    color: #274A83;
 }
 
 .color-recover {
-    color: #4caf50;
+    color: #345c96;
 }
 
 .color-recover:hover {
-    color: #388e3c;
+    color: #274A83;
 }
 
 ::ng-deep .mat-icon{
@@ -111,7 +111,11 @@ table {
 }
 
 .padding-icon{
-    padding: 6px 30px 0px 5px;
+    padding: 0px 30px 0px 5px;
+}
+
+.margin-icon{
+    margin: 26px 30px 0px 5px;
 }
 
 .padding-delete{
@@ -126,7 +130,11 @@ table {
     width: 43.5%;
 }
 
-//alto de la lista desplegable
+// alto de la lista desplegable
 // ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+//     padding: 0.2em 0 0.8em 0;
+// }
+
+// ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix {
 //     padding: 0.2em 0 0.8em 0;
 // }
