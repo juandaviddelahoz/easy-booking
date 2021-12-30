@@ -34,7 +34,7 @@
 
                 <table mat-table [dataSource]="dataSourceListCotizacion" class="mat-elevation-z0">
 
-                    <ng-container matColumnDef="idReserva">
+                    <ng-container matColumnDef="id_Reserva">
                       <th mat-header-cell *matHeaderCellDef> Id Reserva </th>
                       <td mat-cell *matCellDef="let element"> {{element.id_Reserva}} </td>
                     </ng-container>
@@ -84,7 +84,9 @@
                       <td mat-cell *matCellDef="let element">
                           <mat-form-field appearance="outline">
                             <mat-select [(value)]="element.id_Estado" (selectionChange)="eventoSeleccionEstado($event.value, element)">
-                              <mat-option *ngFor="let option of listEstadosCotizacion" [value]="option.id_Estado">
+                              <mat-option *ngFor="let option of listEstadosCotizacion" [value]="option.id_Estado" 
+                              [disabled] = "element.estado == 'Enviada' && option.id_Estado == 1">
+                              
                                 {{ option.estado }}
                               </mat-option>
                             </mat-select>
@@ -92,7 +94,7 @@
 
                           <a class="color-save cursor-pointer">
                             <mat-icon matTooltip="Guardar Cambio de Estado" class="margin-icon" (click)="CambiarEstadoCotizacion(element)"
-                            *ngIf="mostrarIconGuardar"> 
+                            *ngIf="element.btnCambiarEstado"> 
                                 save</mat-icon>
                           </a>
                       </td>

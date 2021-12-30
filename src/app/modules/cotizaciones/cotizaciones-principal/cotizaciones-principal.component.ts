@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Reserva } from '../crear-cotizacion/Entidades/reserva.model';
+import { TableCotizaciones } from '../crear-cotizacion/Entidades/tableCotizaciones.model';
 import { ListEstadosCotizacion } from '../crear-cotizacion/interfaces/listEstadosCotizacion';
 import { DataCotizacion } from '../crear-cotizacion/models/dataCotizacion.model';
 import { CotizacionService } from '../services/cotizacion.service';
@@ -17,8 +18,12 @@ export class CotizacionesPrincipalComponent implements OnInit {
 
   dataCotizacion: DataCotizacion = new DataCotizacion();
 
-  displayedColumnsListCotizacion: string[] = ['idReserva', 'nombreCotizante', 'destino', 'fechaEntrada', 'fechaSalida', 'estado', 'acciones', 'cambiarEstado'];
+  displayedColumnsListCotizacion: string[] = ['id_Reserva', 'nombreCotizante', 'destino', 'fechaEntrada', 'fechaSalida', 'estado', 'acciones', 'cambiarEstado'];
   dataSourceListCotizacion = new MatTableDataSource();
+
+  // Arreglo el cual se le asigna al dataSourceListCotizacion, 
+  // agrega la propiedad btnCambiarEstado la cual se usa para mostrar o ocultar el boton de guardar.
+  tablaCotizaciones: TableCotizaciones[];
 
   displayedColumnsListCotizacionesEliminadas: string[] = ['idReserva', 'nombreCotizante', 'destino', 'fechaEntrada', 'fechaSalida', 'estado', 'acciones'];
   dataSourceListCoizacionesEliminadas = new MatTableDataSource();
@@ -43,11 +48,9 @@ export class CotizacionesPrincipalComponent implements OnInit {
   // Cambio de estado a id_estado
   cambioEstadoaIdEstado: any;
 
-  capturaEstado: any;
+  disabledEliminar: boolean;
 
-  value1: any;
-
-  estadoPrueba: any;
+  selected: any;
 
   constructor(private _cotizacionService: CotizacionService,
               private route: Router) { }
@@ -76,7 +79,9 @@ export class CotizacionesPrincipalComponent implements OnInit {
 
   obtenerCotizacion(){
     this._cotizacionService.obtenerCotizacion().subscribe(data => {
-      this.dataSourceListCotizacion.data = data;
+      
+      this.tablaCotizaciones = data;
+      this.dataSourceListCotizacion.data = this.tablaCotizaciones;
       console.log(this.dataSourceListCotizacion.data);
     }, error => {
       console.log(error);
@@ -88,7 +93,6 @@ export class CotizacionesPrincipalComponent implements OnInit {
       console.log(data);
       this.listEstadosCotizacion = data;
       console.log(this.listEstadosCotizacion);
-      // this.selectedFood = 1;
     })
   }
 
@@ -108,104 +112,19 @@ export class CotizacionesPrincipalComponent implements OnInit {
         this.cambioEstadoaIdEstado = 4;
         break;
     }
+  
+    this.tablaCotizaciones.map((data) =>{
+      if(data.id_Reserva == param.id_Reserva){
 
-    if (value != this.cambioEstadoaIdEstado){
-      console.log("fUNCIONA");
-      this.mostrarIconGuardar = true;
-    }
+        if(value != this.cambioEstadoaIdEstado){
+          data.btnCambiarEstado = true
+        } else {
+          data.btnCambiarEstado = false
+        }
+      }
+    })
 
-    // if (param.id_Estado != 1){
-    //   this.mostrarIconGuardar = true;
-    // }
-
-    // if(value == param.estado){
-    //   this.mostrarIconGuardar = true;
-    // }
-    
-    // if(param.estado == "Activa"){
-    //   this.estadoPrueba = param.estado;
-    //   this.estadoPrueba = 1;
-    //   console.log(this.estadoPrueba);
-    // } else if (param.estado == "Enviada"){
-    //   this.estadoPrueba = param.estado;
-    //   this.estadoPrueba = 2;
-    //   console.log(this.estadoPrueba);
-    // } else if (param.estado == "Aprobada"){
-    //   this.estadoPrueba = param.estado;
-    //   this.estadoPrueba = 3;
-    //   console.log(this.estadoPrueba);
-    // } else if (param.estado == "Eliminada"){
-    //   this.estadoPrueba = param.estado;
-    //   this.estadoPrueba = 4;
-    //   console.log(this.estadoPrueba);
-    // }
-
-    
-
-
-        // switch(param.estado) {
-    //   case "Activa":
-    //     this.cambioEstadoaIdEstado = 1;
-    //     break;
-    //   case "Enviada":
-    //     this.cambioEstadoaIdEstado = 2;
-    //     break;
-    //   case "Aprobada":
-    //     this.cambioEstadoaIdEstado = 3;
-    //     break;
-    //   case "Eliminada":
-    //     this.cambioEstadoaIdEstado = 4;
-    //     break;
-    // }
-
-
-    // console.log(param.estado)
-
-    // if(param.estado == "Activa"){
-    //   this.cambioEstadoaIdEstado = 1
-    // } 
-    // else if(param.estado == "Enviada"){
-    //   this.cambioEstadoaIdEstado = 2
-    // }
-    // else if(param.estado == "Aprobada"){
-    //   this.cambioEstadoaIdEstado = 3
-    // }
-    // else if(param.estado == "Eliminada"){
-    //   this.cambioEstadoaIdEstado = 4
-    // }
-
-    // console.log(this.cambioEstadoaIdEstado)
-
-    // switch(param.estado) {
-    //   case "Activa":
-    //     this.cambioEstadoaIdEstado = 1;
-    //     break;
-    //   case "Enviada":
-    //     this.cambioEstadoaIdEstado = 2;
-    //     break;
-    //   case "Aprobada":
-    //     this.cambioEstadoaIdEstado = 3;
-    //     break;
-    //   case "Eliminada":
-    //     this.cambioEstadoaIdEstado = 4;
-    //     break;
-    // }
-
-    // this.value = value; 
-
-    // this.capturaEstado = param.estado;
-
-    // console.log(this.cambioEstadoaIdEstado);
-
-    // console.log(this.value);
-
-    // console.log(this.cambioEstadoaIdEstado)
-
-    // if(value == this.cambioEstadoaIdEstado){
-    //   this.mostrarIconGuardar = false;
-    // } else {
-    //   this.mostrarIconGuardar = true;
-    // }
+    this.dataSourceListCotizacion.data = this.tablaCotizaciones;
   }
 
   obtenerCotizacionesEliminadas(){
@@ -229,6 +148,18 @@ export class CotizacionesPrincipalComponent implements OnInit {
   // verificarIdEstadoIguales(param: any){
   //   if(param.id_Estado == param.cambiarEstado){
   //     this.mostrarIconGuardar = true;
+  //   }
+  // }
+
+  condicionDisabledEliminar(param:any){
+    
+  }
+
+  // isDisabled(param: any, option: any) {
+  //   if(param.estado == "Activa"){
+  //     return true
+  //   } else {
+  //     return false
   //   }
   // }
 
