@@ -85,7 +85,7 @@
                           <mat-form-field appearance="outline">
                             <mat-select [(value)]="element.id_Estado" (selectionChange)="eventoSeleccionEstado($event.value, element)">
                               <mat-option *ngFor="let option of listEstadosCotizacion" [value]="option.id_Estado" 
-                              [disabled] = "element.estado == 'Enviada' && option.id_Estado == 1">
+                              [disabled] = "element.estado === 'Enviada' ? (option.id_Estado === 1 || option.id_Estado === 4) : element.estado === 'Aprobada' && (option.id_Estado === 1 || option.id_Estado === 2 || option.id_Estado === 4)">
                               
                                 {{ option.estado }}
                               </mat-option>

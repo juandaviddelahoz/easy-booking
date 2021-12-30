@@ -278,6 +278,12 @@ export class CrearCotizacionComponent implements OnInit {
 
     this.calcular();
 
+      // if(this.paramIdReserva == undefined){
+      //   undefined
+      // } else {
+      //   this.formAereos.value.idAereo
+      // }
+
       this.listDataAereos.push({
         "idAereo":             this.paramIdReserva == undefined ? undefined : this.formAereos.value.idAereo,    
         "detalle":             this.formAereos.value.detalle,
