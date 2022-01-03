@@ -13,6 +13,7 @@ import { CotizacionesPrincipalComponent } from '../../modules/cotizaciones/cotiz
 import { CrearCotizacionComponent } from '../../modules/cotizaciones/crear-cotizacion/crear-cotizacion.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { HttpClientModule } from '@angular/common/http'
+import { GenerarCotizacionComponent } from 'src/app/modules/cotizaciones/generar-cotizacion/generar-cotizacion.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http'
     PostComponent,
     CotizacionesPrincipalComponent,
     CrearCotizacionComponent,
+    GenerarCotizacionComponent
   ],
   imports: [
     CommonModule,

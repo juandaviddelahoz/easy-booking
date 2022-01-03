@@ -5,6 +5,7 @@ import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { PostComponent } from './modules/post/post.component';
 import { CotizacionesPrincipalComponent } from './modules/cotizaciones/cotizaciones-principal/cotizaciones-principal.component';
 import { CrearCotizacionComponent } from './modules/cotizaciones/crear-cotizacion/crear-cotizacion.component';
+import { GenerarCotizacionComponent } from './modules/cotizaciones/generar-cotizacion/generar-cotizacion.component';
 
 const routes: Routes = [{
   path: '',
@@ -32,6 +33,10 @@ const routes: Routes = [{
   {
     path: 'ver_cotizacion/:id/:estado',
     component: CrearCotizacionComponent
+  },
+  {
+    path: 'generar_cotizacion',
+    component: GenerarCotizacionComponent
   }
 ]
 }];
