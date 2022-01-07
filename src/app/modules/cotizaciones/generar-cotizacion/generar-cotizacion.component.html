@@ -1,4 +1,4 @@
-<div class="container-toolbar-title">
+<!-- <div class="container-toolbar-title">
     <mat-toolbar>
         <span>Generar Cotización</span>
     </mat-toolbar>
@@ -54,5 +54,36 @@
 </div>
 
 <div>
-    <button mat-raised-button color="primary" class="btn-header" (click)="onExportClick()">Generar</button>
-</div>
+    <button mat-raised-button color="primary" class="btn-header">Generar</button>
+</div> -->
+
+<div class="container">
+    <div class="row">
+      <div id="htmlData">
+        <h2>Lista de Personajes</h2>
+        <table class="table">
+            <thead class="table-danger">
+              <tr>
+                <th scope="col">Personaje</th>
+                <th scope="col">Nacimiento</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Nickname</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let personajes of breakingBadData">
+                <th>{{personajes.name}}</th>
+                <td>{{personajes.birthday}}</td>
+                <td>{{personajes.status}}</td>
+                <td>{{personajes.nickname}}</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div>
+    <button class="btn col col-lg-4 btn-danger btn-block ml-4" (click)="downloadPDF()">Download PDF</button>
+  </div>

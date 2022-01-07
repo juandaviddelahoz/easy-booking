@@ -192,7 +192,7 @@ export class CrearCotizacionComponent implements OnInit {
       this.dataCotizacion.reserva.cantInfantes    = this.formInfoCotizante.value.cantidadInfantes;
       this.dataCotizacion.reserva.destino         = this.formInfoCotizante.value.destino;
       this.dataCotizacion.reserva.observaciones   = this.formInfoCotizante.value.observaciones;
-      this.dataCotizacion.reserva.idEstado        = 0;
+      this.dataCotizacion.reserva.idEstado        = 1;
       this.dataCotizacion.reserva.fechaCreacion   = undefined;
       this.dataCotizacion.reserva.fechaEdicion    = undefined;
       this.dataCotizacion.reserva.idUsuario       = 2;
