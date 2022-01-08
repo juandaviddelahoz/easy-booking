@@ -215,7 +215,7 @@ export class CotizacionesPrincipalComponent implements OnInit {
         title: this.mensajeAlertEstado,
         showDenyButton: true,
         confirmButtonText: '&nbsp;&nbsp;Si&nbsp;&nbsp;',
-        confirmButtonColor: "#345c96",
+        confirmButtonColor: "#005CA9",
         denyButtonText: `&nbsp;&nbsp;No&nbsp;&nbsp;`,
         denyButtonColor: "#d4021a",
       }).then((result) => {
@@ -271,7 +271,7 @@ export class CotizacionesPrincipalComponent implements OnInit {
       title: '¿Desea Recuperar la cotización?',
       showDenyButton: true,
       confirmButtonText: '&nbsp;&nbsp;Si&nbsp;&nbsp;',
-      confirmButtonColor: "#345c96",
+      confirmButtonColor: "#005CA9",
       denyButtonText: `&nbsp;&nbsp;No&nbsp;&nbsp;`,
       denyButtonColor: "#d4021a",
     }).then((result) => {

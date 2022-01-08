@@ -1,4 +1,4 @@
-<!-- <div class="container-toolbar-title">
+<div class="container-toolbar-title">
     <mat-toolbar>
         <span>Generar Cotización</span>
     </mat-toolbar>
@@ -8,14 +8,129 @@
 
 <br>
 
-<div fxLayout="column" fxLayoutAlign="center" id="element-to-export">
+<div class="container-fluid " id="htmlData">
+
+    <div class="card text-center">
+        <div class="card-header">
+            <img src="../../../../assets/img/Avion.png" class="img-header">
+            <h2>Aereos</h2>   
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        </div>
+        <div class="card-footer">
+          <p class="texto-bold">Notas:</p>  
+          <p class="texto-justificado">
+            Esto es una cotización, tarifas aéreas sujeta a cambio y disponibilidad sin previo aviso al momento de reservar, 
+            el precio sólo se garantiza con la emisión del tiquete. Por favor verifique con su asesor el equipaje permitido 
+            en el vuelo, así mismo si la aerolínea incluye o no el impuesto de salida del país al momento de expedir el tiquete. 
+            Si desea tomar el seguro de cancelación por favor solicite las condiciones del seguro. Recuerde verificar los documentos
+            requeridos y la vigencia de los mismos, para su viaje como: visas, permisos, pasaportes vigentes y autorizados, 
+            documentos de identificación, vacunas exigidas, tarjeta de asistencia médica que se requiere para el destino, etc.
+          </p>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="card text-center">
+        <div class="card-header">
+            <img src="../../../../assets/img/Hotel.png" class="img-header">
+            <h2>Servicios</h2>   
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        </div>
+        <div class="card-footer">
+          <p class="texto-bold">Notas:</p>  
+          <p class="texto-justificado">
+            Esto es una cotización, tarifas aéreas sujeta a cambio y disponibilidad sin previo aviso al momento de reservar, 
+            el precio sólo se garantiza con la emisión del tiquete. Por favor verifique con su asesor el equipaje permitido 
+            en el vuelo, así mismo si la aerolínea incluye o no el impuesto de salida del país al momento de expedir el tiquete. 
+            Si desea tomar el seguro de cancelación por favor solicite las condiciones del seguro. Recuerde verificar los documentos
+            requeridos y la vigencia de los mismos, para su viaje como: visas, permisos, pasaportes vigentes y autorizados, 
+            documentos de identificación, vacunas exigidas, tarjeta de asistencia médica que se requiere para el destino, etc.
+          </p>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="card text-center">
+        <div class="card-header">
+            <img src="../../../../assets/img/Informacion.png" class="img-header">
+            <h2>Información General</h2>   
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        </div>
+        <div class="card-footer">
+          <p class="texto-bold">Notas:</p>  
+          <p class="texto-justificado">
+            Esto es una cotización, tarifas aéreas sujeta a cambio y disponibilidad sin previo aviso al momento de reservar, 
+            el precio sólo se garantiza con la emisión del tiquete. Por favor verifique con su asesor el equipaje permitido 
+            en el vuelo, así mismo si la aerolínea incluye o no el impuesto de salida del país al momento de expedir el tiquete. 
+            Si desea tomar el seguro de cancelación por favor solicite las condiciones del seguro. Recuerde verificar los documentos
+            requeridos y la vigencia de los mismos, para su viaje como: visas, permisos, pasaportes vigentes y autorizados, 
+            documentos de identificación, vacunas exigidas, tarjeta de asistencia médica que se requiere para el destino, etc.
+          </p>
+        </div>
+    </div>
+
+    <!-- <div class="card text-center">
+        <div class="card-header">
+            <h2>Servicios</h2>   
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+        <div class="card-footer">
+          <h2>days ago</h2>
+        </div>
+    </div> -->
+
+    <br>
+  
+    <!-- <div class="row">
+      <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+      <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+      <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+    </div>
+  
+    <div class="row">
+      <div class="col-6">.col-6</div>
+      <div class="col-6">.col-6</div>
+    </div>
+  </div> -->
+
+  <br>
+
+</div>
+
+<div>
+    <button mat-raised-button color="primary" class="btn-header" (click)="downloadPDF()">Generar</button>
+</div>
+
+<!-- <div fxLayout="column" fxLayoutAlign="center" id="htmlData">
     <div fxLayout="column" fxLayoutAlign="center" fxFlex="20">
         <img src="../../../../assets/img/san_andres_edit.png" alt="">
     </div>
 
     <br>
+    <br>
+    <br>
 
     <div fxLayout="column" fxLayoutAlign="center" fxFlex="20">
+        <h5>Estimado(a)</h5>
+        <h4>Luis Maldonado</h4>
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign="center" fxFlex="20" class="prueba">
         <h5>Estimado(a)</h5>
         <h4>Luis Maldonado</h4>
     </div>
@@ -54,10 +169,10 @@
 </div>
 
 <div>
-    <button mat-raised-button color="primary" class="btn-header">Generar</button>
+    <button mat-raised-button color="primary" class="btn-header" (click)="downloadPDF()">Generar</button>
 </div> -->
 
-<div class="container">
+<!-- <div class="container">
     <div class="row">
       <div id="htmlData">
         <h2>Lista de Personajes</h2>
@@ -86,4 +201,4 @@
   
   <div>
     <button class="btn col col-lg-4 btn-danger btn-block ml-4" (click)="downloadPDF()">Download PDF</button>
-  </div>
+  </div> -->

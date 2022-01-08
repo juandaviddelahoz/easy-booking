@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import breakingBad from './fake-data.json';
 
 @Component({
   selector: 'app-generar-cotizacion',
@@ -10,11 +9,8 @@ import breakingBad from './fake-data.json';
 })
 export class GenerarCotizacionComponent implements OnInit {
 
-  breakingBadData = breakingBad;
-
   constructor() {
     // this.downloadPDF();
-    console.log(this.breakingBadData)
   }
 
   ngOnInit(): void {

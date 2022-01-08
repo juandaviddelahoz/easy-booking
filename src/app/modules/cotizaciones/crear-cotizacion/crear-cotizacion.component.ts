@@ -411,7 +411,7 @@ export class CrearCotizacionComponent implements OnInit {
         title: '¿Quieres guardar la cotización?',
         showDenyButton: true,
         confirmButtonText: '&nbsp;&nbsp;Si&nbsp;&nbsp;',
-        confirmButtonColor: "#345c96",
+        confirmButtonColor: "#005CA9",
         denyButtonText: `&nbsp;&nbsp;No&nbsp;&nbsp;`,
         denyButtonColor: "#d4021a",
       }).then((result) => {
