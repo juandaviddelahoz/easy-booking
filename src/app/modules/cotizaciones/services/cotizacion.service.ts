@@ -52,7 +52,7 @@ export class CotizacionService {
   }
 
   editarCotizacion(idReserva: any, cotizacion: DataCotizacion): Observable<any> {
-    return this.http.put(this.myAppUrl + this.myApiUrl + idReserva, cotizacion )
+    return this.http.put(this.myAppUrl + this.myApiUrl + idReserva, cotizacion)
   }
 
   eliminarCotizacion(idReserva: any, reserva: Reserva): Observable<any> {

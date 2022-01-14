@@ -39,7 +39,7 @@ export class CrearCotizacionComponent implements OnInit {
  
   dataSourceServicios = new MatTableDataSource();
 
-  paramIdReserva : any;
+  paramIdReserva : number;
 
   paramEstado: any;
 
@@ -155,7 +155,8 @@ export class CrearCotizacionComponent implements OnInit {
       impuesto            : [''],
       seguro              : [''],
       tarifaAdministraiva : [''],
-      qse                 : ['']
+      qse                 : [''],
+      idReserva           : [this.paramIdReserva],
     })
 
     this.formServicios = this.formbuilder.group ({
@@ -169,7 +170,8 @@ export class CrearCotizacionComponent implements OnInit {
       incluye             : [''],
       noIncluye           : [''],
       infoImportante      : [''],
-      otrasCondiciones    : ['']
+      otrasCondiciones    : [''],
+      idReserva           : [this.paramIdReserva],
     }) 
   }
 
@@ -274,6 +276,14 @@ export class CrearCotizacionComponent implements OnInit {
     console.log(this.totalTkt);
   }
 
+  // limpiarFormualrioAereo() {
+  //   this.formAereos.reset();
+  // }
+
+  // limpiarFormualrioServicios(){
+  //   this.formServicios.reset()
+  // }
+
   enviarDatosAereo() {
 
     this.calcular();
@@ -283,9 +293,31 @@ export class CrearCotizacionComponent implements OnInit {
       // } else {
       //   this.formAereos.value.idAereo
       // }
+      
+      var asignarValorIdAereo = undefined;
+
+      if(this.paramIdReserva != undefined && this.formAereos.value.idAereo != undefined){
+        asignarValorIdAereo = this.formAereos.value.idAereo;
+      } 
+      else if(this.paramIdReserva != undefined && this.formAereos.value.idAereo == undefined){
+        asignarValorIdAereo = 0;
+      }
+
+      console.log(this.paramIdReserva);
+      console.log(this.formAereos.value.idReserva);
+
+      var asignarValorIdReservaAereo = undefined;
+
+      if(this.paramIdReserva != undefined && this.formAereos.value.idReserva != undefined){
+        asignarValorIdReservaAereo = this.formAereos.value.idReserva;
+      }
+      else if(this.paramIdReserva != undefined && this.formAereos.value.idReserva == undefined){
+        asignarValorIdReservaAereo = this.paramIdReserva;
+      }
 
       this.listDataAereos.push({
-        "idAereo":             this.paramIdReserva == undefined ? undefined : this.formAereos.value.idAereo,    
+        // "idAereo":             this.paramIdReserva == undefined ? undefined : this.formAereos.value.idAereo,  
+        "idAereo":             asignarValorIdAereo,    
         "detalle":             this.formAereos.value.detalle,
         "txBAdulto":           this.formAereos.value.tarifaBaseAdultos,
         "txBChildren":         this.formAereos.value.tarifaBaseChildren,
@@ -296,12 +328,12 @@ export class CrearCotizacionComponent implements OnInit {
         "txAdministrativa":    this.formAereos.value.tarifaAdministraiva,
         "qse":                 this.formAereos.value.qse,
         "totalTkt":            this.totalTkt,
-        "idReserva":           undefined,
+        "idReserva":           asignarValorIdReservaAereo,
         "fechaCreacion":       undefined,
         "fechaEdicion":        undefined,
         "idUsuario":           2
       });             
-      
+
       console.log(this.formAereos.value.idAereo);
       console.log(this.listDataAereos);
    
@@ -325,8 +357,10 @@ export class CrearCotizacionComponent implements OnInit {
     this.formAereos.controls['seguro'].setValue(param.seguro);
     this.formAereos.controls['tarifaAdministraiva'].setValue(param.txAdministrativa);
     this.formAereos.controls['qse'].setValue(param.qse);
+    this.formAereos.controls['idReserva'].setValue(param.idReserva);
 
     this.listDataAereos.splice(index, 1);
+    
   }
 
   eliminarAereo(index:any) {
@@ -343,8 +377,26 @@ export class CrearCotizacionComponent implements OnInit {
 
     this.calcular();
 
+    var asignarValorIdServicio = undefined;
+
+    if(this.paramIdReserva != undefined && this.formServicios.value.idServicio != undefined){
+      asignarValorIdServicio = this.formServicios.value.idServicio
+    } 
+    else if(this.paramIdReserva != undefined && this.formServicios.value.idServicio == undefined){
+      asignarValorIdServicio = 0;
+    }
+
+    var asignarValorIdReservaServicio = undefined;
+
+    if(this.paramIdReserva != undefined && this.formServicios.value.idReserva != undefined){
+      asignarValorIdReservaServicio = this.formServicios.value.idReserva;
+    }
+    else if(this.paramIdReserva != undefined && this.formServicios.value.idReserva == undefined){
+      asignarValorIdReservaServicio = this.paramIdReserva;
+    }
+
     this.listDataServicios.push({
-      "idServicio":         this.paramIdReserva == undefined ? undefined : this.formServicios.value.idServicio,
+      "idServicio":         asignarValorIdServicio,
       "detalle":            this.formServicios.value.detalle,
       "precPorPersona":     this.formServicios.value.precioPorPersona,
       "precPorChildren":    this.formServicios.value.precioPorChildren,
@@ -356,7 +408,7 @@ export class CrearCotizacionComponent implements OnInit {
       "noIncluye":          this.formServicios.value.noIncluye,
       "infoImportante":     this.formServicios.value.infoImportante,
       "otrasCondiciones":   this.formServicios.value.otrasCondiciones,
-      "idReserva":          undefined,
+      "idReserva":          asignarValorIdReservaServicio,
       "fechaCreacion":      undefined,
       "fechaEdicion":       undefined,
       "idUsuario":          2
@@ -390,6 +442,7 @@ export class CrearCotizacionComponent implements OnInit {
     this.formServicios.controls['noIncluye'].setValue(param.noIncluye);
     this.formServicios.controls['infoImportante'].setValue(param.infoImportante);
     this.formServicios.controls['otrasCondiciones'].setValue(param.otrasCondiciones);
+    this.formServicios.controls['idReserva'].setValue(param.idReserva);
 
     this.listDataServicios.splice(index, 1);
 
