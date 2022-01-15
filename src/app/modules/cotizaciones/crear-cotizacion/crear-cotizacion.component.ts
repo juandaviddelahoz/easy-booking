@@ -39,7 +39,7 @@ export class CrearCotizacionComponent implements OnInit {
  
   dataSourceServicios = new MatTableDataSource();
 
-  paramIdReserva : number;
+  paramIdReserva: number;
 
   paramEstado: any;
 
@@ -156,7 +156,7 @@ export class CrearCotizacionComponent implements OnInit {
       seguro              : [''],
       tarifaAdministraiva : [''],
       qse                 : [''],
-      idReserva           : [this.paramIdReserva],
+      idReserva           : [''],
     })
 
     this.formServicios = this.formbuilder.group ({
@@ -171,7 +171,7 @@ export class CrearCotizacionComponent implements OnInit {
       noIncluye           : [''],
       infoImportante      : [''],
       otrasCondiciones    : [''],
-      idReserva           : [this.paramIdReserva],
+      idReserva           : [''],
     }) 
   }
 
@@ -308,10 +308,10 @@ export class CrearCotizacionComponent implements OnInit {
 
       var asignarValorIdReservaAereo = undefined;
 
-      if(this.paramIdReserva != undefined && this.formAereos.value.idReserva != undefined){
+      if((this.paramIdReserva != undefined) && (this.formAereos.value.idReserva != "", this.formAereos.value.idReserva)){
         asignarValorIdReservaAereo = this.formAereos.value.idReserva;
       }
-      else if(this.paramIdReserva != undefined && this.formAereos.value.idReserva == undefined){
+      else if(this.paramIdReserva != undefined && this.formAereos.value.idReserva == null){
         asignarValorIdReservaAereo = this.paramIdReserva;
       }
 
@@ -388,10 +388,10 @@ export class CrearCotizacionComponent implements OnInit {
 
     var asignarValorIdReservaServicio = undefined;
 
-    if(this.paramIdReserva != undefined && this.formServicios.value.idReserva != undefined){
+    if((this.paramIdReserva != undefined) && (this.formServicios.value.idReserva != "", this.formServicios.value.idReserva)){
       asignarValorIdReservaServicio = this.formServicios.value.idReserva;
     }
-    else if(this.paramIdReserva != undefined && this.formServicios.value.idReserva == undefined){
+    else if(this.paramIdReserva != undefined && this.formServicios.value.idReserva == null){
       asignarValorIdReservaServicio = this.paramIdReserva;
     }
 
