@@ -1,6 +1,6 @@
 <div class="container-toolbar-title">
     <mat-toolbar>
-        <span>Crear Cotización</span>
+        <span>{{cambioDeTextoEncabezado}} Cotización</span>
     </mat-toolbar>
 </div>
 
@@ -51,9 +51,9 @@
 
             <div fxLayout="column" fxFlex="10">
                 <button [disabled]="btnDisabled" mat-raised-button color="primary" class="btn-header" data-bs-toggle="modal"
-                    data-bs-target="#modalInfoCotizante">Crear</button>
+                    data-bs-target="#modalInfoCotizante" id="botonInfoCotizante" (click)="limpiarModalInfoCotizante()">Crear</button>
                 <button [disabled]="btnDisabled" mat-raised-button color="primary" class="btn-header" (click)="editarInfoCotizante()"
-                    data-bs-toggle="modal" data-bs-target="#modalInfoCotizante">Editar</button>
+                    data-bs-toggle="modal" data-bs-target="#modalInfoCotizante" id="botonInfoCotizante" (click)="limpiarModalInfoCotizante()">Editar</button>
                 <button [disabled]="btnDisabled" mat-raised-button color="primary" class="btn-header"
                     (click)="eliminarInfoCotizante()">Eliminar</button>
             </div>
@@ -133,7 +133,7 @@
                             <a class="color-edit cursor-pointer">
                                 <mat-icon matTooltip="Editar Aéreo" class="padding-edit"
                                     (click)="editarAereo(i, element)" data-bs-toggle="modal"
-                                    data-bs-target="#modalAereos">edit</mat-icon>
+                                    data-bs-target="#modalAereos" id="botonAereos" (click)="limpiarModalAereos()">edit</mat-icon>
                             </a>
 
                             <a class="color-delete cursor-pointer">
@@ -150,7 +150,7 @@
 
             <div fxLayout="column" fxFlex="10">
                 <button [disabled]="btnDisabled" mat-raised-button color="primary" class="btn-header" data-bs-toggle="modal"
-                    data-bs-target="#modalAereos">Agregar</button>
+                    data-bs-target="#modalAereos" id="botonAereos" (click)="limpiarModalAereos()">Agregar</button>
             </div>
         </mat-card>
 
@@ -231,7 +231,7 @@
                             <a class="color-edit cursor-pointer">
                                 <mat-icon matTooltip="Editar Servicio" class="padding-edit"
                                     (click)="editarServicio(i, element)" data-bs-toggle="modal"
-                                    data-bs-target="#modalServicios">edit</mat-icon>
+                                    data-bs-target="#modalServicios" id="botonServicios" (click)="limpiarModalServicios()">edit</mat-icon>
                             </a>
 
                             <a class="color-delete cursor-pointer">
@@ -248,7 +248,7 @@
 
             <div fxLayout="column" fxFlex="10">
                 <button [disabled]="btnDisabled" mat-raised-button color="primary" class="btn-header" data-bs-toggle="modal"
-                    data-bs-target="#modalServicios">Agregar</button>
+                    data-bs-target="#modalServicios" id="botonServicios" (click)="limpiarModalServicios()">Agregar</button>
             </div>
 
         </mat-card>
@@ -562,3 +562,4 @@
         </div>
     </div>
 </div>
+
