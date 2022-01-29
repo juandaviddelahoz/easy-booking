@@ -13,5 +13,6 @@ export class Aereo {
     idReserva: number;
     fechaCreacion: string;
     fechaEdicion: string;
-    idUsuario: number
+    idUsuario: number;
+    idEstado: number;
 }

@@ -14,5 +14,6 @@ export class Servicio {
     idReserva: number;
     fechaCreacion: string;
     fechaEdicion: string;
-    idUsuario: number
+    idUsuario: number;
+    idEstado: number;
 }

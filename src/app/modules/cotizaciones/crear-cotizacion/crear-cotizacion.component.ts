@@ -83,6 +83,17 @@ export class CrearCotizacionComponent implements OnInit {
   listDataServicios: any = [];
 
   dataCotizacion = new DataCotizacion;
+  // -----------------------------------------------------------------------------
+
+  // Arreglo que almacena los aereos eliminados
+  aereosEliminados: any = [];
+
+  // Arreglo que almacena los servicios eliminados
+  serviciosEliminados: any = [];
+
+  capturaIndexAereoEdicion: any;
+
+  capturaParamAereoEdicion: any = [];
 
   constructor(private formbuilder: FormBuilder,
     private _cotizacionService: CotizacionService,
@@ -372,12 +383,17 @@ export class CrearCotizacionComponent implements OnInit {
 
     var asignarValorIdReservaAereo = undefined;
 
+    var convetNumero = +this.paramIdReserva
+    this.formAereos.value.idReserva = convetNumero;
+
     if (this.paramIdReserva != undefined && typeof this.formAereos.value.idReserva === 'number') {
       asignarValorIdReservaAereo = this.formAereos.value.idReserva;
     }
     else if ((this.paramIdReserva != undefined) && this.formAereos.value.idReserva === "" || this.formAereos.value.idReserva === null) {
       asignarValorIdReservaAereo = this.paramIdReserva;
     }
+
+    console.log(this.dataCotizacion.aereos)
 
     this.listDataAereos.push({
       // "idAereo":             this.paramIdReserva == undefined ? undefined : this.formAereos.value.idAereo,  
@@ -395,11 +411,22 @@ export class CrearCotizacionComponent implements OnInit {
       "idReserva": asignarValorIdReservaAereo,
       "fechaCreacion": null,
       "fechaEdicion": null,
-      "idUsuario": 2
+      "idUsuario": 2,
+      "idEstado": 1
     });
 
     console.log(this.formAereos.value.idAereo);
     console.log(this.listDataAereos);
+
+    const ultimoElemento = this.listDataAereos[this.listDataAereos.length - 1]
+
+    console.log(ultimoElemento.idAereo)
+
+    // if ((this.capturaParamAereoEdicion.idAereo === ultimoElemento.idAereo)
+    if ((this.capturaParamAereoEdicion.idAereo === ultimoElemento.idAereo || this.capturaParamAereoEdicion.idAereo === undefined) && this.listDataAereos.length > 1)
+    {
+        this.listDataAereos.splice(this.capturaIndexAereoEdicion, 1);
+    }
 
     this.formAereos.reset();
 
@@ -411,7 +438,8 @@ export class CrearCotizacionComponent implements OnInit {
   }
 
   editarAereo(index: any, param: any) {
-    console.log(index, param)
+    console.log(index, param);
+    console.log(param);
     this.formAereos.controls['idAereo'].setValue(param.idAereo);
     this.formAereos.controls['detalle'].setValue(param.detalle);
     this.formAereos.controls['tarifaBaseAdultos'].setValue(param.txBAdulto);
@@ -423,12 +451,24 @@ export class CrearCotizacionComponent implements OnInit {
     this.formAereos.controls['qse'].setValue(param.qse);
     this.formAereos.controls['idReserva'].setValue(param.idReserva);
 
-    this.listDataAereos.splice(index, 1);
+    this.capturaIndexAereoEdicion = index;
+    this.capturaParamAereoEdicion = param;
+
+    console.log(this.capturaIndexAereoEdicion);
+
+    console.log(this.capturaParamAereoEdicion);
+
+    // this.listDataAereos.splice(index, 1);
+
+    // this.capturaAereoEdicion = param;
+
+    console.log(this.listDataAereos);
+    // console.log(this.capturaAereoEdicion)
     
   }
 
-  eliminarAereo(index: any) {
-    console.log(index)
+  eliminarAereo(index: any, param: any) {
+    console.log(index, param)
     
     Swal.fire({
       title: '¿Está seguro de eliminar el Aéreo?',
@@ -439,10 +479,18 @@ export class CrearCotizacionComponent implements OnInit {
       denyButtonColor: "#d4021a",
     }).then((result) => {
       if (result.isConfirmed) {
+        // Agrega el aereo eliminado al arreglo que almacena los aereos eliminados
+        this.aereosEliminados.push(param);
+        // Recorre el Arreglo de aereos eliminados y cambia el idEstado a 4 que significa eliminado
+        this.aereosEliminados.map((data) => {
+          data.idEstado = 4
+        })
         this.listDataAereos.splice(index, 1);
         this.dataSourceAereos.data = this.listDataAereos;
       }
-      console.log(this.dataCotizacion)
+      
+      console.log(this.aereosEliminados);
+      console.log(this.dataCotizacion);
     })
   }
 
@@ -484,7 +532,8 @@ export class CrearCotizacionComponent implements OnInit {
       "idReserva": asignarValorIdReservaServicio,
       "fechaCreacion": undefined,
       "fechaEdicion": undefined,
-      "idUsuario": 2
+      "idUsuario": 2,
+      "idEstado": 1
     });
 
     console.log(this.formServicios.value.idServicio);
@@ -521,8 +570,8 @@ export class CrearCotizacionComponent implements OnInit {
 
   }
 
-  eliminarServicio(index: any) {
-    console.log(index);
+  eliminarServicio(index: any, param:any) {
+    console.log(index, param);
 
     Swal.fire({
       title: '¿Está seguro de eliminar el Servicio?',
@@ -533,10 +582,18 @@ export class CrearCotizacionComponent implements OnInit {
       denyButtonColor: "#d4021a",
     }).then((result) => {
       if (result.isConfirmed) {
+        // Agregar el servicio al arrego que almacena los servicios eliminados
+        this.serviciosEliminados.push(param);
+        // Recorre el arreglo de servicios eliminados y cambia el idEstado a 4 que significa eliminado
+        this.serviciosEliminados.map((data) => {
+          data.idEstado = 4;
+        })
         this.listDataServicios.splice(index, 1);
         this.dataSourceServicios.data = this.listDataServicios
       }
-      console.log(this.dataCotizacion)
+
+      console.log(this.serviciosEliminados);
+      console.log(this.dataCotizacion);
     })
   }
 
@@ -594,6 +651,19 @@ export class CrearCotizacionComponent implements OnInit {
         }).then((result) => {
 
           if (result.isConfirmed) {
+
+            // Asigna los elementos del arreglo de aereosEliminados a el arreglo de aereos que pertenece al arreglo principal dataCotizacion
+            // pero con el idEstado de los aereos eliminados en 4 para que en la actualizacion estos queden con el idEstado correspondiente a eliminado en la BD
+            for (let i = 0; i < this.aereosEliminados.length; i++) {
+              this.dataCotizacion.aereos.push(this.aereosEliminados[i]);
+            }
+
+            // Asigna los elementos del arreglo de serviciosEliminados a el arreglo de servicios que pertenece al arreglo principal dataCotizacion
+            // pero con el idEstado de los servicios eliminados en 4 para que en la actualizacion estos queden con el idEstado correspondiente a eliminado en la BD
+            for (let i = 0; i < this.serviciosEliminados.length; i++) {
+              this.dataCotizacion.servicios.push(this.serviciosEliminados[i]);
+            }
+            
             this._cotizacionService.editarCotizacion(this.dataCotizacion.reserva.idReserva, this.dataCotizacion).subscribe(data => {
 
               const Toast = Swal.mixin({
@@ -628,13 +698,6 @@ export class CrearCotizacionComponent implements OnInit {
             })      
           }
         })
-
-
-
-      
-
-
-
     }
   }
 }
