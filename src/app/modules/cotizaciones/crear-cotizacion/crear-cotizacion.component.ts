@@ -95,6 +95,12 @@ export class CrearCotizacionComponent implements OnInit {
 
   capturaParamAereoEdicion: any = [];
 
+  capturaIndexServicioEdicion: any;
+  
+  capturaParamServicioEdicion: any = [];
+
+  isModificacion: boolean = true; // Agregar una variable para identificar cuando modificar o agregar un aereo o servicio
+
   constructor(private formbuilder: FormBuilder,
     private _cotizacionService: CotizacionService,
     private _snackBar: MatSnackBar,
@@ -199,11 +205,13 @@ export class CrearCotizacionComponent implements OnInit {
     funcionesJS.limpiarModalnfoCotizante();
   }
 
-  limpiarModalAereos() {
+  limpiarModalAereos(modifica) {
+    this.isModificacion = modifica;
     funcionesJS.limpiarModalAereos();
   }
 
-  limpiarModalServicios() {
+  limpiarModalServicios(modifica) {
+    this.isModificacion = modifica;
     funcionesJS.limpiarModalServicios();
   }
 
@@ -284,61 +292,61 @@ export class CrearCotizacionComponent implements OnInit {
     if (this.paramIdReserva != "") {
 
       this.totalTkSinImpuesto = (this.formAereos.value.tarifaBaseAdultos * this.dataCotizacion.reserva.cantAdultos) +
-                                (this.formAereos.value.tarifaBaseChildren * this.dataCotizacion.reserva.cantChildren) +
-                                (this.formAereos.value.tarifaBaseInfantes * this.dataCotizacion.reserva.cantInfantes);
+        (this.formAereos.value.tarifaBaseChildren * this.dataCotizacion.reserva.cantChildren) +
+        (this.formAereos.value.tarifaBaseInfantes * this.dataCotizacion.reserva.cantInfantes);
 
       this.totalTkt = (this.totalTkSinImpuesto) + (this.formAereos.value.impuesto) + (this.formAereos.value.seguro) +
-                      (this.formAereos.value.tarifaAdministraiva) + (this.formAereos.value.qse);
+        (this.formAereos.value.tarifaAdministraiva) + (this.formAereos.value.qse);
 
       this.listDataAereos.map((data) => {
         data.totalTktSinImp = (data.txBAdulto * this.dataCotizacion.reserva.cantAdultos) +
-                              (data.txBChildren * this.dataCotizacion.reserva.cantChildren) +
-                              (data.txBInfante * this.dataCotizacion.reserva.cantInfantes);
+          (data.txBChildren * this.dataCotizacion.reserva.cantChildren) +
+          (data.txBInfante * this.dataCotizacion.reserva.cantInfantes);
       })
-                
+
       this.listDataAereos.map((data) => {
         data.totalTkt = (data.totalTktSinImp) + (data.impuesto) + (data.seguro) + (data.txAdministrativa) + (data.qse)
       })
-                
+
       this.totalPaqTuristico = (this.formServicios.value.precioPorPersona * this.dataCotizacion.reserva.cantAdultos) +
-                               (this.formServicios.value.precioPorChildren * this.dataCotizacion.reserva.cantChildren);
-                
+        (this.formServicios.value.precioPorChildren * this.dataCotizacion.reserva.cantChildren);
+
       this.listDataServicios.map((data) => {
         data.totalPaqTuristico = (data.precPorPersona * this.dataCotizacion.reserva.cantAdultos) +
-                                 (data.precPorChildren * this.dataCotizacion.reserva.cantChildren);
+          (data.precPorChildren * this.dataCotizacion.reserva.cantChildren);
       })
-                
+
       console.log(this.formAereos.value.tarifaBaseAdultos);
-      
+
       console.log(this.totalTkSinImpuesto);
       console.log(this.totalTkt);
 
-    } 
+    }
     else {
 
       this.totalTkSinImpuesto = (this.formAereos.value.tarifaBaseAdultos * this.cantAdultos) +
-                                (this.formAereos.value.tarifaBaseChildren * this.cantChildren) +
-                                (this.formAereos.value.tarifaBaseInfantes * this.cantInfantes);
+        (this.formAereos.value.tarifaBaseChildren * this.cantChildren) +
+        (this.formAereos.value.tarifaBaseInfantes * this.cantInfantes);
 
       this.totalTkt = (this.totalTkSinImpuesto) + (this.formAereos.value.impuesto) + (this.formAereos.value.seguro) +
-                      (this.formAereos.value.tarifaAdministraiva) + (this.formAereos.value.qse);
+        (this.formAereos.value.tarifaAdministraiva) + (this.formAereos.value.qse);
 
       this.listDataAereos.map((data) => {
 
         data.totalTktSinImp = (data.txBAdulto * this.cantAdultos) +
-                              (data.txBChildren * this.cantChildren) +
-                              (data.txBInfante * this.cantInfantes);
+          (data.txBChildren * this.cantChildren) +
+          (data.txBInfante * this.cantInfantes);
 
         this.listDataAereos.map((data) => {
           data.totalTkt = (data.totalTktSinImp) + (data.impuesto) + (data.seguro) + (data.txAdministrativa) + (data.qse)
         })
 
         this.totalPaqTuristico = (this.formServicios.value.precioPorPersona * this.cantAdultos) +
-                                 (this.formServicios.value.precioPorChildren * this.cantChildren);
+          (this.formServicios.value.precioPorChildren * this.cantChildren);
 
         this.listDataServicios.map((data) => {
           data.totalPaqTuristico = (data.precPorPersona * this.cantAdultos) +
-                                  (data.precPorChildren * this.cantChildren);
+            (data.precPorChildren * this.cantChildren);
         })
 
         console.log(this.formAereos.value.tarifaBaseAdultos);
@@ -358,31 +366,13 @@ export class CrearCotizacionComponent implements OnInit {
   // }
 
   enviarDatosAereo() {
-
-    console.log(this.formAereos.value.tarifaBaseAdultos);
-
     this.calcular();
-
-    // if(this.paramIdReserva == undefined){
-    //   undefined
-    // } else {
-    //   this.formAereos.value.idAereo
-    // }
-
-    var asignarValorIdAereo = undefined;
-
+    var asignarValorIdAereo = 0;
     if (this.paramIdReserva != undefined && typeof this.formAereos.value.idAereo === 'number') {
       asignarValorIdAereo = this.formAereos.value.idAereo;
     }
-    else if ((this.paramIdReserva != undefined) && this.formAereos.value.idAereo === "" || this.formAereos.value.idAereo === null) {
-      asignarValorIdAereo = 0;
-    }
-
-    console.log(this.paramIdReserva);
-    console.log(this.formAereos.value.idReserva);
 
     var asignarValorIdReservaAereo = undefined;
-
     var convetNumero = +this.paramIdReserva
     this.formAereos.value.idReserva = convetNumero;
 
@@ -393,10 +383,7 @@ export class CrearCotizacionComponent implements OnInit {
       asignarValorIdReservaAereo = this.paramIdReserva;
     }
 
-    console.log(this.dataCotizacion.aereos)
-
     this.listDataAereos.push({
-      // "idAereo":             this.paramIdReserva == undefined ? undefined : this.formAereos.value.idAereo,  
       "idAereo": asignarValorIdAereo,
       "detalle": this.formAereos.value.detalle,
       "txBAdulto": this.formAereos.value.tarifaBaseAdultos,
@@ -414,32 +401,20 @@ export class CrearCotizacionComponent implements OnInit {
       "idUsuario": 2,
       "idEstado": 1
     });
-
-    console.log(this.formAereos.value.idAereo);
-    console.log(this.listDataAereos);
-
-    const ultimoElemento = this.listDataAereos[this.listDataAereos.length - 1]
-
-    console.log(ultimoElemento.idAereo)
-
-    // if ((this.capturaParamAereoEdicion.idAereo === ultimoElemento.idAereo)
-    if ((this.capturaParamAereoEdicion.idAereo === ultimoElemento.idAereo || this.capturaParamAereoEdicion.idAereo === undefined) && this.listDataAereos.length > 1)
-    {
+    if (this.isModificacion) {  // preguntar cuando es modificacion, si es true es modificacion y  elimina el registro
+      if (this.capturaParamAereoEdicion.idAereo !== undefined) {
         this.listDataAereos.splice(this.capturaIndexAereoEdicion, 1);
+      }
     }
-
     this.formAereos.reset();
-
     this.dataSourceAereos.data = this.listDataAereos;
-
     this.dataCotizacion.aereos = this.listDataAereos;
-
-    console.log(this.dataCotizacion)
   }
 
   editarAereo(index: any, param: any) {
     console.log(index, param);
     console.log(param);
+
     this.formAereos.controls['idAereo'].setValue(param.idAereo);
     this.formAereos.controls['detalle'].setValue(param.detalle);
     this.formAereos.controls['tarifaBaseAdultos'].setValue(param.txBAdulto);
@@ -455,21 +430,15 @@ export class CrearCotizacionComponent implements OnInit {
     this.capturaParamAereoEdicion = param;
 
     console.log(this.capturaIndexAereoEdicion);
-
     console.log(this.capturaParamAereoEdicion);
 
-    // this.listDataAereos.splice(index, 1);
-
-    // this.capturaAereoEdicion = param;
-
     console.log(this.listDataAereos);
-    // console.log(this.capturaAereoEdicion)
-    
+
   }
 
   eliminarAereo(index: any, param: any) {
     console.log(index, param)
-    
+
     Swal.fire({
       title: '¿Está seguro de eliminar el Aéreo?',
       showDenyButton: true,
@@ -488,7 +457,7 @@ export class CrearCotizacionComponent implements OnInit {
         this.listDataAereos.splice(index, 1);
         this.dataSourceAereos.data = this.listDataAereos;
       }
-      
+
       console.log(this.aereosEliminados);
       console.log(this.dataCotizacion);
     })
@@ -498,16 +467,15 @@ export class CrearCotizacionComponent implements OnInit {
 
     this.calcular();
 
-    var asignarValorIdServicio = undefined;
+    var asignarValorIdServicio = 0;
 
     if (this.paramIdReserva != undefined && typeof this.formServicios.value.idServicio === 'number') {
       asignarValorIdServicio = this.formServicios.value.idServicio;
     }
-    else if ((this.paramIdReserva != undefined) && this.formServicios.value.idServicio === "" || this.formServicios.value.idServicio === null) {
-      asignarValorIdServicio = 0;
-    }
 
     var asignarValorIdReservaServicio = undefined;
+    var convetNumero = +this.paramIdReserva
+    this.formServicios.value.idReserva = convetNumero;
 
     if (this.paramIdReserva != undefined && typeof this.formServicios.value.idReserva === 'number') {
       asignarValorIdReservaServicio = this.formServicios.value.idReserva;
@@ -536,18 +504,17 @@ export class CrearCotizacionComponent implements OnInit {
       "idEstado": 1
     });
 
-    console.log(this.formServicios.value.idServicio);
-    console.log(this.listDataServicios);
+    if (this.isModificacion) {  // preguntar cuando es modificacion, si es true es modificacion y  elimina el registro
+      if (this.capturaParamServicioEdicion.idServicio !== undefined) {
+        this.listDataServicios.splice(this.capturaIndexServicioEdicion, 1);
+      }
+    }
 
     this.formServicios.reset();
-
     this.dataSourceServicios.data = this.listDataServicios;
-
     this.dataCotizacion.servicios = this.listDataServicios;
 
     console.log(this.dataCotizacion);
-
-
   }
 
   editarServicio(index: any, param: any) {
@@ -566,11 +533,15 @@ export class CrearCotizacionComponent implements OnInit {
     this.formServicios.controls['otrasCondiciones'].setValue(param.otrasCondiciones);
     this.formServicios.controls['idReserva'].setValue(param.idReserva);
 
-    this.listDataServicios.splice(index, 1);
+    // this.listDataServicios.splice(index, 1);
 
+    this.capturaIndexServicioEdicion = index;
+    this.capturaParamServicioEdicion = param;
+
+    console.log(this.listDataServicios)
   }
 
-  eliminarServicio(index: any, param:any) {
+  eliminarServicio(index: any, param: any) {
     console.log(index, param);
 
     Swal.fire({
@@ -641,63 +612,63 @@ export class CrearCotizacionComponent implements OnInit {
         }
       })
     } else {
-        Swal.fire({
-          title: '¿Quieres guardar los cambios?',
-          showDenyButton: true,
-          confirmButtonText: '&nbsp;&nbsp;Si&nbsp;&nbsp;',
-          confirmButtonColor: "#005CA9",
-          denyButtonText: `&nbsp;&nbsp;No&nbsp;&nbsp;`,
-          denyButtonColor: "#d4021a",
-        }).then((result) => {
+      Swal.fire({
+        title: '¿Quieres guardar los cambios?',
+        showDenyButton: true,
+        confirmButtonText: '&nbsp;&nbsp;Si&nbsp;&nbsp;',
+        confirmButtonColor: "#005CA9",
+        denyButtonText: `&nbsp;&nbsp;No&nbsp;&nbsp;`,
+        denyButtonColor: "#d4021a",
+      }).then((result) => {
 
-          if (result.isConfirmed) {
+        if (result.isConfirmed) {
 
-            // Asigna los elementos del arreglo de aereosEliminados a el arreglo de aereos que pertenece al arreglo principal dataCotizacion
-            // pero con el idEstado de los aereos eliminados en 4 para que en la actualizacion estos queden con el idEstado correspondiente a eliminado en la BD
-            for (let i = 0; i < this.aereosEliminados.length; i++) {
-              this.dataCotizacion.aereos.push(this.aereosEliminados[i]);
-            }
-
-            // Asigna los elementos del arreglo de serviciosEliminados a el arreglo de servicios que pertenece al arreglo principal dataCotizacion
-            // pero con el idEstado de los servicios eliminados en 4 para que en la actualizacion estos queden con el idEstado correspondiente a eliminado en la BD
-            for (let i = 0; i < this.serviciosEliminados.length; i++) {
-              this.dataCotizacion.servicios.push(this.serviciosEliminados[i]);
-            }
-            
-            this._cotizacionService.editarCotizacion(this.dataCotizacion.reserva.idReserva, this.dataCotizacion).subscribe(data => {
-
-              const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-              })
-      
-              if (data.message == 'La Cotización No se pudo Editar') {
-                Toast.fire({
-                  icon: 'error',
-                  title: data.message
-                })
-              } else {
-                Toast.fire({
-                  icon: 'success',
-                  title: data.message
-                })
-              }
-      
-              console.log(this.dataCotizacion);
-      
-              this.route.navigate(['cotizaciones']);
-      
-              error => {
-                Toast.fire({
-                  icon: 'error',
-                  title: data.message
-                })
-              };
-            })      
+          // Asigna los elementos del arreglo de aereosEliminados a el arreglo de aereos que pertenece al arreglo principal dataCotizacion
+          // pero con el idEstado de los aereos eliminados en 4 para que en la actualizacion estos queden con el idEstado correspondiente a eliminado en la BD
+          for (let i = 0; i < this.aereosEliminados.length; i++) {
+            this.dataCotizacion.aereos.push(this.aereosEliminados[i]);
           }
-        })
+
+          // Asigna los elementos del arreglo de serviciosEliminados a el arreglo de servicios que pertenece al arreglo principal dataCotizacion
+          // pero con el idEstado de los servicios eliminados en 4 para que en la actualizacion estos queden con el idEstado correspondiente a eliminado en la BD
+          for (let i = 0; i < this.serviciosEliminados.length; i++) {
+            this.dataCotizacion.servicios.push(this.serviciosEliminados[i]);
+          }
+
+          this._cotizacionService.editarCotizacion(this.dataCotizacion.reserva.idReserva, this.dataCotizacion).subscribe(data => {
+
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+            })
+
+            if (data.message == 'La Cotización No se pudo Editar') {
+              Toast.fire({
+                icon: 'error',
+                title: data.message
+              })
+            } else {
+              Toast.fire({
+                icon: 'success',
+                title: data.message
+              })
+            }
+
+            console.log(this.dataCotizacion);
+
+            this.route.navigate(['cotizaciones']);
+
+            error => {
+              Toast.fire({
+                icon: 'error',
+                title: data.message
+              })
+            };
+          })
+        }
+      })
     }
   }
 }

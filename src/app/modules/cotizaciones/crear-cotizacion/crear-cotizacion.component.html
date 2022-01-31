@@ -133,7 +133,7 @@
                             <a class="color-edit cursor-pointer">
                                 <mat-icon matTooltip="Editar Aéreo" class="padding-edit"
                                     (click)="editarAereo(i, element)" data-bs-toggle="modal"
-                                    data-bs-target="#modalAereos" id="botonAereos" (click)="limpiarModalAereos()">edit</mat-icon>
+                                    data-bs-target="#modalAereos" id="botonAereos" (click)="limpiarModalAereos(true)">edit</mat-icon>
                             </a>
 
                             <a class="color-delete cursor-pointer">
@@ -150,7 +150,7 @@
 
             <div fxLayout="column" fxFlex="10">
                 <button [disabled]="btnDisabled" mat-raised-button color="primary" class="btn-header" data-bs-toggle="modal"
-                    data-bs-target="#modalAereos" id="botonAereos" (click)="limpiarModalAereos()">Agregar</button>
+                    data-bs-target="#modalAereos" id="botonAereos" (click)="limpiarModalAereos(false)">Agregar</button>
             </div>
         </mat-card>
 
@@ -231,7 +231,7 @@
                             <a class="color-edit cursor-pointer">
                                 <mat-icon matTooltip="Editar Servicio" class="padding-edit"
                                     (click)="editarServicio(i, element)" data-bs-toggle="modal"
-                                    data-bs-target="#modalServicios" id="botonServicios" (click)="limpiarModalServicios()">edit</mat-icon>
+                                    data-bs-target="#modalServicios" id="botonServicios" (click)="limpiarModalServicios(true)">edit</mat-icon>
                             </a>
 
                             <a class="color-delete cursor-pointer">
@@ -248,7 +248,7 @@
 
             <div fxLayout="column" fxFlex="10">
                 <button [disabled]="btnDisabled" mat-raised-button color="primary" class="btn-header" data-bs-toggle="modal"
-                    data-bs-target="#modalServicios" id="botonServicios" (click)="limpiarModalServicios()">Agregar</button>
+                    data-bs-target="#modalServicios" id="botonServicios" (click)="limpiarModalServicios(false)">Agregar</button>
             </div>
 
         </mat-card>
